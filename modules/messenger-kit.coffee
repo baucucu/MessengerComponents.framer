@@ -11,6 +11,7 @@ style =
 		messageTime: 15
 	fontWeights: []
 
+exports.style = style
 
 # Avatar
 
@@ -50,6 +51,11 @@ class Avatar extends Layer
 			messenger:
 				borderColor: "#FFFFFF"
 				image: "images/messengerIcon.png"
+			myDay:
+					borderColor: "#FFFFFF"
+					borderWidth: options.scale * 2
+					image: null
+					backgroundColor: "#0076FF"
 
 		@.subLayers[0].animate(options.status)
 
@@ -57,6 +63,38 @@ class Avatar extends Layer
 		@.subLayers[0].animate(type)
 
 exports.Avatar = Avatar
+
+
+# MyDay
+
+# MyDays
+
+class MyDays extends ScrollComponent
+
+	constructor: (options = {}, users) ->
+		options.scale ?= 1
+		options.x = Align.center
+		options.width = Screen.width - style.margins
+		options.height = options.scale * (125 + style.margins)
+		options.scrollVertical = false
+
+		super options
+
+		for user, index in users
+			myDay = new Avatar({}, user)
+			myDay.parent = @.content
+			myDay.width = 90
+			myDay.height = 125
+			myDay.x = index * (myDay.width + style.margin/2)
+			myDay.y = Align.center
+			myDay.borderRadius = 5
+			myDay.subLayers[0].width = myDay.subLayers[0].height = 14
+			myDay.subLayers[0].y = Align.top(-4)
+			myDay.subLayers[0].x = Align.right(4)
+			myDay.changeStatus("myDay")
+
+exports.MyDays = MyDays
+
 
 # Message List Item
 

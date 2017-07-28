@@ -37,22 +37,17 @@ homeScreen = new ScrollComponent
 	height: Screen.height
 	scrollHorizontal: false
 	directionLock: true
+	y: 20
 
-lastMessages = new ui.MessageList({parent: homeScreen.content}, users[0..2])
+myDays = new ui.MyDays({parent: homeScreen.content}, users)
 
-activeFriends = new ui.ActiveFriends({parent: homeScreen.content, y: lastMessages.maxY + 11}, activeUsers)
 
-otherMessages = new ui.MessageList({parent: homeScreen.content, y: activeFriends.maxY + 11}, users[3..20])
+lastMessages = new ui.MessageList({parent: homeScreen.content, y: myDays.maxY}, users[0..2])
 
-###
-class MyDays extends Layer
-	constructor: (options = {}, users) ->
-		print user
-class MyDay extends Layer
-	constructor: (options = {}, user) ->
-		print user
-		
-###		
-		
+activeFriends = new ui.ActiveFriends({parent: homeScreen.content, y: lastMessages.maxY + ui.style.margin}, activeUsers)
+
+otherMessages = new ui.MessageList({parent: homeScreen.content, y: activeFriends.maxY + ui.style.margin}, users[3..20])
+
+
 		
 		
