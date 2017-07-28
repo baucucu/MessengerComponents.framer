@@ -31,10 +31,12 @@ activeUsers = usersDB.getUsers({status: "active"}, 20, "", "serialno", -1)
 
 #listItem = new ui.MessageListItem({y: 20}, users[12])
 
+
 homeScreen = new ScrollComponent
 	width: Screen.width
 	height: Screen.height
 	scrollHorizontal: false
+	directionLock: true
 
 lastMessages = new ui.MessageList({parent: homeScreen.content}, users[0..2])
 
@@ -49,4 +51,8 @@ class MyDays extends Layer
 class MyDay extends Layer
 	constructor: (options = {}, user) ->
 		print user
-###
+		
+###		
+		
+		
+		

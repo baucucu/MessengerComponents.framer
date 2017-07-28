@@ -120,13 +120,14 @@ class MessageList extends Layer
 		options.width = Screen.width - style.margins
 		options.x = Align.center
 		options.backgroundColor = "transparent"
+		options.height = users.length * 74 * options.scale
 		super options
 
 
 		for user, index in users
 			message = new MessageListItem({parent: @, y: options.scale * index * 74}, user)
 
-		options.height = users.length * 74 * options.scale
+
 
 exports.MessageList = MessageList
 
@@ -135,7 +136,7 @@ exports.MessageList = MessageList
 class ActiveFriendsScrollList extends ScrollComponent
 	constructor: (options = {}, users) ->
 		options.scale ?= 1
-		options.width = Screen.width
+		options.width = Screen.width - style.margins
 		options.height = options.scale * 100
 		options.scrollVertical = false
 
@@ -168,7 +169,8 @@ class ActiveFriends extends Layer
 		options.height = 150
 		options.width = Screen.width - style.margins
 		options.backgroundColor = "transparent"
-
+		options.x =  Align.center
+		options.directionLock = true
 		super options
 
 		activeFriendsLabel = new Layer
@@ -193,12 +195,13 @@ class ActiveFriends extends Layer
 			text: "Active now (#{users.length}) >"
 		activeNowSettings = new Layer
 			parent: activeFriendsLabel
-			x: Align.right(-12)
+			x: Align.right
 			y: Align.center
 			image: "images/activeNowSettings.png"
 			width: 35
 			height: 35
 
 		scroll = new ActiveFriendsScrollList({parent: @, y: Align.bottom}, users)
+
 
 exports.ActiveFriends = ActiveFriends
