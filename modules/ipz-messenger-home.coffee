@@ -9,9 +9,10 @@ class IpzMessengerHome
     constructor:(parentView, users) ->
         ## HEADER
         @header = new ios.View
+            name:"home.Header"
             superLayer: parentView
             width: parentView.width
-            height: 128
+            height: 64
 
         navBar = new ipz.IpzMessengerNavBar
             superLayer:@header
@@ -25,8 +26,8 @@ class IpzMessengerHome
         compose = new Layer
             image: "images/CreateIcon.png"
             x: Align.right(-10)
-            width: 52
-            height: 52
+            width: 26
+            height: 26
             superLayer: @header
 
         ## END HEADER
@@ -43,10 +44,10 @@ class IpzMessengerHome
         users = usersDB.getUsers({},20, "", "serialno", -1)
         activeUsers = usersDB.getActiveUsers(users)
 
-        myDays = new ui.MyDays({parent: homeScreen.content}, activeUsers)
-        lastMessages = new ipz.IpzMessageList({parent: messagesView.content}, users[0..2])
-        activeFriends = new ipz.IpzActiveFriends({parent: messagesView.content, y: lastMessages.maxY + 8}, activeUsers)
-        otherMessages = new ipz.IpzMessageList({parent: messagesView.content, y: activeFriends.maxY + 8}, users[5..20])
+        myDays = new ipz.IpzMyDay({parent: messagesView.content}, activeUsers)
+        lastMessages = new ipz.IpzMessageList({parent: messagesView.content, y: myDays.maxY}, users[0..2])
+        activeFriends = new ipz.IpzActiveFriends({parent: messagesView.content, y: lastMessages.maxY + ipz.style.margin}, activeUsers)
+        otherMessages = new ipz.IpzMessageList({parent: messagesView.content, y: activeFriends.maxY + ipz.style.margin}, users[5..20])
 
         activeView = new ios.View
             x: Screen.width

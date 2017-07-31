@@ -16,3 +16,7 @@ exports.IpzMessageList = kit.MessageList
 exports.IpzMessageListItem = kit.MessageListItem
 exports.IpzActiveFriendsScrollList = kit.ActiveFriendsScrollList
 exports.IpzActiveFriends = kit.ActiveFriends
+exports.IpzMyDay = kit.MyDays
+
+# TODO create a separate global module for all Styles
+exports.style = kit.style

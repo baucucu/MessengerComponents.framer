@@ -7,6 +7,8 @@ exports.defaults = {
 		inactiveIcon:undefined
 		active: undefined
 		inactive: undefined
+		activeColor:"blue"
+		inactiveColor:"gray"
 		type: "tab"
 		viewTop:0
 		viewBottom:0
@@ -46,9 +48,9 @@ exports.tab = (array) ->
 		backgroundColor:"transparent"
 		constraints:
 			top:setup.viewTop
-			bottom:setup.viewBottom
+			bottom:Screen.height + setup.viewBottom
 			leading:0
-			trailing:0
+			trailing:Screen.width
 
 	# Create Active
 	tab.active = new ios.View
@@ -56,7 +58,7 @@ exports.tab = (array) ->
 		backgroundColor:"transparent"
 		constraints:
 			top:0
-			bottom:0
+			bottom:Screen.height
 			leading:0
 			trailing:0
 		superLayer:tab
@@ -86,7 +88,7 @@ exports.tab = (array) ->
 		name:".inactive"
 		constraints:
 			top:0
-			bottom:0
+			bottom:Screen.height
 			leading:0
 			trailing:0
 		superLayer:tab
@@ -110,7 +112,7 @@ exports.tab = (array) ->
 		textTransform:"capitalize"
 
 	tab.label.constraints =
-		bottom:2
+		bottom:Screen.height-2
 		horizontalCenter:tab.active.icon
 
 	if setup.inactive == undefined
@@ -147,8 +149,8 @@ exports.bar = (array) ->
 		name:"tabBar"
 		constraints:
 			leading:0
-			trailing:0
-			bottom:0
+			trailing:Screen.width
+			bottom:Screen.height
 			height:52
 
 	bar.bg = new ios.View
@@ -156,8 +158,8 @@ exports.bar = (array) ->
 		name:".bg"
 		constraints:
 			leading:0
-			trailing:0
-			bottom:0
+			trailing:Screen.width
+			bottom:Screen.height
 			height:52
 
 	bar.divider = new ios.View
@@ -167,7 +169,7 @@ exports.bar = (array) ->
 		constraints:
 			top:0
 			leading:0
-			trailing:0
+			trailing:Screen.width
 			height:.5
 	bar.box = new ios.View
 		superLayer:bar

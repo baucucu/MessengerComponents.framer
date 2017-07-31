@@ -7,18 +7,24 @@ class MasterLayout
     
     constructor:() ->
         mainView = new ios.View
+            name:"mainView"
             width:Screen.width
             backgroundColor:Screen.backgroundColor
 
         statusBar = new ios.StatusBar
             superLayer: mainView
-            width:Screen.width
             carrier: "VodafoneRO"
+
         
         @contentView = new ios.View
-            y:statusBar.height*0.65
-            width:Screen.width
+            # y:statusBar.height
+            # width:Screen.width
+            name:"mainContent"
             backgroundColor:Screen.backgroundColor
+            constraints:
+                top: statusBar.height
+                leading:0
+                trailing:Screen.width
         
         # keyboard = new ios.Keyboard
         #     hidden:true
