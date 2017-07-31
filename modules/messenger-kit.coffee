@@ -122,7 +122,6 @@ class MessageListItem extends Layer
 			name: "name"
 			parent: @
 			x: avatar.maxX + options.scale * 20
-			fontSize: 17 * options.scale
 			y: options.height / 4
 			text: options.name
 			fontSize: 17 * options.scale
@@ -134,7 +133,7 @@ class MessageListItem extends Layer
 			y: options.height / 1.8
 			text: options.lastMessage
 			fontSize: 16 * options.scale
-			truncate: true
+			truncate = true
 
 		lastMessageTime = new TextLayer
 			name: "lastMessageTime"
@@ -165,8 +164,6 @@ class MessageList extends Layer
 		for user, index in users
 			message = new MessageListItem({parent: @, y: options.scale * index * 74}, user)
 
-
-
 exports.MessageList = MessageList
 
 # Active users
@@ -179,6 +176,7 @@ class ActiveFriendsScrollList extends ScrollComponent
 		options.scrollVertical = false
 
 		super options
+
 
 		@.content.height = null
 

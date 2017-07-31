@@ -39,3 +39,17 @@ class UsersDAL
         return myDays
 
     module.exports = UsersDAL
+
+class CallsDAL
+    url = "https://fbusers-4494.restdb.io/rest/calls"
+    apikey = "8be0d27776dab9483acffbe9715ee02512be3"
+
+    calls = []
+
+    getCalls: (query, max, filter, sort, sortDir) ->
+        GETdata = "#{url}?apikey=#{apikey}&max=#{max}&sort=#{sort}&dir={sortDir}&filter=#{filter}&idtolink=true&q="+JSON.stringify(query)
+        # load data from db
+        users = JSON.parse Utils.domLoadDataSync GETdata
+        return calls
+
+    module.exports CallsDAL
