@@ -2,7 +2,8 @@
 ##########
 
 ios = require "ios-kit"
-MasterLayout = require "ipz-master-layout"
+masterLayout = require "ipz-master-layout"
+Screen.backgroundColor = "white"
 
 # ui = require "messenger-kit"
 usersModule = require "ipz-dal-usersDAL"
@@ -15,7 +16,6 @@ ios.device.scale = 1
 # Global settings
 #################
 
-Screen.backgroundColor = "white"
 
 
 # Users database
@@ -50,7 +50,7 @@ activeUsers = usersDB.getUsers({status: "active"}, 20, "", "serialno", -1)
 # otherMessages = new ui.MessageList({parent: homeScreen.content, y: activeFriends.maxY + ui.style.margin}, users[3..20])
 
 
-Master Layout
+# Master Layout
 masterLayout = new MasterLayout
 messenger = masterLayout.openApp("Messenger")
 messenger.login(users[0])
