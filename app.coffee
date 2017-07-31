@@ -1,19 +1,21 @@
-# Global settings
-#################
-
-Screen.backgroundColor = "white"
-
-
-
 # Requires
 ##########
 
 ios = require "ios-kit"
 MasterLayout = require "ipz-master-layout"
 
-ui = require("messenger-kit")
-usersModule = require ("ipz-dal-usersDAL")
+# ui = require "messenger-kit"
+usersModule = require "ipz-dal-usersDAL"
 {dpr} = require 'DevicePixelRatio'
+
+Framer.Defaults.Layer.force2d = true
+ios.device.name = "iphone-6s"
+ios.device.scale = 1
+
+# Global settings
+#################
+
+Screen.backgroundColor = "white"
 
 
 # Users database
