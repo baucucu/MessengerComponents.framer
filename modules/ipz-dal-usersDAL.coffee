@@ -1,10 +1,24 @@
-class UsersDAL
-    url = "https://fbusers-4494.restdb.io/rest/fbusers"
-    apikey = "5956382dafce09e87211e986"
+class DatabaseDAL
+  url = "https://fbusers-4494.restdb.io/rest/"
+  apikey = "5956382dafce09e87211e986"
 
-    users = []
+  data = []
+
+  getDBData: (table, query, max, filter, sort, sortDir) ->
+    GETdata = "#{url}#{table}?apikey=#{apikey}&max=#{max}&sort=#{sort}&dir={sortDir}&filter=#{filter}&idtolink=true&q="+JSON.stringify(query)
+    # load data from db
+    users = JSON.parse Utils.domLoadDataSync GETdata
+    return data
+
+
+class UsersDAL extends DatabaseDAL
 
     getUsers: (query, max, filter, sort, sortDir) ->
+        url = "https://fbusers-4494.restdb.io/rest/fbusers"
+        apikey = "5956382dafce09e87211e986"
+
+        users  = []
+
         GETdata = "#{url}?apikey=#{apikey}&max=#{max}&sort=#{sort}&dir={sortDir}&filter=#{filter}&idtolink=true&q="+JSON.stringify(query)
         # load data from db
         users = JSON.parse Utils.domLoadDataSync GETdata
