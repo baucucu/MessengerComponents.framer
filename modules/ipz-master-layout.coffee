@@ -1,4 +1,4 @@
-ios = require 'ios-kit'
+ios = require "ios-kit"
 IpzMessenger = require "ipz-messenger"
 
 class MasterLayout

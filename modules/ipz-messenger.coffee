@@ -1,5 +1,5 @@
-ios = require 'ios-kit'
-ipz = require 'ipz-messenger-kit'
+ios = require "ios-kit"
+ipz = require "ipz-messenger-kit"
 
 class IpzMessenger
     @homeView:undefined
