@@ -1,43 +1,40 @@
-var CallsDAL, DatabaseDAL, UsersDAL,
+var BaseDAL, CallsDAL, UsersDAL,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-DatabaseDAL = (function() {
-  var apikey, data, url;
+BaseDAL = (function() {
+  var apikey, url;
 
-  function DatabaseDAL() {}
+  function BaseDAL() {}
 
-  url = "https://fbusers-4494.restdb.io/rest/";
+  url = "https://fbusers-4494.restdb.io/rest";
 
   apikey = "5956382dafce09e87211e986";
 
-  data = [];
-
-  DatabaseDAL.prototype.getDBData = function(table, query, max, filter, sort, sortDir) {
-    var GETdata, users;
-    GETdata = ("" + url + table + "?apikey=" + apikey + "&max=" + max + "&sort=" + sort + "&dir={sortDir}&filter=" + filter + "&idtolink=true&q=") + JSON.stringify(query);
-    users = JSON.parse(Utils.domLoadDataSync(GETdata));
-    return data;
+  BaseDAL.prototype.getDbData = function(table, query, max, filter, sort, sortDir) {
+    var GETdata, dbData;
+    GETdata = (url + "/" + table + "?apikey=" + apikey + "&max=" + max + "&sort=" + sort + "&dir={sortDir}&filter=" + filter + "&idtolink=true&q=") + JSON.stringify(query);
+    dbData = JSON.parse(Utils.domLoadDataSync(GETdata));
+    return dbData;
   };
 
-  return DatabaseDAL;
+  return BaseDAL;
 
 })();
 
 UsersDAL = (function(superClass) {
+  var users;
+
   extend(UsersDAL, superClass);
 
   function UsersDAL() {
     return UsersDAL.__super__.constructor.apply(this, arguments);
   }
 
+  users = [];
+
   UsersDAL.prototype.getUsers = function(query, max, filter, sort, sortDir) {
-    var GETdata, apikey, url, users;
-    url = "https://fbusers-4494.restdb.io/rest/fbusers";
-    apikey = "5956382dafce09e87211e986";
-    users = [];
-    GETdata = (url + "?apikey=" + apikey + "&max=" + max + "&sort=" + sort + "&dir={sortDir}&filter=" + filter + "&idtolink=true&q=") + JSON.stringify(query);
-    users = JSON.parse(Utils.domLoadDataSync(GETdata));
+    users = this.getDbData("fbusers", query, max, filter, sort, sortDir);
     return users;
   };
 
@@ -93,7 +90,7 @@ UsersDAL = (function(superClass) {
 
   return UsersDAL;
 
-})(DatabaseDAL);
+})(BaseDAL);
 
 CallsDAL = (function() {
   var apikey, calls, url;
