@@ -2,12 +2,11 @@
 ##########
 
 ios = require "ios-kit"
-masterLayout = require "ipz-master-layout"
+MasterLayout = require "ipz-master-layout"
 Screen.backgroundColor = "white"
 
 # ui = require "messenger-kit"
 usersModule = require "ipz-dal-usersDAL"
-{dpr} = require 'DevicePixelRatio'
 
 Framer.Defaults.Layer.force2d = true
 ios.device.name = "iphone-6s"
