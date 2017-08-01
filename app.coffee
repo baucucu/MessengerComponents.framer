@@ -1,5 +1,8 @@
 # Requires
 ##########
+# Framer.Device.customize
+# 	devicePixelRatio: 1
+
 
 ios = require "ios-kit"
 MasterLayout = require "ipz-master-layout"
@@ -54,14 +57,3 @@ masterLayout = new MasterLayout
 messenger = masterLayout.openApp("Messenger")
 messenger.login(users[0])
 
-# # Single line clipping 
-# paragraph = new TextLayer
-#     truncate: true
-#     width: 150
-#     height: 20
-#     fontSize: 14
-#     text:
-#         """
-#         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-#         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-#         """
