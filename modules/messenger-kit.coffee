@@ -131,9 +131,12 @@ class MessageListItem extends Layer
 			parent: @
 			x: name.x
 			y: options.height / 1.8
+			width: @.width - avatar.width
+			height: 20
 			text: options.lastMessage
 			fontSize: 16 * options.scale
 			truncate = true
+
 
 		lastMessageTime = new TextLayer
 			name: "lastMessageTime"
