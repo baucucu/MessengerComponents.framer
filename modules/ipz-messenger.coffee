@@ -5,7 +5,7 @@ class IpzMessenger
     @homeView:undefined
 
     constructor:(parentView, users) ->
-        
+
         homeTab = new ipz.IpzMessengerTab
             label:"Home"
             activeIcon:"images/homeIconActive.png"
@@ -37,7 +37,7 @@ class IpzMessenger
             viewTop:parentView.y
             viewBottom:50
 
-        tabBar = new ipz.IpzMessengerTabBar 
+        tabBar = new ipz.IpzMessengerTabBar
             tabs:[homeTab, callsTab, cameraTab, peopleTab, gamesTab]
             activeColor:"blue"
             inactiveColor:"grey"
@@ -59,7 +59,7 @@ class IpzMessenger
             width: parentView.width
             # height: parentView.height - tabBar.height
             backgroundColor: "red"
-    
+
     login:(user) ->
         @homeView.setAvatar(user)
 
