@@ -1,8 +1,10 @@
 ios = require 'ios-kit'
+utils = require 'ipz-utils'
 
 exports.defaults = {
 	tab: {
 		label: "label"
+		fontsize: 10
 		activeIcon:undefined
 		inactiveIcon:undefined
 		active: undefined
@@ -10,17 +12,20 @@ exports.defaults = {
 		activeColor:"blue"
 		inactiveColor:"gray"
 		type: "tab"
-		viewTop:0
-		viewBottom:0
+		superLayer:undefined
 	}
 	bar: {
 		tabs: []
 		start:0
 		type:"tabBar"
+		barTop:0
 		backgroundColor:"white"
 		activeColor:"blue"
 		inactiveColor:"gray"
 		blur:true
+		viewTop:0
+		viewBottom:0
+		superLayer:undefined
 	}
 }
 
@@ -37,6 +42,7 @@ exports.tab = (array) ->
 			specs.width = 55
 
 	tab = new ios.View
+		superLayer:setup.superLayer
 		backgroundColor:"transparent"
 		name:setup.label
 		constraints:
@@ -44,11 +50,10 @@ exports.tab = (array) ->
 			height:52
 
 	tab.view = new ios.View
+		superLayer:setup.superLayer
 		name:setup.label + ".view"
 		backgroundColor:"transparent"
 		constraints:
-			top:setup.viewTop
-			bottom:Screen.height + setup.viewBottom
 			leading:0
 			trailing:Screen.width
 
@@ -72,10 +77,12 @@ exports.tab = (array) ->
 			top:7
 		backgroundColor:"transparent"
 		superLayer:tab.active
+
 	if setup.active == undefined
-		tab.active.icon.image = setup.activeIcon
-		tab.active.icon.width = 52
-		tab.active.icon.height = 52
+		if setup.activeIcon != undefined
+			tab.active.icon.image = setup.activeIcon
+			tab.active.icon.width = 25
+			tab.active.icon.height = 25
 	else
 		setup.active.superLayer = tab.active.icon
 		setup.active.props =
@@ -107,19 +114,19 @@ exports.tab = (array) ->
 		text:setup.label
 		superLayer:tab
 		color:"#929292"
-		fontSize:10
+		fontSize:setup.fontsize
 		name:".label"
 		textTransform:"capitalize"
 
 	tab.label.constraints =
-		bottom:Screen.height-2
-		horizontalCenter:tab.active.icon
+		horizontalCenter: tab.active
 
 	if setup.inactive == undefined
-		tab.inactive.icon.image = setup.inactiveIcon
-		tab.inactive.icon.width = 52
-		tab.inactive.icon.height = 52
-
+		if setup.inactiveIcon != undefined
+			tab.inactive.icon.image = setup.inactiveIcon
+			tab.inactive.icon.width = 25
+			tab.inactive.icon.height = 25
+		
 	else
 		setup.inactive.superLayer = tab.inactive.icon
 		setup.inactive.props =
@@ -139,19 +146,15 @@ exports.bar = (array) ->
 		setup.tabs.push dummyTab2
 
 	specs =
-		width: 75
-	switch ios.device.name
-		when "iphone-5"
-			specs.width = 55
+		width : Screen.width / setup.tabs.length
 
 	bar = new ios.View
+		superLayer:setup.superLayer
 		backgroundColor:"transparent"
 		name:"tabBar"
 		constraints:
 			leading:0
 			trailing:Screen.width
-			bottom:Screen.height
-			height:52
 
 	bar.bg = new ios.View
 		superLayer:bar
@@ -159,26 +162,37 @@ exports.bar = (array) ->
 		constraints:
 			leading:0
 			trailing:Screen.width
-			bottom:Screen.height
-			height:52
 
 	bar.divider = new ios.View
 		backgroundColor:"#B2B2B2"
 		name:".divider"
 		superLayer:bar
 		constraints:
-			top:0
+			# top:0
 			leading:0
 			trailing:Screen.width
 			height:.5
+
+	if setup.type == "navBar"
+		bar.constraints.top = setup.barTop
+		bar.constraints.height = 22
+		bar.bg.constraints.top = setup.barTop
+		bar.bg.constraints.height = 22
+		bar.divider.bottom = 0
+	else
+		bar.constraints.bottom = Screen.height
+		bar.constraints.height = 52
+		bar.bg.constraints.bottom = Screen.height
+		bar.bg.constraints.height = 52
+		bar.divider.top = 0
+
 	bar.box = new ios.View
 		superLayer:bar
 		backgroundColor:"transparent"
 		name:".box"
 		constraints:
 			height:52
-			width:setup.tabs.length * specs.width
-
+			width: Screen.width #setup.tabs.length * specs.width
 
 	setActive = (tabIndex) ->
 		for tab, index in setup.tabs
@@ -186,13 +200,12 @@ exports.bar = (array) ->
 				tab.label.color = ios.utils.color(setup.activeColor)
 				tab.active.visible = true
 				tab.inactive.visible = false
-				tab.view.visible = true
+				utils.setVisible(tab.view, true)
 			else
 				tab.label.color = ios.utils.color(setup.inactiveColor)
 				tab.active.visible = false
 				tab.inactive.visible = true
-				tab.view.visible = false
-
+				utils.setVisible(tab.view, false)
 
 	for tab, index in setup.tabs
 		#Check for vaild tab object
@@ -206,6 +219,15 @@ exports.bar = (array) ->
 		if setup.blur
 			bar.bg.backgroundColor = "rgba(255,255,255, .9)"
 			ios.utils.bgBlur(bar.bg)
+
+		tab.view.constraints.top = setup.viewTop
+		tab.view.constraints.bottom = Screen.height + setup.viewBottom
+		tab.label.constraints.bottom = setup.viewBottom - 50
+
+		if setup.type == "navBar"
+			specs.width = bar.width / setup.tabs.length
+			tab.constraints.width = specs.width
+			tab.constraints.height = 22			
 
 		if index == 0
 			tab.constraints.leading = 0

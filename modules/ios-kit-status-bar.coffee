@@ -37,8 +37,8 @@ exports.create = (array) ->
 			@bluetooth = - 10
 		else
 			@topConstraint = 3
-			@batteryIcon = 2
-			@bluetooth = 3
+			@batteryIcon = -5
+			@bluetooth = -5
 
 	if setup.style == "light"
 		@color = "white"
@@ -89,11 +89,11 @@ exports.create = (array) ->
 			if i == 0
 				dot.constraints =
 					leading:7
-					top:7
+					top:3
 			else
 				dot.constraints =
 					leading:[signal[i - 1 ], 1]
-					top:7
+					top:3
 			signal.push dot
 			ios.layout.set()
 		if setup.signal < 5
@@ -103,7 +103,7 @@ exports.create = (array) ->
 				nonDot.style.border = "#{ios.utils.px(1)}px solid #{@color}"
 				nonDot.constraints =
 					leading:[signal[signal.length - 1], 1]
-					top:7
+					top:3
 				signal.push nonDot
 				ios.layout.set()
 		carrier = new ios.Text style:"statusBarCarrier", text:setup.carrier, superLayer:statusBar, fontSize:12, color:@color, name:"carrier", textTransform:"capitalize"

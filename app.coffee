@@ -1,59 +1,30 @@
 # Requires
 ##########
-# Framer.Device.customize
-# 	devicePixelRatio: 1
-
-
 ios = require "ios-kit"
-MasterLayout = require "ipz-master-layout"
-Screen.backgroundColor = "white"
-
-# ui = require "messenger-kit"
 usersModule = require "ipz-dal-usersDAL"
+IpzChatBot = require "ipz-chatbot"
 
-Framer.Defaults.Layer.force2d = true
-ios.device.name = "iphone-6s"
-ios.device.scale = 1
 
 # Global settings
 #################
-
-
+Screen.backgroundColor = "white"
+Framer.Defaults.Layer.force2d = true
+ios.device.name = "iphone-6s"
+ios.device.scale = 1
 
 # Users database
 ################
 
 usersDB = new usersModule
 users = usersDB.getUsers({}, 20, "", "serialno", -1)
-activeUsers = usersDB.getUsers({status: "active"}, 20, "", "serialno", -1)
+activeUsers = usersDB.getActiveUsers(users)
 
+loggedInUser = users[0]
+loggedInUser.Friends = users[1..20]
+loggedInUser.ActiveFriends = activeUsers
+loggedInUser.Carrier = "VodafoneRO"
 
-# Playground
-############
+bot = new IpzChatBot(loggedInUser)
+bot.showNext("Main")
 
-# activeFriends = new ui.ActiveFriends
-
-#avatar = new ui.Avatar({}, users[1])
-
-
-# homeScreen = new ScrollComponent
-# 	y: 20
-# 	width: Screen.width
-# 	height: Screen.height
-# 	scrollHorizontal: false
-# 
-# 
-# myDays = new ui.MyDays({parent: homeScreen.content}, activeUsers)
-# 
-# lastMessages = new ui.MessageList({parent: homeScreen.content, y: myDays.maxY}, users[0..2])
-# 
-# activeFriends = new ui.ActiveFriends({parent: homeScreen.content, y: lastMessages.maxY + ui.style.margin}, activeUsers)
-# 
-# otherMessages = new ui.MessageList({parent: homeScreen.content, y: activeFriends.maxY + ui.style.margin}, users[3..20])
-
-
-# Master Layout
-masterLayout = new MasterLayout
-messenger = masterLayout.openApp("Messenger")
-messenger.login(users[0])
 
