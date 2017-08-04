@@ -1,12 +1,19 @@
 ios = require "ios-kit"
 IpzMessenger = require "ipz-messenger"
 
-class IpzChatBot
+class IpzChatBot extends Layer
     @flow = undefined
     @user = undefined
     @statusBar = undefined
 
-    constructor:(user) ->
+    constructor:(options = {}, user) ->
+        options.name ?= "ChatBot"
+        options.width ?= Screen.width
+        options.height ?= Screen.height
+        options.backgroundColor ?= Screen.backgroundColor
+
+        super options
+
         @user = user
 
         @statusBar = new ios.StatusBar
@@ -16,16 +23,11 @@ class IpzChatBot
         @flow.header = @statusBar
 
     showNext: (viewName) ->
-        contentView = new ios.View
-            name:"mainContent"
-            backgroundColor:Screen.backgroundColor
-            y:@statusBar.height
-
         view = switch viewName
-            when "Main" then new IpzMessenger(contentView, @user)
+            when "Main" then new IpzMessenger({name:"main", y:@statusBar.height}, @user)
             # when "Chat" then new IpzMessengerChat(contentView)
                 
-        @flow.showNext(contentView)
+        @flow.showNext(view)
         
 
 module.exports = IpzChatBot

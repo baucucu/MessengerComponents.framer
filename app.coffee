@@ -24,7 +24,7 @@ loggedInUser.Friends = users[1..20]
 loggedInUser.ActiveFriends = activeUsers
 loggedInUser.Carrier = "VodafoneRO"
 
-bot = new IpzChatBot(loggedInUser)
+bot = new IpzChatBot({}, loggedInUser)
 bot.showNext("Main")
 
 

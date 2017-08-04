@@ -9,8 +9,6 @@ exports.defaults = {
 		inactiveIcon:undefined
 		active: undefined
 		inactive: undefined
-		activeColor:"blue"
-		inactiveColor:"gray"
 		type: "tab"
 		superLayer:undefined
 	}
@@ -24,7 +22,7 @@ exports.defaults = {
 		inactiveColor:"gray"
 		blur:true
 		viewTop:0
-		viewBottom:0
+		viewBottom:52
 		superLayer:undefined
 	}
 }
@@ -55,7 +53,8 @@ exports.tab = (array) ->
 		backgroundColor:"transparent"
 		constraints:
 			leading:0
-			trailing:Screen.width
+			trailing:0
+			bottom:setup.viewBottom
 
 	# Create Active
 	tab.active = new ios.View
@@ -154,45 +153,45 @@ exports.bar = (array) ->
 		name:"tabBar"
 		constraints:
 			leading:0
-			trailing:Screen.width
+			trailing:0
 
 	bar.bg = new ios.View
 		superLayer:bar
 		name:".bg"
 		constraints:
 			leading:0
-			trailing:Screen.width
+			trailing:0
 
 	bar.divider = new ios.View
 		backgroundColor:"#B2B2B2"
 		name:".divider"
 		superLayer:bar
 		constraints:
-			# top:0
 			leading:0
-			trailing:Screen.width
+			trailing:0
 			height:.5
-
-	if setup.type == "navBar"
-		bar.constraints.top = setup.barTop
-		bar.constraints.height = 22
-		bar.bg.constraints.top = setup.barTop
-		bar.bg.constraints.height = 22
-		bar.divider.bottom = 0
-	else
-		bar.constraints.bottom = Screen.height
-		bar.constraints.height = 52
-		bar.bg.constraints.bottom = Screen.height
-		bar.bg.constraints.height = 52
-		bar.divider.top = 0
 
 	bar.box = new ios.View
 		superLayer:bar
 		backgroundColor:"transparent"
 		name:".box"
 		constraints:
-			height:52
 			width: Screen.width #setup.tabs.length * specs.width
+
+	if setup.type == "navBar"
+		bar.constraints.top = setup.barTop
+		bar.constraints.height = 22
+		bar.bg.constraints.top = 0
+		bar.bg.constraints.height = 22
+		bar.box.constraints.height = 22
+		bar.divider.y = 22
+	else
+		bar.constraints.bottom = 0
+		bar.constraints.height = 52
+		bar.bg.constraints.bottom = 0
+		bar.bg.constraints.height = 52
+		bar.box.constraints.height = 52
+		bar.divider.top = 70
 
 	setActive = (tabIndex) ->
 		for tab, index in setup.tabs
@@ -221,13 +220,14 @@ exports.bar = (array) ->
 			ios.utils.bgBlur(bar.bg)
 
 		tab.view.constraints.top = setup.viewTop
-		tab.view.constraints.bottom = Screen.height + setup.viewBottom
-		tab.label.constraints.bottom = setup.viewBottom - 50
+		tab.view.constraints.bottom = setup.viewBottom
 
 		if setup.type == "navBar"
 			specs.width = bar.width / setup.tabs.length
 			tab.constraints.width = specs.width
-			tab.constraints.height = 22			
+			tab.constraints.height = 22
+		else
+			tab.label.constraints.top = setup.viewBottom - 10
 
 		if index == 0
 			tab.constraints.leading = 0

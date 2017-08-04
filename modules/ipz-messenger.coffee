@@ -1,45 +1,56 @@
 ios = require "ios-kit"
 ipz = require "ipz-messenger-kit"
 
-class IpzMessenger
+class IpzMessenger extends Layer
     
-    constructor:(parentView, user) ->
+    constructor:(options = {}, user) ->
+        options.name ?= "Messenger.Main"
+        options.width ?= Screen.width
+        options.height ?= Screen.height
+        options.backgroundColor ?= Screen.backgroundColor
+
+        super options
 
         homeTab = new ipz.IpzMessengerTab
             label:"Home"
             activeIcon:"images/homeIconActive.png"
             inactiveIcon:"images/homeIcon.png"
+            superLayer: @
         callsTab = new ipz.IpzMessengerTab
             label:"Calls"
             activeIcon:"images/callIconActive.png"
             inactiveIcon:"images/callIcon.png"
+            superLayer: @
         cameraTab = new ipz.IpzMessengerTab
             label:""
             activeIcon:"images/Circle.png"
             inactiveIcon:"images/Circle.png"
+            superLayer: @
         peopleTab = new ipz.IpzMessengerTab
             label:"People"
             activeIcon:"images/groupsIconActive.png"
             inactiveIcon:"images/groupsIcon.png"
+            superLayer: @
         gamesTab = new ipz.IpzMessengerTab
             label:"Games"
             activeIcon:"images/gamesIconActive.png"
             inactiveIcon:"images/gamesIcon.png"
+            superLayer: @
 
         tabBar = new ipz.IpzMessengerTabBar
             tabs:[homeTab, callsTab, cameraTab, peopleTab, gamesTab]
             activeColor:"blue"
             inactiveColor:"grey"
             start:0
-            viewTop:parentView.y
-            viewBottom:52
-
-        homeView = new ipz.IpzMessengerHome(homeTab.view, user)
+            viewTop:options.y
+            superLayer: @
+                
+        homeView = new ipz.IpzMessengerHome({superLayer: homeTab.view, height: Screen.height-130}, user)
         
         callsView = new ios.View
-            name:"YELLOW"
+            name:"calls"
             superLayer: callsTab.view
-            backgroundColor: "yellow"
+            backgroundColor: "red"
             constraints:
                 leading:0
                 trailing:0
@@ -48,7 +59,7 @@ class IpzMessenger
 
         camView = new ios.View
             superLayer: cameraTab.view
-            backgroundColor: "black"            
+            backgroundColor: "black"
             constraints:
                 leading:0
                 trailing:0
@@ -57,7 +68,7 @@ class IpzMessenger
 
         peopleView = new ios.View
             superLayer: peopleTab.view
-            backgroundColor: "blue"
+            backgroundColor: "orange"
             constraints:
                 leading:0
                 trailing:0
@@ -66,11 +77,11 @@ class IpzMessenger
 
         gamesView = new ios.View
             superLayer: gamesTab.view
-            backgroundColor: "red"
+            backgroundColor: "green"
             constraints:
                 leading:0
                 trailing:0
                 top:0
-                bottom:0
+                bottom:0        
 
 module.exports = IpzMessenger
