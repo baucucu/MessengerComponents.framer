@@ -5,6 +5,7 @@ exports.defaults = {
 	tab: {
 		label: "label"
 		fontsize: 10
+		iconsize: 25
 		activeIcon:undefined
 		inactiveIcon:undefined
 		active: undefined
@@ -79,8 +80,8 @@ exports.tab = (array) ->
 	tab.active.icon = new ios.View
 		name:".active.icon"
 		constraints:
-			width:25
-			height:25
+			width:setup.iconsize
+			height:setup.iconsize
 			align:"horizontal"
 			top:7
 		backgroundColor:"transparent"
@@ -89,8 +90,8 @@ exports.tab = (array) ->
 	if setup.active == undefined
 		if setup.activeIcon != undefined
 			tab.active.icon.image = setup.activeIcon
-			tab.active.icon.width = 25
-			tab.active.icon.height = 25
+			tab.active.icon.width = setup.iconsize
+			tab.active.icon.height = setup.iconsize
 	else
 		setup.active.superLayer = tab.active.icon
 		setup.active.props =
@@ -110,8 +111,8 @@ exports.tab = (array) ->
 
 	tab.inactive.icon = new ios.View
 		constraints:
-			width:25
-			height:25
+			width:setup.iconsize
+			height:setup.iconsize
 			align:"horizontal"
 			top:7
 		backgroundColor:"transparent"
@@ -132,8 +133,8 @@ exports.tab = (array) ->
 	if setup.inactive == undefined
 		if setup.inactiveIcon != undefined
 			tab.inactive.icon.image = setup.inactiveIcon
-			tab.inactive.icon.width = 25
-			tab.inactive.icon.height = 25
+			tab.inactive.icon.width = setup.iconsize
+			tab.inactive.icon.height = setup.iconsize
 		
 	else
 		setup.inactive.superLayer = tab.inactive.icon

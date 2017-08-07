@@ -25,6 +25,7 @@ class IpzMessenger extends Layer
             label:""
             activeIcon:"images/Circle.png"
             inactiveIcon:"images/Circle.png"
+            iconsize:45
             superLayer: @
         peopleTab = new ipz.IpzMessengerTab
             label:"People"

@@ -20,6 +20,8 @@ class IpzChatBot extends Layer
             carrier: user.Carrier
 
         @flow = new FlowComponent
+            superLayer:@
+
         @flow.header = @statusBar
 
     showNext: (viewName) ->
