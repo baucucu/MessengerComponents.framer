@@ -44,6 +44,9 @@ class IpzMessenger extends Layer
             start:0
             viewTop:options.y
             superLayer: @
+
+        #  TODO set based on data from DB
+        tabBar.setBadgeValue(1, 2)
                 
         homeView = new ipz.IpzMessengerHome({superLayer: homeTab.view, height: Screen.height-130}, user)
         

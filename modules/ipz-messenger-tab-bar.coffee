@@ -11,6 +11,15 @@ exports.defaults = {
 		inactive: undefined
 		type: "tab"
 		superLayer:undefined
+		badgeSize: 16
+		badgeColor: "#FF3B30"
+		badgeTextStyle : {
+			fontSize: "12px"
+			lineHeight: "36px"
+			color: "#fff"
+			textAlign: "center"
+			fontFamily: "Helvetica Neue', sans-serif"
+		}
 	}
 	bar: {
 		tabs: []
@@ -132,6 +141,20 @@ exports.tab = (array) ->
 			width:tab.inactive.icon.width
 			height:tab.inactive.icon.height
 
+	if setup.activeIcon != undefined
+		tab.badgeLayer = new Layer
+			name:setup.label + ".badge"
+			width: setup.badgeSize
+			height: setup.badgeSize
+			x: 0
+			y: 6
+			borderRadius: 18
+			superLayer: tab
+			backgroundColor: setup.badgeColor
+		tab.badgeLayer.style = setup.badgeTextStyle
+		tab.badgeLayer.centerX(16)
+		tab.badgeLayer.visible = false
+
 	return tab
 
 exports.bar = (array) ->
@@ -205,6 +228,16 @@ exports.bar = (array) ->
 				tab.active.visible = false
 				tab.inactive.visible = true
 				utils.setVisible(tab.view, false)
+
+	bar.setBadgeValue = (tabIndex, value) =>
+		# Adds a badge to the tab item if value is a number > 0 and removes the badge if null
+		for tab, index in setup.tabs
+			if index == tabIndex
+				if value
+					tab.badgeLayer.html = value
+					tab.badgeLayer.visible = true
+				else
+					tab.badgeLayer.visible = false
 
 	for tab, index in setup.tabs
 		#Check for vaild tab object
