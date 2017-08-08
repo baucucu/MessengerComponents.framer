@@ -2,7 +2,7 @@ ios = require "ios-kit"
 ipz = require "ipz-messenger-kit"
 
 class IpzMessenger extends Layer
-    
+
     constructor:(options = {}, user) ->
         options.name ?= "Messenger.Main"
         options.width ?= Screen.width
@@ -13,29 +13,29 @@ class IpzMessenger extends Layer
 
         homeTab = new ipz.IpzMessengerTab
             label:"Home"
-            activeIcon:"images/homeIconActive.png"
-            inactiveIcon:"images/homeIcon.png"
+            activeIcon:"images/HomeIconActive.png"
+            inactiveIcon:"images/HomeIconInactive.png"
             superLayer: @
         callsTab = new ipz.IpzMessengerTab
             label:"Calls"
-            activeIcon:"images/callIconActive.png"
-            inactiveIcon:"images/callIcon.png"
+            activeIcon:"images/CallsIconActive.png"
+            inactiveIcon:"images/CallsIconInactive.png"
             superLayer: @
         cameraTab = new ipz.IpzMessengerTab
             label:""
-            activeIcon:"images/Circle.png"
-            inactiveIcon:"images/Circle.png"
+            activeIcon:"images/CameraIconActive.png"
+            inactiveIcon:"images/CameraIconInactive.png"
             iconsize:45
             superLayer: @
         peopleTab = new ipz.IpzMessengerTab
             label:"People"
-            activeIcon:"images/groupsIconActive.png"
-            inactiveIcon:"images/groupsIcon.png"
+            activeIcon:"images/PeopleIconActive.png"
+            inactiveIcon:"images/PeopleIconInactive.png"
             superLayer: @
         gamesTab = new ipz.IpzMessengerTab
             label:"Games"
-            activeIcon:"images/gamesIconActive.png"
-            inactiveIcon:"images/gamesIcon.png"
+            activeIcon:"images/GamesIconActive.png"
+            inactiveIcon:"images/GamesIconInactive.png"
             superLayer: @
 
         tabBar = new ipz.IpzMessengerTabBar
@@ -48,9 +48,9 @@ class IpzMessenger extends Layer
 
         #  TODO set based on data from DB
         tabBar.setBadgeValue(1, 2)
-                
+
         homeView = new ipz.IpzMessengerHome({superLayer: homeTab.view, height: Screen.height-130}, user)
-        
+
         callsView = new ios.View
             name:"calls"
             superLayer: callsTab.view
@@ -59,7 +59,7 @@ class IpzMessenger extends Layer
                 leading:0
                 trailing:0
                 top:0
-                bottom:0
+                bottom:2
 
         camView = new ios.View
             superLayer: cameraTab.view
@@ -68,7 +68,7 @@ class IpzMessenger extends Layer
                 leading:0
                 trailing:0
                 top:0
-                bottom:0
+                bottom:2
 
         peopleView = new ios.View
             superLayer: peopleTab.view
@@ -77,7 +77,7 @@ class IpzMessenger extends Layer
                 leading:0
                 trailing:0
                 top:0
-                bottom:0
+                bottom:2
 
         gamesView = new ios.View
             superLayer: gamesTab.view
@@ -86,6 +86,6 @@ class IpzMessenger extends Layer
                 leading:0
                 trailing:0
                 top:0
-                bottom:0        
+                bottom:2
 
 module.exports = IpzMessenger

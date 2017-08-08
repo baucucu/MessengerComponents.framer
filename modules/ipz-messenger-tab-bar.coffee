@@ -135,7 +135,7 @@ exports.tab = (array) ->
 			tab.inactive.icon.image = setup.inactiveIcon
 			tab.inactive.icon.width = setup.iconsize
 			tab.inactive.icon.height = setup.iconsize
-		
+
 	else
 		setup.inactive.superLayer = tab.inactive.icon
 		setup.inactive.props =
