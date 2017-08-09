@@ -1,11 +1,19 @@
-class IpzMessengerSearchBox
 
-    constructor:(parentView) ->
+class IpzMessengerSearchBox extends Layer
+
+    constructor:(options = {}) ->
+        options.name ?= "Messenger.SearchBox"
+        options.width ?= options.superLayer.width
+        options.height = 32
+        options.backgroundColor ?= Screen.backgroundColor
+
+        super options
+
         searchBar = new Layer
-            width: parentView.width
-            backgroundColor: "transparent"
+            superLayer: @
+            width: @.width            
             height: 32
-            parent: parentView
+            backgroundColor: "transparent"        
 
         search = new Layer
             width: searchBar.width - 100
@@ -16,7 +24,7 @@ class IpzMessengerSearchBox
             backgroundColor: "#DEDEDE"
 
         searchPlaceholder = new TextLayer
-            parent: search
+            superLayer: search
             text: "Search"
             fontSize: 14
             fontFamily: ".SF NS Display"
@@ -25,7 +33,7 @@ class IpzMessengerSearchBox
             y: Align.center
 
         searchIcon = new Layer
-            parent: search
+            superLayer: search
             image: "images/SearchIcon.png"
             height: 12
             width: 12

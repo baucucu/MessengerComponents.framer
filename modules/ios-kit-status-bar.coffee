@@ -2,7 +2,7 @@ ios = require 'ios-kit'
 
 exports.defaults = {
 	carrier:""
-	network:"LTE"
+	network:"4G"
 	battery:100
 	signal:5
 	style:"dark"
@@ -77,23 +77,27 @@ exports.create = (array) ->
 		time.constraints =
 			align:"horizontal"
 			top:@topConstraint
+			
 	signal = []
 	if setup.signal < 1
 		noNetwork = new ios.Text superLayer:statusBar, fontSize:12, text:"No Network"
 		noNetwork.constraints =
 			leading:7
-			top:3
+			# top:3
+			verticalCenter: time
 	else
 		for i in [0...setup.signal]
 			dot = new Layer height:ios.utils.px(5.5), width:ios.utils.px(5.5), backgroundColor:"black", superLayer:statusBar, borderRadius:ios.utils.px(5.5)/2, backgroundColor:@color, name:"signal[#{i}]"
 			if i == 0
 				dot.constraints =
 					leading:7
-					top:3
+					# top:3
+					verticalCenter: time
 			else
 				dot.constraints =
 					leading:[signal[i - 1 ], 1]
-					top:3
+					# top:3
+					verticalCenter: time
 			signal.push dot
 			ios.layout.set()
 		if setup.signal < 5
@@ -103,19 +107,22 @@ exports.create = (array) ->
 				nonDot.style.border = "#{ios.utils.px(1)}px solid #{@color}"
 				nonDot.constraints =
 					leading:[signal[signal.length - 1], 1]
-					top:3
+					# top:3
+					verticalCenter: time
 				signal.push nonDot
 				ios.layout.set()
 		carrier = new ios.Text style:"statusBarCarrier", text:setup.carrier, superLayer:statusBar, fontSize:12, color:@color, name:"carrier", textTransform:"capitalize"
 		carrier.constraints =
 			leading:[signal[signal.length - 1], 7]
-			top:3
+			# top:3
+			verticalCenter: time
 		ios.layout.set()
 		if setup.carrier
 			network = new ios.Text style:"statusBarNetwork", text:setup.network, superLayer:statusBar, fontSize:12, color:@color, name:"network", textTransform:"uppercase"
 			network.constraints =
 				leading:[carrier, 5]
-				top:3
+				# top:3
+				verticalCenter: time
 
 		if setup.carrier == "" || setup.carrier == "wifi"
 			networkIcon = ios.utils.svg(ios.assets.network, @color)
@@ -124,7 +131,8 @@ exports.create = (array) ->
 			ios.utils.changeFill(network, @color)
 			network.constraints =
 				leading:[signal[signal.length - 1], 5]
-				top:@topConstraint
+				# top:@topConstraint
+				verticalCenter: time
 
 	batteryIcon = new Layer width:ios.utils.px(25), height:ios.utils.px(10), superLayer:statusBar, backgroundColor:"transparent", name:"batteryIcon"
 	if setup.battery > 70
@@ -145,6 +153,8 @@ exports.create = (array) ->
 	batteryIcon.constraints =
 		trailing : 7
 		top:@batteryIcon
+		# verticalCenter: time
+		
 
 	batteryPercent = new ios.Text style:"statusBarBatteryPercent", text:setup.battery + "%", superLayer:statusBar, fontSize:12, color:@color, name:"batteryPercent"
 	batteryPercent.constraints =
@@ -157,6 +167,7 @@ exports.create = (array) ->
 	ios.utils.changeFill(bluetooth, @color)
 	bluetooth.constraints =
 		top: @bluetooth
+		# verticalCenter: time
 		trailing: [batteryPercent, 7]
 
 	ios.layout.set()

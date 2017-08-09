@@ -7,73 +7,72 @@ class IpzMessengerHome extends Layer
 
         options.name ?= "Messenger.Home"
         options.width ?= Screen.width
-        options.height ?= Screen.height
+        options.height ?= options.superLayer.height
         options.backgroundColor ?= Screen.backgroundColor
+        options.navBarLabelsFontSize ?= 17
 
         super options
 
         ## HEADER
-        avatar = new ipz.IpzAvatar({scale:0.7, superLayer: @, x:Align.left(10)}, user)
-        
-        searchBox = new ipz.IpzMessengerSearchBox(@)
 
+        searchBox = new ipz.IpzMessengerSearchBox({superLayer: @})
+        
+        avatar = new ipz.IpzAvatar({scale:0.7, superLayer: @, x:Align.left(10), y:Align.top(-3), name:"Avatar"}, user)
+        
         # TODO image button class
         compose = new Layer
             superLayer: @
+            name:"compose"
             image: "images/CreateIcon.png"
             x: Align.right(-10)
-            width: 26
-            height: 26            
-        
+            width: 24
+            height: 24            
+                
         activeTab = new ipz.IpzMessengerTab
             label:"Active"
-            fontsize:17
+            fontsize:options.navBarLabelsFontSize
             superLayer: @
         groupsTab = new ipz.IpzMessengerTab
             label:"Groups"
-            fontsize:17
+            fontsize:options.navBarLabelsFontSize
             superLayer: @
         messagesTab = new ipz.IpzMessengerTab
             label:"Messages"
-            fontsize:17
+            fontsize:options.navBarLabelsFontSize
             superLayer: @
 
         navBar = new ipz.IpzMessengerTabBar
+            superLayer: @
             tabs:[messagesTab, activeTab, groupsTab]
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
-            barTop:40
-            viewTop:20
-            superLayer: @
+            barTop:searchBox.maxY + 5
+            viewTop:60  #TODO not hard-coded
+            height: 22
 
         ## END HEADER
 
 
         ## NAV VIEWS
-        
-
         activeView = new ios.View
             superLayer: activeTab.view
-            y: navBar.maxY - 20
             width: @.width
             height: @.height
             backgroundColor: Screen.backgroundColor
         
         groupsView = new ios.View
             superLayer: groupsTab.view
-            y: navBar.maxY - 20
             width: @.width
             height: @.height
-            backgroundColor: Screen.backgroundColor
-
+            backgroundColor: Screen.backgroundColor        
         messagesView = new ScrollComponent
             name:"MessagesScroll"
             superLayer: messagesTab.view
-            y: navBar.maxY - 20
             width: @.width
-            height: @.height
+            height: messagesTab.view.height
             scrollHorizontal: false
+            directionLock: true
                 
         myDays = new ipz.IpzMyDay({parent: messagesView.content}, user.ActiveFriends)
         lastMessages = new ipz.IpzMessageList({parent: messagesView.content, y: myDays.maxY}, user.Friends[0..20])

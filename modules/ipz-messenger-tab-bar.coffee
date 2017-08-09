@@ -3,37 +3,35 @@ utils = require 'ipz-utils'
 
 exports.defaults = {
 	tab: {
+		superLayer:undefined
 		label: "label"
 		fontsize: 10
-		iconsize: 25
 		activeIcon:undefined
-		inactiveIcon:undefined
-		active: undefined
-		inactive: undefined
-		type: "tab"
-		superLayer:undefined
-		badgeSize: 16
+		iconsize: 25
+		padding: 5		
+		alwaysActive:false
+		canHaveBadge:true
+		badgeSize: 12
 		badgeColor: "#FF3B30"
 		badgeTextStyle : {
-			fontSize: "12px"
-			lineHeight: "36px"
+			fontSize: "10px"
 			color: "#fff"
 			textAlign: "center"
 			fontFamily: "Helvetica Neue', sans-serif"
 		}
 	}
-	bar: {
+	bar: {		
+		superLayer:undefined
+		type:"tabBar"
 		tabs: []
 		start:0
-		type:"tabBar"
 		barTop:0
+		height:52
 		backgroundColor:"white"
+		blur:false
 		activeColor:"blue"
 		inactiveColor:"gray"
-		blur:true
 		viewTop:0
-		viewBottom:52
-		superLayer:undefined
 	}
 }
 
@@ -42,20 +40,11 @@ exports.defaults.bar.props = Object.keys(exports.defaults.bar)
 
 exports.tab = (array) ->
 	setup = ios.utils.setupComponent(array, exports.defaults.tab)
-	specs =
-		width: 75
-
-	switch ios.device.name
-		when "iphone-5"
-			specs.width = 55
 
 	tab = new ios.View
 		superLayer:setup.superLayer
 		backgroundColor:"transparent"
 		name:setup.label
-		constraints:
-			width:specs.width
-			height:52
 
 	tab.view = new ios.View
 		superLayer:setup.superLayer
@@ -64,97 +53,76 @@ exports.tab = (array) ->
 		constraints:
 			leading:0
 			trailing:0
-			bottom:setup.viewBottom
-
-	# Create Active
-	tab.active = new ios.View
-		name:".active"
-		backgroundColor:"transparent"
-		constraints:
 			top:0
-			bottom:Screen.height
-			leading:0
-			trailing:0
+			bottom:0
+
+	# Create Container
+	tab.container = new ios.View
+		name: setup.label + ".container"
 		superLayer:tab
-
-	tab.active.icon = new ios.View
-		name:".active.icon"
-		constraints:
-			width:setup.iconsize
-			height:setup.iconsize
-			align:"horizontal"
-			top:7
 		backgroundColor:"transparent"
-		superLayer:tab.active
-
-	if setup.active == undefined
-		if setup.activeIcon != undefined
-			tab.active.icon.image = setup.activeIcon
-			tab.active.icon.width = setup.iconsize
-			tab.active.icon.height = setup.iconsize
-	else
-		setup.active.superLayer = tab.active.icon
-		setup.active.props =
-			width:tab.active.icon.width
-			height:tab.active.icon.height
-
-	# Create Inactive
-	tab.inactive = new ios.View
-		backgroundColor:"transparent"
-		name:".inactive"
 		constraints:
-			top:0
-			bottom:Screen.height
-			leading:0
-			trailing:0
-		superLayer:tab
-
-	tab.inactive.icon = new ios.View
-		constraints:
-			width:setup.iconsize
-			height:setup.iconsize
-			align:"horizontal"
-			top:7
-		backgroundColor:"transparent"
-		name:".inactive.icon"
-		superLayer:tab.inactive
-
-	tab.label = new ios.Text
-		text:setup.label
-		superLayer:tab
-		color:"#929292"
-		fontSize:setup.fontsize
-		name:".label"
-		textTransform:"capitalize"
-
-	tab.label.constraints =
-		horizontalCenter: tab.active
-
-	if setup.inactive == undefined
-		if setup.inactiveIcon != undefined
-			tab.inactive.icon.image = setup.inactiveIcon
-			tab.inactive.icon.width = setup.iconsize
-			tab.inactive.icon.height = setup.iconsize
-
-	else
-		setup.inactive.superLayer = tab.inactive.icon
-		setup.inactive.props =
-			width:tab.inactive.icon.width
-			height:tab.inactive.icon.height
+			top:setup.padding
+			bottom:setup.padding
+			leading:setup.padding
+			trailing:setup.padding
 
 	if setup.activeIcon != undefined
-		tab.badgeLayer = new Layer
-			name:setup.label + ".badge"
-			width: setup.badgeSize
-			height: setup.badgeSize
-			x: 0
-			y: 6
-			borderRadius: 18
-			superLayer: tab
-			backgroundColor: setup.badgeColor
-		tab.badgeLayer.style = setup.badgeTextStyle
-		tab.badgeLayer.centerX(16)
-		tab.badgeLayer.visible = false
+		tab.icon = new ios.View
+			name: setup.label + ".icon"
+			superLayer:tab.container
+			backgroundColor:"transparent"
+			constraints:
+				width:setup.iconsize
+				height:setup.iconsize
+				align:"horizontal"
+		tab.imageLayer = new ios.View
+			name: setup.label + ".image"
+			superLayer:tab.icon
+			image: setup.activeIcon
+			backgroundColor:"transparent"
+			constraints:
+				width:setup.iconsize
+				height:setup.iconsize
+
+		if (setup.canHaveBadge)
+			tab.badge = new Layer
+				name:setup.label + ".badge"
+				superLayer: tab.icon
+				width: setup.badgeSize
+				height: setup.badgeSize
+				borderRadius: 18			
+				backgroundColor: setup.badgeColor
+				style: setup.badgeTextStyle
+				x:Align.right(7)
+				y:Align.top
+			tab.badge.visible = false
+
+	if (setup.label != "")	
+		tab.label = new ios.Text
+			name: setup.label + ".label"
+			superLayer:tab.container
+			text:setup.label
+			color:"#929292"
+			fontSize:setup.fontsize
+			constraints:
+				align:"horizontal"
+				bottom:0
+
+	tab.setActive = (value) ->
+		if (value == true)
+			tab.label.color = ios.utils.color("blue")
+			if (tab.imageLayer != undefined)
+				tab.imageLayer.saturate = 100
+				tab.imageLayer.brightness = 100
+		else
+			if (!setup.alwaysActive)
+				tab.label.color = ios.utils.color("grey")
+				if (tab.imageLayer != undefined)
+					tab.imageLayer.saturate = 0
+					tab.imageLayer.brightness = 150
+
+		utils.setVisible(tab.view, value)
 
 	return tab
 
@@ -169,7 +137,7 @@ exports.bar = (array) ->
 		setup.tabs.push dummyTab2
 
 	specs =
-		width : Screen.width / setup.tabs.length
+		width : setup.superLayer.width / setup.tabs.length
 
 	bar = new ios.View
 		superLayer:setup.superLayer
@@ -178,6 +146,7 @@ exports.bar = (array) ->
 		constraints:
 			leading:0
 			trailing:0
+			height:setup.height
 
 	bar.bg = new ios.View
 		superLayer:bar
@@ -185,6 +154,8 @@ exports.bar = (array) ->
 		constraints:
 			leading:0
 			trailing:0
+			top:0
+			bottom:0
 
 	bar.divider = new ios.View
 		backgroundColor:"#B2B2B2"
@@ -200,68 +171,55 @@ exports.bar = (array) ->
 		backgroundColor:"transparent"
 		name:".box"
 		constraints:
-			width: Screen.width #setup.tabs.length * specs.width
+			leading:0
+			trailing:0
+			top:0
+			bottom:0
 
 	if setup.type == "navBar"
 		bar.constraints.top = setup.barTop
-		bar.constraints.height = 22
 		bar.bg.constraints.top = 0
-		bar.bg.constraints.height = 22
-		bar.box.constraints.height = 22
-		bar.divider.y = 22
+		bar.divider.y = setup.height
 	else
 		bar.constraints.bottom = 0
-		bar.constraints.height = 52
 		bar.bg.constraints.bottom = 0
-		bar.bg.constraints.height = 52
-		bar.box.constraints.height = 52
-		bar.divider.top = 70
 
 	setActive = (tabIndex) ->
 		for tab, index in setup.tabs
 			if index == tabIndex
-				tab.label.color = ios.utils.color(setup.activeColor)
-				tab.active.visible = true
-				tab.inactive.visible = false
-				utils.setVisible(tab.view, true)
+				tab.setActive(true)
 			else
-				tab.label.color = ios.utils.color(setup.inactiveColor)
-				tab.active.visible = false
-				tab.inactive.visible = true
-				utils.setVisible(tab.view, false)
+				tab.setActive(false)
 
 	bar.setBadgeValue = (tabIndex, value) =>
 		# Adds a badge to the tab item if value is a number > 0 and removes the badge if null
 		for tab, index in setup.tabs
 			if index == tabIndex
 				if value
-					tab.badgeLayer.html = value
-					tab.badgeLayer.visible = true
+					tab.badge.html = value
+					tab.badge.visible = true
 				else
-					tab.badgeLayer.visible = false
+					tab.badge.visible = false
 
 	for tab, index in setup.tabs
 		#Check for vaild tab object
 		bar.box.addSubLayer(tab)
+
 		# Change colors
-		# ios.utils.changeFill(tab.active.icon, ios.utils.color(setup.activeColor))
-		# ios.utils.changeFill(tab.inactive.icon, ios.utils.color(setup.inactiveColor))
 		tab.label.color = ios.utils.color(setup.inactiveColor)
 		bar.bg.backgroundColor = setup.backgroundColor
 
 		if setup.blur
 			bar.bg.backgroundColor = "rgba(255,255,255, .9)"
 			ios.utils.bgBlur(bar.bg)
-
+		
 		tab.view.constraints.top = setup.viewTop
-		tab.view.constraints.bottom = setup.viewBottom
 
-		if setup.type == "navBar"
-			specs.width = bar.width / setup.tabs.length
-			tab.constraints.width = specs.width
-			tab.constraints.height = 22
-		else
-			tab.label.constraints.top = setup.viewBottom - 10
+		if setup.type == "tabBar"
+			tab.view.constraints.bottom = setup.height
+		
+		tab.constraints.width = specs.width
+		tab.constraints.height = setup.height
 
 		if index == 0
 			tab.constraints.leading = 0

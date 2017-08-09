@@ -1,5 +1,6 @@
 ios = require "ios-kit"
 IpzMessenger = require "ipz-messenger"
+StatusBarLayer = require "StatusBarLayer"
 
 class IpzChatBot extends Layer
     @flow = undefined
@@ -19,6 +20,9 @@ class IpzChatBot extends Layer
         @statusBar = new ios.StatusBar
             carrier: user.Carrier
 
+        # @statusBar = new StatusBarLayer
+        #     carrier: user.Carrier
+
         @flow = new FlowComponent
             superLayer:@
 
@@ -26,7 +30,7 @@ class IpzChatBot extends Layer
 
     showNext: (viewName) ->
         view = switch viewName
-            when "Main" then new IpzMessenger({name:"main", y:@statusBar.height}, @user)
+            when "Main" then new IpzMessenger({name:"main", y:@statusBar.maxY}, @user)
             # when "Chat" then new IpzMessengerChat(contentView)
                 
         @flow.showNext(view)

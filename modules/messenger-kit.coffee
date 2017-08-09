@@ -77,6 +77,7 @@ class MyDays extends ScrollComponent
 		options.width = Screen.width - style.margins
 		options.height = options.scale * (125 + style.margins)
 		options.scrollVertical = false
+		options.directionLock = true
 
 		super options
 
