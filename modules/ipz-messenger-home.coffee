@@ -47,9 +47,8 @@ class IpzMessengerHome extends Layer
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
-            barTop:searchBox.maxY + 5
-            viewTop:60  #TODO not hard-coded
             height: 22
+            barTop:searchBox.maxY + 5
 
         ## END HEADER
 
@@ -65,7 +64,8 @@ class IpzMessengerHome extends Layer
             superLayer: groupsTab.view
             width: @.width
             height: @.height
-            backgroundColor: Screen.backgroundColor        
+            backgroundColor: Screen.backgroundColor      
+
         messagesView = new ScrollComponent
             name:"MessagesScroll"
             superLayer: messagesTab.view

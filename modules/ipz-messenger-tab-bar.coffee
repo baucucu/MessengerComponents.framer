@@ -212,10 +212,11 @@ exports.bar = (array) ->
 		if setup.blur
 			bar.bg.backgroundColor = "rgba(255,255,255, .9)"
 			ios.utils.bgBlur(bar.bg)
-		
-		tab.view.constraints.top = setup.viewTop
-
-		if setup.type == "tabBar"
+				
+		if (setup.type == "navBar")
+			tab.view.constraints.top = setup.barTop + setup.height
+		else
+			tab.view.constraints.top = setup.viewTop
 			tab.view.constraints.bottom = setup.height
 		
 		tab.constraints.width = specs.width
