@@ -15,11 +15,21 @@ class IpzMessenger extends Layer
             superLayer: @
             label:"Home"
             activeIcon:"images/HomeIconActive.png"
+            view: new ipz.IpzMessengerHome({superLayer: @}, user)
             
         callsTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"Calls"
             activeIcon:"images/CallsIconActive.png"
+            view: new ios.View
+                name:"Calls.view"
+                superLayer: @
+                backgroundColor: "red"
+                constraints:
+                    leading:0
+                    trailing:0
+                    top:0
+                    bottom:0
             
         cameraTab = new ipz.IpzMessengerTab
             superLayer: @
@@ -33,11 +43,29 @@ class IpzMessenger extends Layer
             superLayer: @
             label:"People"
             activeIcon:"images/PeopleIconActive.png"
+            view:new ios.View
+                name:"People.view"
+                superLayer: @
+                backgroundColor: "orange"
+                constraints:
+                    leading:0
+                    trailing:0
+                    top:0
+                    bottom:0
             
         gamesTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"Games"
             activeIcon:"images/GamesIconActive.png"
+            view:new ios.View
+                name:"Games.view"
+                superLayer: @
+                backgroundColor: "green"
+                constraints:
+                    leading:0
+                    trailing:0
+                    top:0
+                    bottom:0
             
         tabBar = new ipz.IpzMessengerTabBar
             superLayer: @
@@ -51,39 +79,10 @@ class IpzMessenger extends Layer
         tabBar.setBadgeValue(0, 5)
         tabBar.setBadgeValue(1, 2)
 
-        homeView = new ipz.IpzMessengerHome({superLayer: homeTab.view}, user)   #, height: Screen.height-130
-
-        callsView = new ios.View
-            name:"calls"
-            superLayer: callsTab.view
-            backgroundColor: "red"
-            constraints:
-                leading:0
-                trailing:0
-                top:0
-                bottom:0
-
         camView = new ios.View
+            name:"Camera.view"
             superLayer: cameraTab.view
             backgroundColor: "black"
-            constraints:
-                leading:0
-                trailing:0
-                top:0
-                bottom:0
-
-        peopleView = new ios.View
-            superLayer: peopleTab.view
-            backgroundColor: "orange"
-            constraints:
-                leading:0
-                trailing:0
-                top:0
-                bottom:0
-
-        gamesView = new ios.View
-            superLayer: gamesTab.view
-            backgroundColor: "green"
             constraints:
                 leading:0
                 trailing:0

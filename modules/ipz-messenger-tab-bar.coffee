@@ -4,9 +4,10 @@ utils = require 'ipz-utils'
 exports.defaults = {
 	tab: {
 		superLayer:undefined
+		view:undefined
 		label: "label"
 		fontsize: 10
-		activeIcon:undefined
+		activeIcon:undefined	# TODO rename as icon
 		iconsize: 25
 		padding: 5		
 		alwaysActive:false
@@ -14,10 +15,9 @@ exports.defaults = {
 		badgeSize: 12
 		badgeColor: "#FF3B30"
 		badgeTextStyle : {
-			fontSize: "10px"
+			fontSize: 10
 			color: "#fff"
 			textAlign: "center"
-			fontFamily: "Helvetica Neue', sans-serif"
 		}
 	}
 	bar: {		
@@ -46,15 +46,22 @@ exports.tab = (array) ->
 		backgroundColor:"transparent"
 		name:setup.label
 
-	tab.view = new ios.View
-		superLayer:setup.superLayer
-		name:setup.label + ".view"
-		backgroundColor:"transparent"
-		constraints:
+	if (setup.view != undefined)
+		tab.view = setup.view
+		tab.view.constraints =
 			leading:0
 			trailing:0
-			top:0
 			bottom:0
+	else
+		tab.view = new ios.View
+			superLayer:setup.superLayer
+			name:setup.label + ".view"
+			backgroundColor:"transparent"
+			constraints:
+				leading:0
+				trailing:0
+				top:0
+				bottom:0
 
 	# Create Container
 	tab.container = new ios.View
@@ -86,16 +93,18 @@ exports.tab = (array) ->
 				height:setup.iconsize
 
 		if (setup.canHaveBadge)
-			tab.badge = new Layer
+			tab.badge = new TextLayer
 				name:setup.label + ".badge"
 				superLayer: tab.icon
-				width: setup.badgeSize
-				height: setup.badgeSize
-				borderRadius: 18			
-				backgroundColor: setup.badgeColor
-				style: setup.badgeTextStyle
 				x:Align.right(7)
 				y:Align.top
+				width: setup.badgeSize
+				height: setup.badgeSize
+				borderRadius: 18
+				backgroundColor: setup.badgeColor				
+				fontSize: setup.badgeTextStyle.fontSize
+				color: setup.badgeTextStyle.color
+				textAlign: setup.badgeTextStyle.textAlign	
 			tab.badge.visible = false
 
 	if (setup.label != "")	
@@ -196,7 +205,7 @@ exports.bar = (array) ->
 		for tab, index in setup.tabs
 			if index == tabIndex
 				if value
-					tab.badge.html = value
+					tab.badge.text = value
 					tab.badge.visible = true
 				else
 					tab.badge.visible = false

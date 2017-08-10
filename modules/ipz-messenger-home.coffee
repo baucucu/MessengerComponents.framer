@@ -4,9 +4,8 @@ ipz = require 'ipz-messenger-kit'
 class IpzMessengerHome extends Layer
 
     constructor:(options={}, user) ->
-
         options.name ?= "Messenger.Home"
-        options.width ?= Screen.width
+        options.width ?= options.superLayer.width
         options.height ?= options.superLayer.height
         options.backgroundColor ?= Screen.backgroundColor
         options.navBarLabelsFontSize ?= 17
@@ -32,14 +31,31 @@ class IpzMessengerHome extends Layer
             label:"Active"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
+            view: new ios.View
+                superLayer: @
+                width: @.width
+                height: @.height
+                backgroundColor: Screen.backgroundColor
+
         groupsTab = new ipz.IpzMessengerTab
             label:"Groups"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
+            view: new ios.View
+                superLayer: @
+                width: @.width
+                height: @.height
+                backgroundColor: Screen.backgroundColor
+
         messagesTab = new ipz.IpzMessengerTab
             label:"Messages"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
+            view: new ScrollComponent
+                name:"MessagesScroll"
+                superLayer: @
+                scrollHorizontal: false
+                directionLock: true
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
@@ -54,28 +70,9 @@ class IpzMessengerHome extends Layer
 
 
         ## NAV VIEWS
-        activeView = new ios.View
-            superLayer: activeTab.view
-            width: @.width
-            height: @.height
-            backgroundColor: Screen.backgroundColor
-        
-        groupsView = new ios.View
-            superLayer: groupsTab.view
-            width: @.width
-            height: @.height
-            backgroundColor: Screen.backgroundColor      
-
-        messagesView = new ScrollComponent
-            name:"MessagesScroll"
-            superLayer: messagesTab.view
-            width: @.width
-            height: messagesTab.view.height
-            scrollHorizontal: false
-            directionLock: true
                 
-        myDays = new ipz.IpzMyDay({parent: messagesView.content}, user.ActiveFriends)
-        lastMessages = new ipz.IpzMessageList({parent: messagesView.content, y: myDays.maxY}, user.Friends[0..20])
+        myDays = new ipz.IpzMyDay({parent: messagesTab.view.content}, user.ActiveFriends)
+        lastMessages = new ipz.IpzMessageList({parent: messagesTab.view.content, y: myDays.maxY}, user.Friends[0..20])
         
         ## END NAV VIEWS
 

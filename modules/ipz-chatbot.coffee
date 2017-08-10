@@ -30,7 +30,7 @@ class IpzChatBot extends Layer
 
     showNext: (viewName) ->
         view = switch viewName
-            when "Main" then new IpzMessenger({name:"main", y:@statusBar.maxY}, @user)
+            when "Main" then new IpzMessenger({superLayer:@, name:"main", y:@statusBar.maxY}, @user)
             # when "Chat" then new IpzMessengerChat(contentView)
 
         @flow.showNext(view)
