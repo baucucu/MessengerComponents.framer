@@ -3,7 +3,10 @@ ipz = require 'ipz-messenger-kit'
 
 class IpzMessengerHome extends Layer
 
-    constructor:(options={}, user) ->
+    @avatar = undefined
+    @messagesTab = undefined
+
+    constructor:(options={}) ->
         options.name ?= "Messenger.Home"
         options.width ?= options.superLayer.width
         options.height ?= options.superLayer.height
@@ -16,8 +19,8 @@ class IpzMessengerHome extends Layer
 
         searchBox = new ipz.IpzMessengerSearchBox({superLayer: @})
         
-        avatar = new ipz.IpzAvatar({scale:0.7, superLayer: @, x:Align.left(10), y:Align.top(-3), name:"Avatar"}, user)
-        
+        @avatar = new ipz.IpzAvatar({scale:0.7, superLayer: @, x:Align.left(10), y:Align.top(-3), name:"Avatar"})
+                
         # TODO image button class
         compose = new Layer
             superLayer: @
@@ -47,7 +50,7 @@ class IpzMessengerHome extends Layer
                 height: @.height
                 backgroundColor: Screen.backgroundColor
 
-        messagesTab = new ipz.IpzMessengerTab
+        @messagesTab = new ipz.IpzMessengerTab
             label:"Messages"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
@@ -59,7 +62,7 @@ class IpzMessengerHome extends Layer
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[messagesTab, activeTab, groupsTab]
+            tabs:[@messagesTab, activeTab, groupsTab]
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
@@ -68,12 +71,9 @@ class IpzMessengerHome extends Layer
 
         ## END HEADER
 
-
-        ## NAV VIEWS
-                
-        myDays = new ipz.IpzMyDay({parent: messagesTab.view.content}, user.ActiveFriends)
-        lastMessages = new ipz.IpzMessageList({parent: messagesTab.view.content, y: myDays.maxY}, user.Friends[0..20])
-        
-        ## END NAV VIEWS
+    setUser:(user) ->
+        @avatar.setUser(user)   
+        myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.ActiveFriends)
+        lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY}, user.Friends)
 
 module.exports = IpzMessengerHome

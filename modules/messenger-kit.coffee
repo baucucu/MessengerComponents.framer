@@ -17,14 +17,14 @@ exports.style = style
 
 class Avatar extends Layer
 
-	constructor: (options = {}, user) ->
+	constructor: (options = {}) ->
 		options.scale ?= 1
 		options.width = options.height = 50 * options.scale
 		options.backgroundColor = "#EEEEEE"
 		options.borderRadius = 100
 
-		options.image ?= user.image_0
-		options.status ?= user.status
+		options.image ?= "images/meIconActive.png"	#user.image_0
+		options.status ?= "inactive" 				#user.status
 
 		super options
 
@@ -52,15 +52,19 @@ class Avatar extends Layer
 				borderColor: "#FFFFFF"
 				image: "images/messengerIcon.png"
 			myDay:
-					borderColor: "#FFFFFF"
-					borderWidth: options.scale * 2
-					image: null
-					backgroundColor: "#0076FF"
+				borderColor: "#FFFFFF"
+				borderWidth: options.scale * 2
+				image: null
+				backgroundColor: "#0076FF"
 
 		@.subLayers[0].animate(options.status)
 
 	changeStatus: (type) =>
 		@.subLayers[0].animate(type)
+
+	setUser: (user) ->
+		@.image = user.image_0
+		@.status = user.status
 
 exports.Avatar = Avatar
 
@@ -82,7 +86,7 @@ class MyDays extends ScrollComponent
 		super options
 
 		for user, index in users
-			myDay = new Avatar({}, user)
+			myDay = new Avatar({})
 			myDay.parent = @.content
 			myDay.width = 90
 			myDay.height = 125
@@ -92,7 +96,9 @@ class MyDays extends ScrollComponent
 			myDay.subLayers[0].width = myDay.subLayers[0].height = 14
 			myDay.subLayers[0].y = Align.top(-4)
 			myDay.subLayers[0].x = Align.right(4)
+			
 			myDay.changeStatus("myDay")
+			myDay.setUser(user)
 
 exports.MyDays = MyDays
 
@@ -117,7 +123,8 @@ class MessageListItem extends Layer
 		options.lastMessage = user.messageText
 		options.lastMessageTime = user.messageTime
 
-		avatar = new Avatar({parent: @, y: style.margin * options.scale }, user)
+		avatar = new Avatar({parent: @, y: style.margin * options.scale })
+		avatar.setUser(user)
 
 		name = new TextLayer
 			name: "name"
@@ -190,7 +197,7 @@ class ActiveFriendsScrollList extends ScrollComponent
 				x: index * (50 + style.margin)
 				width: 50
 				backgroundColor: "transparent"
-			avatar = new Avatar({parent: container}, user)
+			avatar = new Avatar({parent: container})
 			name = new TextLayer
 				parent: container
 				text: user.firstname
@@ -200,6 +207,7 @@ class ActiveFriendsScrollList extends ScrollComponent
 			avatar.x = name.x = Align.center
 			@.content.height = container.height = avatar.height + name.height + 5
 			@.content.y = Align.center
+			avatar.setUser(user)
 
 exports.ActiveFriendsScrollList = ActiveFriendsScrollList
 

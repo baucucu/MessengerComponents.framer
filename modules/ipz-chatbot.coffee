@@ -4,10 +4,10 @@ IpzMessenger = require "ipz-messenger"
 
 class IpzChatBot extends Layer
     @flow = undefined
-    @user = undefined
+    @view = undefined
     @statusBar = undefined
 
-    constructor:(options = {}, user) ->
+    constructor:(options = {}) ->
         options.name ?= "ChatBot"
         options.width ?= Screen.width
         options.height ?= Screen.height
@@ -15,13 +15,7 @@ class IpzChatBot extends Layer
 
         super options
 
-        @user = user
-
-        @statusBar = new ios.StatusBar
-            carrier: user.Carrier
-
-        # @statusBar = new StatusBarLayer
-        #     carrier: user.Carrier
+        @statusBar = new ios.StatusBar #new StatusBarLayer
 
         @flow = new FlowComponent
             superLayer:@
@@ -29,11 +23,15 @@ class IpzChatBot extends Layer
         @flow.header = @statusBar
 
     showNext: (viewName) ->
-        view = switch viewName
-            when "Main" then new IpzMessenger({superLayer:@, name:"main", y:@statusBar.maxY}, @user)
+        @view = switch viewName
+            when "Main" then new IpzMessenger({superLayer:@, name:"main", y:@statusBar.maxY})
             # when "Chat" then new IpzMessengerChat(contentView)
 
-        @flow.showNext(view)
+        @flow.showNext(@view)
+
+    setUser:(user) ->
+        @view.setUser(user)
+        @statusBar.carrier = user.Carrier
 
 
 module.exports = IpzChatBot

@@ -3,7 +3,10 @@ ipz = require "ipz-messenger-kit"
 
 class IpzMessenger extends Layer
 
-    constructor:(options = {}, user) ->
+    @homeTab = undefined
+    @tabBar = undefined
+
+    constructor:(options = {}) ->
         options.name ?= "Messenger.Main"
         options.width ?= Screen.width
         options.height ?= Screen.height
@@ -11,11 +14,11 @@ class IpzMessenger extends Layer
 
         super options
 
-        homeTab = new ipz.IpzMessengerTab
+        @homeTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"Home"
             activeIcon:"images/HomeIconActive.png"
-            view: new ipz.IpzMessengerHome({superLayer: @}, user)
+            view: new ipz.IpzMessengerHome({superLayer: @})
             
         callsTab = new ipz.IpzMessengerTab
             superLayer: @
@@ -67,17 +70,13 @@ class IpzMessenger extends Layer
                     top:0
                     bottom:0
             
-        tabBar = new ipz.IpzMessengerTabBar
+        @tabBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[homeTab, callsTab, cameraTab, peopleTab, gamesTab]
+            tabs:[@homeTab, callsTab, cameraTab, peopleTab, gamesTab]
             start:0
             activeColor:"blue"
             inactiveColor:"grey"            
             viewTop:options.y
-
-        #  TODO set based on data from DB
-        tabBar.setBadgeValue(0, 5)
-        tabBar.setBadgeValue(1, 2)
 
         camView = new ios.View
             name:"Camera.view"
@@ -87,6 +86,13 @@ class IpzMessenger extends Layer
                 leading:0
                 trailing:0
                 top:0
-                bottom:0
+                bottom:0                
+
+    setUser:(user) ->
+        @homeTab.view.setUser(user)
+
+        #  TODO set based on data from DB
+        @tabBar.setBadgeValue(0, 5)
+        @tabBar.setBadgeValue(1, 2)
 
 module.exports = IpzMessenger

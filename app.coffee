@@ -12,9 +12,16 @@ Framer.Defaults.Layer.force2d = true
 ios.device.name = "iphone-6s"
 ios.device.scale = 1
 
-# Users database
-################
 
+
+# Init view
+bot = new IpzChatBot({})
+bot.showNext("Main")
+
+
+
+
+# Get data
 usersDB = new usersModule
 users = usersDB.getUsers({}, 20, "", "serialno", -1)
 activeUsers = usersDB.getActiveUsers(users)
@@ -24,7 +31,4 @@ loggedInUser.Friends = users[1..20]
 loggedInUser.ActiveFriends = activeUsers
 loggedInUser.Carrier = "VodafoneRO"
 
-bot = new IpzChatBot({}, loggedInUser)
-bot.showNext("Main")
-
-
+bot.setUser(loggedInUser)
