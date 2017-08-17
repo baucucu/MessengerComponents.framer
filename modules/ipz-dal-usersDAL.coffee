@@ -4,9 +4,6 @@ class BaseDAL
 
     getDbData: (table, query, max, filter, sort, sortDir, callback) ->
         queryString = "#{url}/#{table}?apikey=#{apikey}&max=#{max}&sort=#{sort}&dir=#{sortDir}&filter=#{filter}&idtolink=true&q="+JSON.stringify(query)
-        # load data from db
-        # dbData = JSON.parse Utils.domLoadDataSync queryString
-        # return dbData
         Utils.domLoadData(queryString, callback)
 
 class UsersDAL extends BaseDAL

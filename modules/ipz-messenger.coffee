@@ -91,8 +91,9 @@ class IpzMessenger extends Layer
     setUser:(user) ->
         @homeTab.view.setUser(user)
 
-        #  TODO set based on data from DB
-        @tabBar.setBadgeValue(0, 5)
-        @tabBar.setBadgeValue(1, 2)
+        @tabBar.setBadgeValue(0, user.HomeBadge)
+        @tabBar.setBadgeValue(1, user.CallsBadge)
+        @tabBar.setBadgeValue(3, user.PeopleBadge)
+        @tabBar.setBadgeValue(4, user.GamesBadge)
 
 module.exports = IpzMessenger
