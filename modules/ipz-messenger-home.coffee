@@ -35,6 +35,7 @@ class IpzMessengerHome extends Layer
             fontsize:options.navBarLabelsFontSize
             superLayer: @
             view: new ios.View
+                name:"Active.view"
                 superLayer: @
                 width: @.width
                 height: @.height
@@ -45,6 +46,7 @@ class IpzMessengerHome extends Layer
             fontsize:options.navBarLabelsFontSize
             superLayer: @
             view: new ios.View
+                name:"Groups.view"
                 superLayer: @
                 width: @.width
                 height: @.height
@@ -60,6 +62,8 @@ class IpzMessengerHome extends Layer
                 scrollHorizontal: false
                 directionLock: true
 
+        @messagesTab.view.content.backgroundColor = @.backgroundColor
+
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
             tabs:[@messagesTab, activeTab, groupsTab]
@@ -73,7 +77,7 @@ class IpzMessengerHome extends Layer
 
     setUser:(user) ->
         @avatar.setUser(user)   
-        myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.ActiveFriends)
+        myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.MyDays)
         lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY}, user.Friends)
 
 module.exports = IpzMessengerHome
