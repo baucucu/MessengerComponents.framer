@@ -171,12 +171,12 @@ MessageListItem = (function(superClass) {
       x: name.x,
       y: name.maxY,
       lineHeight: 1.5,
-      width: this.width - avatar.width,
+      width: this.width - avatar.width - 8,
       height: 19,
       text: options.lastMessage,
-      fontSize: 16 * options.scale
+      fontSize: 16 * options.scale,
+      textOverflow: "elipsis"
     });
-    lastMessage.textOverflow = "elipsis";
     lastMessageTime = new TextLayer({
       name: "lastMessageTime",
       parent: this,

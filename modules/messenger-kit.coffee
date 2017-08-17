@@ -142,12 +142,11 @@ class MessageListItem extends Layer
 			x: name.x
 			y: name.maxY
 			lineHeight: 1.5
-			width: @.width - avatar.width
+			width: @.width - avatar.width - 8
 			height: 19
 			text: options.lastMessage
 			fontSize: 16 * options.scale
-
-		lastMessage.textOverflow = "elipsis"
+			textOverflow: "elipsis"
 
 
 		lastMessageTime = new TextLayer
