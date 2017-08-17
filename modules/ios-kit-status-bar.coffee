@@ -1,9 +1,9 @@
 ios = require 'ios-kit'
 
 exports.defaults = {
-	carrier:""
+	carrier:"VodafoneRO"
 	network:"4G"
-	battery:100
+	battery: 80
 	signal:5
 	style:"dark"
 	clock24:false
@@ -77,7 +77,7 @@ exports.create = (array) ->
 		time.constraints =
 			align:"horizontal"
 			top:@topConstraint
-			
+
 	signal = []
 	if setup.signal < 1
 		noNetwork = new ios.Text superLayer:statusBar, fontSize:12, text:"No Network"
@@ -154,7 +154,7 @@ exports.create = (array) ->
 		trailing : 7
 		top:@batteryIcon
 		# verticalCenter: time
-		
+
 
 	batteryPercent = new ios.Text style:"statusBarBatteryPercent", text:setup.battery + "%", superLayer:statusBar, fontSize:12, color:@color, name:"batteryPercent"
 	batteryPercent.constraints =
