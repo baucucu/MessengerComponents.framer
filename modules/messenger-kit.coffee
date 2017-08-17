@@ -59,12 +59,13 @@ class Avatar extends Layer
 
 		@.subLayers[0].animate(options.status)
 
-	changeStatus: (type) =>
-		@.subLayers[0].animate(type)
-
 	setUser: (user) ->
 		@.image = user.image_0
 		@.status = user.status
+
+	changeStatus: (type) =>
+		@.subLayers[0].animate(type)
+
 
 exports.Avatar = Avatar
 
@@ -125,6 +126,7 @@ class MessageListItem extends Layer
 
 		avatar = new Avatar({parent: @, y: style.margin * options.scale })
 		avatar.setUser(user)
+		avatar.changeStatus(user.status)
 
 		name = new TextLayer
 			name: "name"
@@ -156,6 +158,14 @@ class MessageListItem extends Layer
 			y: name.y
 			fontSize: 15 * options.scale
 			text: options.lastMessageTime
+
+		if user.unread is true
+			lastMessage.fontWeight = 500
+			lastMessage.color = "#000000"
+			name.fontWeight = 500
+			name.color = "#000000"
+			lastMessageTime.fontWeight = 500
+			lastMessageTime.color = "#000000"
 
 	changeName: (name) =>
 		@.name = name

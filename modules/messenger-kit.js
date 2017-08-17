@@ -75,13 +75,13 @@ Avatar = (function(superClass) {
     this.subLayers[0].animate(options.status);
   }
 
-  Avatar.prototype.changeStatus = function(type) {
-    return this.subLayers[0].animate(type);
-  };
-
   Avatar.prototype.setUser = function(user) {
     this.image = user.image_0;
     return this.status = user.status;
+  };
+
+  Avatar.prototype.changeStatus = function(type) {
+    return this.subLayers[0].animate(type);
   };
 
   return Avatar;
@@ -156,6 +156,7 @@ MessageListItem = (function(superClass) {
       y: style.margin * options.scale
     });
     avatar.setUser(user);
+    avatar.changeStatus(user.status);
     name = new TextLayer({
       name: "name",
       parent: this,
@@ -185,6 +186,14 @@ MessageListItem = (function(superClass) {
       fontSize: 15 * options.scale,
       text: options.lastMessageTime
     });
+    if (user.unread === true) {
+      lastMessage.fontWeight = 500;
+      lastMessage.color = "#000000";
+      name.fontWeight = 500;
+      name.color = "#000000";
+      lastMessageTime.fontWeight = 500;
+      lastMessageTime.color = "#000000";
+    }
   }
 
   MessageListItem.prototype.changeName = function(name) {
