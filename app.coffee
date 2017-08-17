@@ -18,17 +18,22 @@ ios.device.scale = 1
 bot = new IpzChatBot({})
 bot.showNext("Main")
 
+getUsers_Callback= (isError, usersString) ->
+    if isError == true
+        # TODO better error handling
+        return null
 
+    users = JSON.parse usersString
+    activeUsers = usersDB.getActiveUsers(users)
 
+    loggedInUser = users[0]
+    loggedInUser.Friends = users[1..20]
+    loggedInUser.ActiveFriends = activeUsers
+    loggedInUser.Carrier = "VodafoneRO"
+
+    bot.setUser(loggedInUser)
 
 # Get data
 usersDB = new usersModule
-users = usersDB.getUsers({}, 20, "", "serialno", -1)
-activeUsers = usersDB.getActiveUsers(users)
+usersDB.getUsers({}, 20, "", "serialno", -1, getUsers_Callback)
 
-loggedInUser = users[0]
-loggedInUser.Friends = users[1..20]
-loggedInUser.ActiveFriends = activeUsers
-loggedInUser.Carrier = "VodafoneRO"
-
-bot.setUser(loggedInUser)
