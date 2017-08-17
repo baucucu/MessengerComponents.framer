@@ -61,6 +61,7 @@ class IpzMessengerHome extends Layer
                 superLayer: @
                 scrollHorizontal: false
                 directionLock: true
+                width: @.width
 
         @messagesTab.view.content.backgroundColor = @.backgroundColor
 

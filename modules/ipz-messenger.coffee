@@ -28,11 +28,6 @@ class IpzMessenger extends Layer
                 name:"Calls.view"
                 superLayer: @
                 backgroundColor: "red"
-                constraints:
-                    leading:0
-                    trailing:0
-                    top:0
-                    bottom:0
             
         cameraTab = new ipz.IpzMessengerTab
             superLayer: @
@@ -41,6 +36,10 @@ class IpzMessenger extends Layer
             iconsize:45            
             alwaysActive:true
             canHaveBadge:false
+            view: new ios.View
+                name:"Camera.view"
+                superLayer: @
+                backgroundColor: "black"
 
         peopleTab = new ipz.IpzMessengerTab
             superLayer: @
@@ -50,11 +49,6 @@ class IpzMessenger extends Layer
                 name:"People.view"
                 superLayer: @
                 backgroundColor: "orange"
-                constraints:
-                    leading:0
-                    trailing:0
-                    top:0
-                    bottom:0
             
         gamesTab = new ipz.IpzMessengerTab
             superLayer: @
@@ -64,11 +58,6 @@ class IpzMessenger extends Layer
                 name:"Games.view"
                 superLayer: @
                 backgroundColor: "green"
-                constraints:
-                    leading:0
-                    trailing:0
-                    top:0
-                    bottom:0
             
         @tabBar = new ipz.IpzMessengerTabBar
             superLayer: @
@@ -76,17 +65,7 @@ class IpzMessenger extends Layer
             start:0
             activeColor:"blue"
             inactiveColor:"grey"            
-            viewTop:options.y
-
-        camView = new ios.View
-            name:"Camera.view"
-            superLayer: cameraTab.view
-            backgroundColor: "black"
-            constraints:
-                leading:0
-                trailing:0
-                top:0
-                bottom:0                
+            viewTop:options.y               
 
     setUser:(user) ->
         @homeTab.view.setUser(user)

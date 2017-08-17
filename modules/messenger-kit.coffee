@@ -1,5 +1,3 @@
-users = require "ipz-dal-usersDAL"
-
 # Global settings
 
 style =
@@ -18,6 +16,7 @@ exports.style = style
 class Avatar extends Layer
 
 	constructor: (options = {}) ->
+		options.name ?= "Avatar"
 		options.scale ?= 1
 		options.width = options.height = 50 * options.scale
 		options.backgroundColor = "#EEEEEE"
@@ -30,6 +29,7 @@ class Avatar extends Layer
 
 
 		sign = new Layer
+			name: "statusBadge"
 			parent: @
 			x: Align.right
 			y: Align.bottom
@@ -61,7 +61,7 @@ class Avatar extends Layer
 
 	setUser: (user) ->
 		@.image = user.image_0
-		@.status = user.status
+		@.subLayers[0].animate(user.status)
 
 	changeStatus: (type) =>
 		@.subLayers[0].animate(type)
@@ -77,6 +77,7 @@ exports.Avatar = Avatar
 class MyDays extends ScrollComponent
 
 	constructor: (options = {}, users) ->
+		options.name ?= "MyDays"
 		options.scale ?= 1
 		options.x = Align.center
 		options.width = Screen.width - style.margins
@@ -107,22 +108,20 @@ exports.MyDays = MyDays
 # Message List Item
 
 class MessageListItem extends Layer
+	@user = undefined
 
 	constructor: (options = {}, user) ->
+		options.name ?= "MessageListItem"
 		options.scale ?= 1
 		options.x = Align.center
 		options.width = Screen.width - style.margins
 		options.height = 74 * options.scale
 		options.backgroundColor = "transparent"
-
-
 		options.clip = true
 
 		super options
 
-		options.name = user.firstname + " " + user.lastname
-		options.lastMessage = user.messageText
-		options.lastMessageTime = user.messageTime
+		@user = user
 
 		avatar = new Avatar({parent: @, y: style.margin * options.scale })
 		avatar.setUser(user)
@@ -134,7 +133,7 @@ class MessageListItem extends Layer
 			x: avatar.maxX + options.scale * 20
 			y: avatar.y
 			lineHeight: 1.5
-			text: options.name
+			text: user.firstname + " " + user.lastname
 			fontSize: 17 * options.scale
 
 
@@ -146,7 +145,7 @@ class MessageListItem extends Layer
 			lineHeight: 1.5
 			width: @.width - avatar.width - 8
 			height: 19
-			text: options.lastMessage
+			text: user.messageText
 			fontSize: 16 * options.scale
 			textOverflow: "elipsis"
 
@@ -157,7 +156,7 @@ class MessageListItem extends Layer
 			x: Align.right
 			y: name.y
 			fontSize: 15 * options.scale
-			text: options.lastMessageTime
+			text: user.messageTime
 
 		if user.unread is true
 			lastMessage.fontWeight = 500
@@ -167,9 +166,6 @@ class MessageListItem extends Layer
 			lastMessageTime.fontWeight = 500
 			lastMessageTime.color = "#000000"
 
-	changeName: (name) =>
-		@.name = name
-
 exports.MessageListItem = MessageListItem
 
 
@@ -177,6 +173,7 @@ exports.MessageListItem = MessageListItem
 
 class MessageList extends Layer
 	constructor: (options = {}, users) ->
+		options.name ?= "MessageList"
 		options.scale ?= 1
 		options.width = Screen.width - style.margins
 		options.x = Align.center
@@ -184,9 +181,11 @@ class MessageList extends Layer
 		options.height = users.length * 74 * options.scale
 		super options
 
-
 		for user, index in users
 			message = new MessageListItem({parent: @, y: options.scale * index * 74}, user)
+
+			message.on Events.Tap, ->
+				Screen.emit "GotoChat", @.user
 
 exports.MessageList = MessageList
 

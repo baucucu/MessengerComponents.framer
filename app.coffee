@@ -13,11 +13,27 @@ ios.device.name = "iphone-6s"
 ios.device.scale = 1
 
 
-
 # Init view
+#################
 bot = new IpzChatBot({})
-bot.showNext("Main")
+bot.gotoMain()
 
+
+# Navigation events
+#################
+Screen.on "GotoMain", ->
+    bot.gotoMain()
+
+Screen.on "GotoChat", (user)->
+    bot.gotoChat(user)
+
+    bot.appendMessage("test")
+
+Screen.on "GoBack", ->
+    bot.goBack()
+
+
+# DB callback
 getUsers_Callback= (isError, usersString) ->
     if isError == true
         # TODO better error handling

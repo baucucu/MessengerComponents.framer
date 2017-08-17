@@ -129,7 +129,7 @@ exports.tab = (array) ->
 				tab.label.color = ios.utils.color("grey")
 				if (tab.imageLayer != undefined)
 					tab.imageLayer.saturate = 0
-					tab.imageLayer.brightness = 150
+					tab.imageLayer.brightness = 180
 
 		utils.setVisible(tab.view, value)
 
