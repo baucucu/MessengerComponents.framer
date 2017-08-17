@@ -6,6 +6,7 @@ class IpzMessengerChat extends Layer
     @navBar = undefined
     @messageScroll = undefined
     @lastMessage = undefined
+    # @field = undefined
 
     constructor:(options = {}) ->
         options.name ?= "Messenger.Chat"
@@ -21,6 +22,9 @@ class IpzMessengerChat extends Layer
             left:"< Back"
             title: "Name"
             right: "Details"
+
+        @navBar.left.on Events.Tap, ->
+            Screen.emit "GoBack"
         
         @messageScroll = new ScrollComponent
             name:"ConversationScroll"
@@ -31,8 +35,19 @@ class IpzMessengerChat extends Layer
             width: @.width
             height: @.height - @navBar.height
 
-        @navBar.left.on Events.Tap, ->
-            Screen.emit "GoBack"
+        field = new ios.Field
+            name:"inputField"
+            superLayer: @
+            placeholder:"Type a message"
+            constraints:
+                width: @.width
+                height: 30
+                bottom: 0
+
+        field.on Events.TouchEnd, ->
+	        field.keyboard.keys.return.on Events.Tap, ->
+                Screen.emit "SendMessage", field.text.html
+
 
     setUser:(user) ->
         
@@ -56,5 +71,7 @@ class IpzMessengerChat extends Layer
             lineHeight: 1.5
             y: @lastMessage.maxY + 20
             x: Align.left
+
+        @lastMessage = msg
 
 module.exports = IpzMessengerChat

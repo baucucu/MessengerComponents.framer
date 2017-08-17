@@ -10,6 +10,8 @@ IpzChatBot = require "ipz-chatbot"
 Screen.backgroundColor = "white"
 Framer.Defaults.Layer.force2d = true
 ios.device.name = "iphone-6s"
+ios.device.height = Screen.height
+ios.device.width = Screen.width
 ios.device.scale = 1
 
 
@@ -27,7 +29,8 @@ Screen.on "GotoMain", ->
 Screen.on "GotoChat", (user)->
     bot.gotoChat(user)
 
-    bot.appendMessage("test")
+Screen.on "SendMessage", (message) ->
+    bot.appendMessage(message)
 
 Screen.on "GoBack", ->
     bot.goBack()
