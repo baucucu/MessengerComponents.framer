@@ -96,7 +96,7 @@ class MyDays extends ScrollComponent
 			myDay.subLayers[0].width = myDay.subLayers[0].height = 14
 			myDay.subLayers[0].y = Align.top(-4)
 			myDay.subLayers[0].x = Align.right(4)
-			
+
 			myDay.changeStatus("myDay")
 			myDay.setUser(user)
 
@@ -130,20 +130,24 @@ class MessageListItem extends Layer
 			name: "name"
 			parent: @
 			x: avatar.maxX + options.scale * 20
-			y: options.height / 4
+			y: avatar.y
+			lineHeight: 1.5
 			text: options.name
 			fontSize: 17 * options.scale
+
 
 		lastMessage = new TextLayer
 			name: "lastMessage"
 			parent: @
 			x: name.x
-			y: options.height / 1.8
+			y: name.maxY
+			lineHeight: 1.5
 			width: @.width - avatar.width
-			height: 20
+			height: 19
 			text: options.lastMessage
 			fontSize: 16 * options.scale
-			truncate = true
+
+		lastMessage.textOverflow = "elipsis"
 
 
 		lastMessageTime = new TextLayer
