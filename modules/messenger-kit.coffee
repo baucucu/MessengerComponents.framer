@@ -147,7 +147,7 @@ class MessageListItem extends Layer
 			height: 19
 			text: user.messageText
 			fontSize: 16 * options.scale
-			textOverflow: "elipsis"
+			truncate: "true"
 
 
 		lastMessageTime = new TextLayer

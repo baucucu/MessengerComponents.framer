@@ -3,12 +3,12 @@ ios = require 'ios-kit'
 exports.defaults = {
 	carrier:"VodafoneRO"
 	network:"4G"
-	battery: 80
-	signal:5
-	style:"dark"
-	clock24:false
-	type:"statusBar"
-	superLayer:undefined
+	battery: 5
+	signal: 5
+	style: "dark"
+	clock24: false
+	type: "statusBar"
+	superLayer: undefined
 }
 
 exports.defaults.props = Object.keys(exports.defaults)

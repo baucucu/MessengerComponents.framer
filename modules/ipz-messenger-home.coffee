@@ -18,9 +18,9 @@ class IpzMessengerHome extends Layer
         ## HEADER
 
         searchBox = new ipz.IpzMessengerSearchBox({superLayer: @})
-        
-        @avatar = new ipz.IpzAvatar({scale:0.7, superLayer: @, x:Align.left(10), y:Align.top(-3), name:"Avatar"})
-                
+
+        @avatar = new ipz.IpzAvatar({scale: 0.7, superLayer: @, x: Align.left(10), y: Align.top(-3), name: "Avatar"})
+
         # TODO image button class
         compose = new Layer
             superLayer: @
@@ -28,8 +28,8 @@ class IpzMessengerHome extends Layer
             image: "images/CreateIcon.png"
             x: Align.right(-10)
             width: 24
-            height: 24            
-                
+            height: 24
+
         activeTab = new ipz.IpzMessengerTab
             label:"Active"
             fontsize:options.navBarLabelsFontSize
@@ -77,7 +77,7 @@ class IpzMessengerHome extends Layer
         ## END HEADER
 
     setUser:(user) ->
-        @avatar.setUser(user)   
+        @avatar.setUser(user)
         myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.MyDays)
         lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY}, user.Friends)
 
