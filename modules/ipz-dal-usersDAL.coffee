@@ -42,4 +42,11 @@ class UsersDAL extends BaseDAL
 		        myDays.push(user)
         return myDays
 
+    getUnreadCount: (users) ->
+        result = 0
+        for user in users
+	        if user.unread is true
+		        result++
+        return result
+
     module.exports = UsersDAL

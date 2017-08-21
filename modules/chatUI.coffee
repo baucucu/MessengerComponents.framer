@@ -35,13 +35,13 @@ class TextBubble extends TextLayer
 	maxWidth: () ->
 		if  @.width > 256 then @.width = 256
 
+exports.TextBubble = TextBubble
 
+# messageText1 = {text: "What about drinks tomorrow at 7? Are you available for this time?", sender: "user"}
+# messageText2 = {text: "What about drinks tomorrow at 7?",sender: "chatbot" }
 
-messageText1 = {text: "What about drinks tomorrow at 7? Are you available for this time?", sender: "user"}
-messageText2 = {text: "What about drinks tomorrow at 7?",sender: "chatbot" }
-
-user1 = new TextBubble({y: 0}, messageText1)
-chatbot1 = new TextBubble({y:user1.maxY + 10}, messageText2)
+# user1 = new TextBubble({y: 0}, messageText1)
+# chatbot1 = new TextBubble({y:user1.maxY + 10}, messageText2)
 
 
 
@@ -62,6 +62,8 @@ class QuickReply extends TextLayer
 		super options
 		@.onTap ->
 			print options.text
+
+exports.QuickReply = QuickReply
 
 class QuickReplies extends ScrollComponent
 	constructor: (options = {}, replies) ->
@@ -93,7 +95,9 @@ class QuickReplies extends ScrollComponent
 			right: 0
 			left: 0
 
-replies = ["No thanks", "Timisoara", "Iasi", "Cluj-Napoca"]
+exports.QuickReplies = QuickReplies
+
+# replies = ["No thanks", "Timisoara", "Iasi", "Cluj-Napoca"]
 
 # test = new QuickReplies({}, replies)
 
@@ -129,6 +133,8 @@ class Buttons extends Layer
 			bottomLeft: 18
 			bottomRight: 18
 
+exports.Buttons = Buttons
+
 class TextButtons extends Layer
 	constructor: (options = {}, message) ->
 		options.backgroundColor = "transparent"
@@ -138,9 +144,11 @@ class TextButtons extends Layer
 		textBubble = new TextBubble({parent: @}, message.message)
 		buttons = new Buttons({parent: @, y: textBubble.maxY}, message.buttons)
 
-buttonsContent =
-	message: {text: "What about drinks tomorrow at 7? Are you available for this time?", sender: "button"}
-	buttons: ["Iasi", "Cluj", "Timisoara"]
+exports.TextButtons = TextButtons
+
+# buttonsContent =
+# 	message: {text: "What about drinks tomorrow at 7? Are you available for this time?", sender: "button"}
+# 	buttons: ["Iasi", "Cluj", "Timisoara"]
 
 
 # textButtons = new TextButtons({y: 250}, buttonsContent)
@@ -218,6 +226,8 @@ class Card extends Layer
 		for layer in @.children
 			@.height += layer.height
 
+exports.Card = Card
+
 class Carousel extends ScrollComponent
 	constructor: (options = {}, message) ->
 		options.width = Screen.width
@@ -244,14 +254,15 @@ class Carousel extends ScrollComponent
 				card.animate "middle"
 
 
+exports.Carousel = Carousel
 
-cardMessage =
-	title: "Would you like to get a coffee at 7?"
-	subtitle: "Subtitle\nSubtitle\nSubtitle"
-	image: "https://source.unsplash.com/random"
-	buttons: ["Cluj", "Cluj", "Cluj"]
+# cardMessage =
+# 	title: "Would you like to get a coffee at 7?"
+# 	subtitle: "Subtitle\nSubtitle\nSubtitle"
+# 	image: "https://source.unsplash.com/random"
+# 	buttons: ["Cluj", "Cluj", "Cluj"]
 
-carouselMessage = [cardMessage, cardMessage, cardMessage, cardMessage, cardMessage]
+# carouselMessage = [cardMessage, cardMessage, cardMessage, cardMessage, cardMessage]
 
 # card = new Card({padding:8, y:10}, cardMessage)
 
@@ -292,6 +303,9 @@ class TypingIndicator extends Layer
 				dots[1].stateCycle()
 			Utils.delay 0.4,->
 				dots[2].stateCycle()
+
+
+exports.TypingIndicator = TypingIndicator
 
 # indicator = new TypingIndicator
 
@@ -341,11 +355,13 @@ class ChatHeader extends Layer
 			fontSize: 14
 			color: "#ABABAB"
 
-bot =
-	botName: "Vodafone Chatbot"
-	botFans: "62,438 people like this"
-	botCategory: "Telecom"
-	botAvatar: "https://unsplash.it/375/667/?random"
+exports.ChatHeader = ChatHeader
+
+# bot =
+# 	botName: "Vodafone Chatbot"
+# 	botFans: "62,438 people like this"
+# 	botCategory: "Telecom"
+# 	botAvatar: "https://unsplash.it/375/667/?random"
 
 # chatHeader = new ChatHeader({y: 100, parent: null}, bot)
 
@@ -474,6 +490,9 @@ class ListItem extends Layer
 			print @.children[0].children[0].font
 		itemDetails.y = Align.center
 
+
+exports.ListItem = ListItem
+
 class List extends Layer
 	constructor: (options = {}, message) ->
 		options.width = 256
@@ -488,45 +507,46 @@ class List extends Layer
 		@.height += button.height
 
 
+exports.List = List
 
-listMessage =
-	hasHeader: true
-	hasButtons: true
-	button: ["View more"]
-	items:[
-		{
-			state: "header"
-			title: "Classic T-shirt collection"
-			subtitle: "See all our colors"
-			link: "www.imprezzio.com"
-			image: "http://lorempixel.com/400/200/sports/"
-			button: "View"
-		},
-		{
-			state: "regular"
-			title: "Classic White t-shirt"
-			subtitle: "100% cotton, 200% comfortable"
-			image: "http://lorempixel.com/400/200/sports/"
-			link: "www.imprezzio.com"
-			button: "Shop Now"
-		},
-		{
-			state: "regular"
-			title: "Classic Blue t-shirt"
-			subtitle: "100% cotton, 200% comfortable"
-			image: "http://lorempixel.com/400/200/sports/"
-			link: "www.imprezzio.com"
-			button: "Shop Now"
-		},
-		{
-			state: "regular"
-			title: "Classic Black t-shirt"
-			subtitle: "100% cotton, 200% comfortable"
-			image: "http://lorempixel.com/400/200/sports/"
-			link: "www.imprezzio.com"
-			button: "Shop Now"
-		}
-	]
+# listMessage =
+# 	hasHeader: true
+# 	hasButtons: true
+# 	button: ["View more"]
+# 	items:[
+# 		{
+# 			state: "header"
+# 			title: "Classic T-shirt collection"
+# 			subtitle: "See all our colors"
+# 			link: "www.imprezzio.com"
+# 			image: "http://lorempixel.com/400/200/sports/"
+# 			button: "View"
+# 		},
+# 		{
+# 			state: "regular"
+# 			title: "Classic White t-shirt"
+# 			subtitle: "100% cotton, 200% comfortable"
+# 			image: "http://lorempixel.com/400/200/sports/"
+# 			link: "www.imprezzio.com"
+# 			button: "Shop Now"
+# 		},
+# 		{
+# 			state: "regular"
+# 			title: "Classic Blue t-shirt"
+# 			subtitle: "100% cotton, 200% comfortable"
+# 			image: "http://lorempixel.com/400/200/sports/"
+# 			link: "www.imprezzio.com"
+# 			button: "Shop Now"
+# 		},
+# 		{
+# 			state: "regular"
+# 			title: "Classic Black t-shirt"
+# 			subtitle: "100% cotton, 200% comfortable"
+# 			image: "http://lorempixel.com/400/200/sports/"
+# 			link: "www.imprezzio.com"
+# 			button: "Shop Now"
+# 		}
+# 	]
 
 
 # list = new List({}, listMessage)

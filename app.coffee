@@ -44,13 +44,13 @@ getUsers_Callback= (isError, usersString) ->
 
     users = JSON.parse usersString
     myDays = usersDB.getMyDays(users)
+    unreadMessageCount = usersDB.getUnreadCount(users)
 
     loggedInUser = users[0]
     loggedInUser.Carrier = "VodafoneRO"
     loggedInUser.Friends = users[1..20]
     loggedInUser.MyDays = myDays
-    loggedInUser.HomeBadge = 5
-    loggedInUser.PeopleBadge = 2
+    loggedInUser.HomeBadge = unreadMessageCount
 
     bot.setUser(loggedInUser)
 

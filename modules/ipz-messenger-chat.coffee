@@ -74,23 +74,15 @@ class IpzMessengerChat extends Layer
         ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])
 
         if (@lastMessage == undefined)
-            @lastMessage = new ios.Text
-                superLayer: @messageScroll.content
-                text: user.messageText
-                lineHeight: 1.5
-                y: 10
-                x: Align.left
+            msgContent = {text:user.messageText, sender:"chatbot"}
+            @lastMessage = new ipz.IpzTextBubble({superLayer: @messageScroll.content, y:10}, msgContent)
         else
-            ios.utils.update(@lastMessage, [text:user.messageText])
+            @lastMessage.text = user.messageText
 
     appendMessage:(message) ->
-        msg = new ios.Text
-            superLayer: @messageScroll.content
-            text: message
-            lineHeight: 1.5
-            y: @lastMessage.maxY + 20
-            x: Align.left
 
+        msgContent = {text:message, sender:"user"}
+        msg = new ipz.IpzTextBubble({superLayer: @messageScroll.content, y:@lastMessage.maxY + 10}, msgContent)
         @lastMessage = msg
 
 module.exports = IpzMessengerChat
