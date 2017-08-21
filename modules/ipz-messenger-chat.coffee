@@ -34,35 +34,54 @@ class IpzMessengerChat extends Layer
             y: @navBar.maxY
             width: @.width
             height: @.height - @navBar.height
-
-        field = new ios.Field
-            name:"inputField"
+            
+        keyboard = new ios.Keyboard
             superLayer: @
-            placeholder:"Type a message"
+            hidden:true
+            returnText:"Send"
+
+        textField = new ios.Field
+            name: "inputField"
+            superLayer: @
+            keyboard: keyboard
+            placeholder: "Type a message"
+            borderRadius: 2
             constraints:
                 width: @.width
                 height: 30
                 bottom: 0
 
-        field.on Events.TouchEnd, ->
-	        field.keyboard.keys.return.on Events.Tap, ->
-                Screen.emit "SendMessage", field.text.html
+        textField.on Events.TouchEnd, ->
+	        textField.keyboard.keys.return.on Events.Tap, ->
+                Screen.emit "SendMessage", textField.text.html
+                textField.text.html = ""
+                
+            textField.keyboard.on "change:y", ->
+                if textField.keyboard.maxY > Screen.height
+                    textField.constraints.bottom = undefined
+                    textField.maxY = textField.keyboard.y
+                if textField.keyboard.y == Screen.height
+                    textField.keyboard.area.visible = true
+                    
+        Events.wrap(window).addEventListener "keydown", (event) ->
+            if event.keyCode is 13
+                if textField.text.html.length>0
+                    Screen.emit "SendMessage", textField.text.html
+                    textField.text.html = ""
 
 
-    setUser:(user) ->
-        
+    setUser:(user) ->        
         ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])
 
-        if (@lastMessage != undefined)
-            @lastMessage.destroy()
-            @lastMessage = undefined
-
-        @lastMessage = new ios.Text
-            superLayer: @messageScroll.content
-            text: user.messageText
-            lineHeight: 1.5
-            y: 10
-            x: Align.left
+        if (@lastMessage == undefined)
+            @lastMessage = new ios.Text
+                superLayer: @messageScroll.content
+                text: user.messageText
+                lineHeight: 1.5
+                y: 10
+                x: Align.left
+        else
+            ios.utils.update(@lastMessage, [text:user.messageText])
 
     appendMessage:(message) ->
         msg = new ios.Text

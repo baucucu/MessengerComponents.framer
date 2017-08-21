@@ -65,7 +65,7 @@ class IpzMessenger extends Layer
             start:0
             activeColor:"blue"
             inactiveColor:"grey"            
-            viewTop:options.y               
+            viewTop:options.y
 
     setUser:(user) ->
         @homeTab.view.setUser(user)

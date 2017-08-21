@@ -51,7 +51,7 @@ exports.tab = (array) ->
 		tab.view.constraints =
 			leading:0
 			trailing:0
-			bottom:0
+			# bottom:0
 	else
 		tab.view = new ios.View
 			superLayer:setup.superLayer
@@ -224,9 +224,10 @@ exports.bar = (array) ->
 				
 		if (setup.type == "navBar")
 			tab.view.constraints.top = setup.barTop + setup.height
+			tab.view.constraints.bottom = 0
 		else
 			tab.view.constraints.top = setup.viewTop
-			tab.view.constraints.bottom = setup.height
+			tab.view.constraints.height = tab.view.superLayer.height - setup.height - setup.viewTop
 		
 		tab.constraints.width = specs.width
 		tab.constraints.height = setup.height
