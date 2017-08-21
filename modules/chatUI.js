@@ -1,0 +1,741 @@
+var Buttons, Card, Carousel, ChatHeader, List, ListItem, QuickReplies, QuickReply, TextBubble, TextButtons, TypingIndicator, bot, buttonsContent, cardMessage, carouselMessage, chatbot1, listMessage, messageText1, messageText2, replies, user1,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+TextBubble = (function(superClass) {
+  extend(TextBubble, superClass);
+
+  function TextBubble(options, message) {
+    if (options == null) {
+      options = {};
+    }
+    options.text = message.text;
+    options.sender = message.sender;
+    options.borderRadius = 18;
+    options.fontSize = 17;
+    options.padding = {
+      vertical: 8,
+      horizontal: 12
+    };
+    TextBubble.__super__.constructor.call(this, options);
+    this.states = {
+      chatbot: {
+        backgroundColor: "#F1F0F0",
+        x: Align.left,
+        color: "#000000"
+      },
+      user: {
+        backgroundColor: "#0084FF",
+        x: Align.right,
+        color: "#FFFFFF"
+      },
+      button: {
+        backgroundColor: "#F1F0F0",
+        x: Align.left,
+        width: 256,
+        color: "#000000",
+        borderRadius: {
+          bottomLeft: 0,
+          bottomRight: 0
+        }
+      }
+    };
+    this.maxWidth();
+    this.stateSwitch(options.sender);
+  }
+
+  TextBubble.prototype.maxWidth = function() {
+    if (this.width > 256) {
+      return this.width = 256;
+    }
+  };
+
+  return TextBubble;
+
+})(TextLayer);
+
+messageText1 = {
+  text: "What about drinks tomorrow at 7? Are you available for this time?",
+  sender: "user"
+};
+
+messageText2 = {
+  text: "What about drinks tomorrow at 7?",
+  sender: "chatbot"
+};
+
+user1 = new TextBubble({
+  y: 0
+}, messageText1);
+
+chatbot1 = new TextBubble({
+  y: user1.maxY + 10
+}, messageText2);
+
+QuickReply = (function(superClass) {
+  extend(QuickReply, superClass);
+
+  function QuickReply(options, reply) {
+    if (options == null) {
+      options = {};
+    }
+    options.text = reply;
+    options.fontSize = 17;
+    options.color = "#0084FF";
+    options.padding = {
+      vertical: 8,
+      horizontal: 12
+    };
+    options.borderColor = "#0084FF";
+    options.borderWidth = 1;
+    options.borderRadius = 18;
+    QuickReply.__super__.constructor.call(this, options);
+    this.onTap(function() {
+      return print(options.text);
+    });
+  }
+
+  return QuickReply;
+
+})(TextLayer);
+
+QuickReplies = (function(superClass) {
+  extend(QuickReplies, superClass);
+
+  function QuickReplies(options, replies) {
+    if (options == null) {
+      options = {};
+    }
+    options.scrollVertical = false;
+    options.directionLock = true;
+    options.width = Screen.width;
+    QuickReplies.__super__.constructor.call(this, options);
+    this.appendReplies(replies);
+    this.scrollable();
+  }
+
+  QuickReplies.prototype.scrollable = function() {
+    if (this.content.width < Screen.width + 1) {
+      this.scrollHorizontal = false;
+      return this.x = Align.center;
+    }
+  };
+
+  QuickReplies.prototype.appendReplies = function(replies) {
+    var container, index, j, len, quickReply, reply;
+    container = new Layer({
+      backgroundColor: "transparent",
+      width: 0
+    });
+    for (index = j = 0, len = replies.length; j < len; index = ++j) {
+      reply = replies[index];
+      quickReply = new QuickReply({
+        parent: container
+      }, reply);
+      container.width += quickReply.width + 12;
+      if (container.width < 375) {
+        container.x = Align.center;
+      } else {
+        container.x = Align.left();
+      }
+      if (index !== 0) {
+        quickReply.x = container.children[index - 1].maxX + 12;
+      }
+    }
+    container.height = quickReply.height;
+    container.parent = this.content;
+    return this.contentInset = {
+      right: 0,
+      left: 0
+    };
+  };
+
+  return QuickReplies;
+
+})(ScrollComponent);
+
+replies = ["No thanks", "Timisoara", "Iasi", "Cluj-Napoca"];
+
+Buttons = (function(superClass) {
+  extend(Buttons, superClass);
+
+  function Buttons(options, buttons) {
+    var button, index, j, len;
+    if (options == null) {
+      options = {};
+    }
+    options.backgroundColor = "#FFFFFF";
+    options.width = 256;
+    options.height = 0;
+    Buttons.__super__.constructor.call(this, options);
+    for (index = j = 0, len = buttons.length; j < len; index = ++j) {
+      button = buttons[index];
+      button = new TextLayer({
+        parent: this,
+        text: buttons[index],
+        x: Align.left(),
+        y: index * 45,
+        height: 45,
+        backgroundColor: "#FFFFFF",
+        fontSize: 17,
+        color: "#0084FF",
+        borderWidth: 0.5,
+        borderColor: "#F1F0F0"
+      });
+      this.height += button.height;
+      button.padding = {
+        horizontal: (256 - button.width) / 2,
+        vertical: 10
+      };
+      button.onTap(function() {
+        return print(this.text);
+      });
+    }
+    button.borderRadius = {
+      bottomLeft: 18,
+      bottomRight: 18
+    };
+  }
+
+  return Buttons;
+
+})(Layer);
+
+TextButtons = (function(superClass) {
+  extend(TextButtons, superClass);
+
+  function TextButtons(options, message) {
+    var buttons, textBubble;
+    if (options == null) {
+      options = {};
+    }
+    options.backgroundColor = "transparent";
+    options.width = options.height = 0;
+    TextButtons.__super__.constructor.call(this, options);
+    textBubble = new TextBubble({
+      parent: this
+    }, message.message);
+    buttons = new Buttons({
+      parent: this,
+      y: textBubble.maxY
+    }, message.buttons);
+  }
+
+  return TextButtons;
+
+})(Layer);
+
+buttonsContent = {
+  message: {
+    text: "What about drinks tomorrow at 7? Are you available for this time?",
+    sender: "button"
+  },
+  buttons: ["Iasi", "Cluj", "Timisoara"]
+};
+
+Card = (function(superClass) {
+  extend(Card, superClass);
+
+  function Card(options, message) {
+    var buttons, image, j, layer, len, ref, subtitle, title, titles;
+    if (options == null) {
+      options = {};
+    }
+    options.x = Align.left(options.padding);
+    options.width = 256;
+    options.borderRadius = 18;
+    options.borderColor = "#F1F0FF0";
+    options.clip = true;
+    Card.__super__.constructor.call(this, options);
+    this.states = {
+      left: {
+        borderRadius: {
+          topRight: 4
+        }
+      },
+      middle: {
+        borderRadius: {
+          topRight: 4,
+          topLeft: 4
+        }
+      },
+      right: {
+        borderRadius: {
+          topLeft: 4
+        }
+      }
+    };
+    image = new Layer({
+      parent: this,
+      image: message.image,
+      width: 256,
+      height: 256 / 1.9
+    });
+    image.onTap(function() {
+      return print("image");
+    });
+    titles = new Layer({
+      parent: this,
+      y: image.maxY,
+      width: 256,
+      backgroundColor: "#FFFFFF",
+      borderColor: "#F1F0F0",
+      borderWidth: 0.5
+    });
+    titles.onTap(function() {
+      return print("titles");
+    });
+    title = new TextLayer({
+      parent: titles,
+      text: message.title,
+      fontSize: 14,
+      fontWeight: "medium",
+      x: Align.left(12),
+      y: Align.top,
+      width: 256,
+      color: "#000000",
+      padding: {
+        top: 8
+      }
+    });
+    subtitle = new TextLayer({
+      parent: titles,
+      text: "Subtitle\nSubtitle\nSubtitle",
+      x: Align.left(12),
+      y: title.maxY,
+      width: 256,
+      fontSize: 13,
+      color: "#666666",
+      padding: {
+        bottom: 8
+      }
+    });
+    titles.height = subtitle.maxY;
+    buttons = new Buttons({
+      parent: this,
+      y: titles.maxY
+    }, message.buttons);
+    this.height = 0;
+    ref = this.children;
+    for (j = 0, len = ref.length; j < len; j++) {
+      layer = ref[j];
+      this.height += layer.height;
+    }
+  }
+
+  return Card;
+
+})(Layer);
+
+Carousel = (function(superClass) {
+  extend(Carousel, superClass);
+
+  function Carousel(options, message) {
+    var card, index, j, len;
+    if (options == null) {
+      options = {};
+    }
+    options.width = Screen.width;
+    options.scrollVertical = false;
+    options.directionLock = true;
+    Carousel.__super__.constructor.call(this, options);
+    for (index = j = 0, len = message.length; j < len; index = ++j) {
+      card = message[index];
+      card = new Card({
+        parent: this.content
+      }, message[index]);
+      card.x = index * (card.width + 4);
+    }
+    this.height = card.height;
+    this.content.width = message.lenght * card.width;
+    this.contentInset = {
+      right: 0,
+      left: 0
+    };
+    this.fitCards();
+  }
+
+  Carousel.prototype.fitCards = function(options) {
+    var card, cards, index, j, len, results;
+    if (options == null) {
+      options = {};
+    }
+    cards = this.content.children;
+    results = [];
+    for (index = j = 0, len = cards.length; j < len; index = ++j) {
+      card = cards[index];
+      if (index === 0) {
+        results.push(card.animate("left"));
+      } else if (index === Object.keys(cards).length - 1) {
+        results.push(card.animate("right"));
+      } else {
+        results.push(card.animate("middle"));
+      }
+    }
+    return results;
+  };
+
+  return Carousel;
+
+})(ScrollComponent);
+
+cardMessage = {
+  title: "Would you like to get a coffee at 7?",
+  subtitle: "Subtitle\nSubtitle\nSubtitle",
+  image: "https://source.unsplash.com/random",
+  buttons: ["Cluj", "Cluj", "Cluj"]
+};
+
+carouselMessage = [cardMessage, cardMessage, cardMessage, cardMessage, cardMessage];
+
+TypingIndicator = (function(superClass) {
+  extend(TypingIndicator, superClass);
+
+  function TypingIndicator(options) {
+    var dot, i, j;
+    if (options == null) {
+      options = {};
+    }
+    options.height = 36;
+    options.width = 50;
+    options.borderRadius = 18;
+    options.backgroundColor = "#F1F0F0";
+    TypingIndicator.__super__.constructor.call(this, options);
+    for (i = j = 0; j <= 2; i = ++j) {
+      dot = new Layer({
+        parent: this,
+        backgroundColor: "#939393",
+        width: 7,
+        height: 7,
+        borderRadius: 100,
+        y: Align.center,
+        x: 10 + i * 12
+      });
+      dot.states = {
+        up: {
+          y: Align.center(-8)
+        },
+        down: {
+          y: Align.center
+        }
+      };
+    }
+    this.moveDots(this.children);
+  }
+
+  TypingIndicator.prototype.moveDots = function(dots) {
+    return Utils.interval(0.5, function() {
+      Utils.delay(0, function() {
+        return dots[0].stateCycle();
+      });
+      Utils.delay(0.2, function() {
+        return dots[1].stateCycle();
+      });
+      return Utils.delay(0.4, function() {
+        return dots[2].stateCycle();
+      });
+    });
+  };
+
+  return TypingIndicator;
+
+})(Layer);
+
+ChatHeader = (function(superClass) {
+  extend(ChatHeader, superClass);
+
+  function ChatHeader(options, bot) {
+    var avatar, botCategory, botDetails, botFans, botName;
+    if (options == null) {
+      options = {};
+    }
+    options.width = Screen.width;
+    options.height = 128;
+    options.backgroundColor = "transparent";
+    options.borderColor = "#F1F0F0";
+    options.borderWidth = 1;
+    ChatHeader.__super__.constructor.call(this, options);
+    avatar = new Layer({
+      parent: this,
+      width: 80,
+      height: 80,
+      x: Align.left(12),
+      y: Align.center,
+      borderRadius: 100,
+      image: bot.botAvatar
+    });
+    botDetails = new Layer({
+      parent: this,
+      height: 80,
+      y: Align.center,
+      x: Align.left(avatar.maxX + 16),
+      backgroundColor: "#FFFFFF"
+    });
+    botName = new TextLayer({
+      parent: botDetails,
+      text: bot.botName,
+      y: Align.top,
+      fontSize: 21,
+      fontWeight: "light",
+      color: "#000000"
+    });
+    botFans = new TextLayer({
+      parent: botDetails,
+      y: Align.center,
+      fontSize: 14,
+      color: "#000000",
+      text: bot.botFans
+    });
+    botCategory = new TextLayer({
+      parent: botDetails,
+      text: bot.botCategory,
+      y: Align.bottom(-5),
+      fontSize: 14,
+      color: "#ABABAB"
+    });
+  }
+
+  return ChatHeader;
+
+})(Layer);
+
+bot = {
+  botName: "Vodafone Chatbot",
+  botFans: "62,438 people like this",
+  botCategory: "Telecom",
+  botAvatar: "https://unsplash.it/375/667/?random"
+};
+
+ListItem = (function(superClass) {
+  extend(ListItem, superClass);
+
+  function ListItem(options, item) {
+    var image, itemButton, itemDetails, itemLink, itemSubtitle, itemTitle, items, lastItem;
+    if (options == null) {
+      options = {};
+    }
+    options.name = "listItem";
+    options.width = 256;
+    options.clip = true;
+    options.backgroundColor = "trasparent";
+    options.borderColor = "F1F0F0";
+    options.borderWidth = 1;
+    ListItem.__super__.constructor.call(this, options);
+    this.states = {
+      header: {
+        height: 139,
+        borderRadius: {
+          topRight: 18,
+          topLeft: 18
+        }
+      },
+      regular: {
+        height: 97
+      }
+    };
+    itemDetails = new Layer({
+      x: Align.left(8),
+      height: 0,
+      width: 200,
+      backgroundColor: "transparent",
+      parent: this
+    });
+    itemTitle = new TextLayer({
+      parent: itemDetails,
+      text: item.title,
+      fontSize: 12,
+      fontWeight: "medium",
+      color: "#000000"
+    });
+    itemSubtitle = new TextLayer({
+      parent: itemDetails,
+      text: item.subtitle,
+      fontSize: 11,
+      color: "#666666",
+      y: itemTitle.maxY
+    });
+    itemDetails.height += itemTitle.height + itemSubtitle.height;
+    if (item.link !== null) {
+      itemLink = new TextLayer({
+        parent: itemDetails,
+        y: itemSubtitle.maxY,
+        fontSize: 10,
+        color: "#666666",
+        text: item.link
+      });
+      itemDetails.height += itemLink.height;
+    }
+    if (item.button !== null) {
+      items = itemDetails.children;
+      lastItem = Object.keys(items).lenght - 1;
+      itemButton = new TextLayer({
+        parent: itemDetails,
+        y: this.children[0].children[Object.keys(this.children[0].children).length - 1].maxY + 4,
+        fontSize: 12,
+        color: "#037AFF",
+        text: item.button,
+        borderColor: "#037AFF",
+        borderWidth: 0.5,
+        borderRadius: 4,
+        padding: {
+          vertical: 2,
+          horizontal: 4
+        }
+      });
+      itemDetails.height += itemButton.height;
+    }
+    image = new Layer({
+      parent: this,
+      width: 70,
+      height: 70,
+      x: Align.right(-11),
+      y: Align.center,
+      image: item.image
+    });
+    itemDetails.states = {
+      header: {
+        y: Align.bottom(-8)
+      },
+      regular: {
+        y: Align.center
+      }
+    };
+    itemTitle.states = {
+      header: {
+        color: "#FFFFFF"
+      },
+      regular: {
+        color: "#000000"
+      }
+    };
+    itemSubtitle.states = {
+      header: {
+        color: "#FFFFFF"
+      },
+      regular: {
+        color: "#666666"
+      }
+    };
+    itemLink.states = {
+      header: {
+        color: "#FFFFFF"
+      },
+      regular: {
+        color: "#666666"
+      }
+    };
+    itemButton.states = {
+      header: {
+        color: "#FFFFFF",
+        borderColor: "#FFFFFF"
+      },
+      regular: {
+        color: "#037AFF",
+        borderColor: "#037AFF"
+      }
+    };
+    image.states = {
+      header: {
+        x: 0,
+        y: 0,
+        z: -1,
+        width: 256,
+        height: 137,
+        brightness: 50
+      },
+      regular: {
+        x: Align.right(-8),
+        y: Align.center,
+        width: 70,
+        height: 70,
+        borderRadius: 4,
+        brightness: 100
+      }
+    };
+    this.stateSwitch("" + item.state);
+    itemDetails.stateSwitch("" + item.state);
+    itemTitle.stateSwitch("" + item.state);
+    itemSubtitle.stateSwitch("" + item.state);
+    itemLink.stateSwitch("" + item.state);
+    itemButton.stateSwitch("" + item.state);
+    image.stateSwitch("" + item.state);
+    this.onTap(function() {
+      return print(this.children[0].children[0].font);
+    });
+    itemDetails.y = Align.center;
+  }
+
+  return ListItem;
+
+})(Layer);
+
+List = (function(superClass) {
+  extend(List, superClass);
+
+  function List(options, message) {
+    var button, index, item, j, len, listItem, ref;
+    if (options == null) {
+      options = {};
+    }
+    options.width = 256;
+    options.height = 0;
+    options.backgroundColor = "transparent";
+    List.__super__.constructor.call(this, options);
+    ref = message.items;
+    for (index = j = 0, len = ref.length; j < len; index = ++j) {
+      item = ref[index];
+      listItem = new ListItem({
+        parent: this
+      }, item);
+      this.height += listItem.height;
+      if (index !== 0) {
+        listItem.y = this.children[index - 1].maxY;
+      }
+    }
+    button = new Buttons({
+      parent: this,
+      y: listItem.maxY
+    }, message.button);
+    this.height += button.height;
+  }
+
+  return List;
+
+})(Layer);
+
+listMessage = {
+  hasHeader: true,
+  hasButtons: true,
+  button: ["View more"],
+  items: [
+    {
+      state: "header",
+      title: "Classic T-shirt collection",
+      subtitle: "See all our colors",
+      link: "www.imprezzio.com",
+      image: "http://lorempixel.com/400/200/sports/",
+      button: "View"
+    }, {
+      state: "regular",
+      title: "Classic White t-shirt",
+      subtitle: "100% cotton, 200% comfortable",
+      image: "http://lorempixel.com/400/200/sports/",
+      link: "www.imprezzio.com",
+      button: "Shop Now"
+    }, {
+      state: "regular",
+      title: "Classic Blue t-shirt",
+      subtitle: "100% cotton, 200% comfortable",
+      image: "http://lorempixel.com/400/200/sports/",
+      link: "www.imprezzio.com",
+      button: "Shop Now"
+    }, {
+      state: "regular",
+      title: "Classic Black t-shirt",
+      subtitle: "100% cotton, 200% comfortable",
+      image: "http://lorempixel.com/400/200/sports/",
+      link: "www.imprezzio.com",
+      button: "Shop Now"
+    }
+  ]
+};
