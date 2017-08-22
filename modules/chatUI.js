@@ -719,7 +719,10 @@ Location = (function(superClass) {
     if (options == null) {
       options = {};
     }
+    options.backgroundColor = "transparent";
+    Location.__super__.constructor.call(this, options);
     map = new Layer({
+      parent: this,
       borderRadius: {
         topLeft: 18,
         topRight: 18
@@ -731,6 +734,7 @@ Location = (function(superClass) {
     });
     map.image = "https://maps.googleapis.com/maps/api/staticmap?center=" + location.name + "&zoom=" + location.zoom + "&scale=" + location.scale + "&size=" + map.width + "x" + map.height + "&maptype=roadmap&format=png&visual_refresh=true";
     label = new Layer({
+      parent: this,
       width: 256,
       height: 53,
       y: map.maxY,
@@ -758,6 +762,11 @@ Location = (function(superClass) {
       parent: label,
       fontSize: 13,
       color: "#000000"
+    });
+    this.width = map.width;
+    this.height = map.height + label.height;
+    this.onTap(function() {
+      return print(this);
     });
   }
 

@@ -581,9 +581,15 @@ exports.List = List
 #Location
 #########
 
+#Location
+#########
+
 class Location extends Layer
 	constructor: (options = {}, location) ->
+		options.backgroundColor = "transparent"
+		super options
 		map = new Layer
+			parent: @
 			borderRadius:
 				topLeft: 18
 				topRight: 18
@@ -593,8 +599,8 @@ class Location extends Layer
 			borderWidth: 1
 		map.image = "https://maps.googleapis.com/maps/api/staticmap?center=#{location.name}&zoom=#{location.zoom}&scale=#{location.scale}&size=#{map.width}x#{map.height}&maptype=roadmap&format=png&visual_refresh=true"
 
-
 		label = new Layer
+			parent: @
 			width: 256
 			height: 53
 			y: map.maxY
@@ -619,6 +625,10 @@ class Location extends Layer
 			parent: label
 			fontSize: 13
 			color: "#000000"
+		@.width = map.width
+		@.height = map.height + label.height
+		@.onTap ->
+			print @
 
 # location =
 # 	name: "Bucuresti, Romania"
@@ -626,5 +636,6 @@ class Location extends Layer
 # 	zoom:12
 # 	scale:1
 # test = new Location({}, location)
+
 
 exports.Location = Location
