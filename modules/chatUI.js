@@ -1,4 +1,4 @@
-var Buttons, Card, Carousel, ChatHeader, List, ListItem, Location, QuickReplies, QuickReply, TextBubble, TextButtons, TypingIndicator, replies,
+var Buttons, Card, Carousel, ChatHeader, List, ListItem, Location, QuickReplies, QuickReply, Receipt, ReceiptItem, TextBubble, TextButtons, TypingIndicator, receiptSampleData, replies,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -775,3 +775,235 @@ Location = (function(superClass) {
 })(Layer);
 
 exports.Location = Location;
+
+ReceiptItem = (function(superClass) {
+  extend(ReceiptItem, superClass);
+
+  function ReceiptItem(options, item) {
+    var productData, productImage, productQty, productSubtitle, productTitle;
+    if (options == null) {
+      options = {};
+    }
+    options.height = 70;
+    options.width = 242;
+    options.backgroundColor = "transparent";
+    ReceiptItem.__super__.constructor.call(this, options);
+    productImage = new Layer({
+      parent: this,
+      width: 70,
+      height: 70,
+      image: item.image,
+      borderColor: "#EBEBEB",
+      borderWidth: 1,
+      borderRadius: 2
+    });
+    productData = new Layer({
+      width: 164,
+      parent: this,
+      x: productImage.maxX + 8,
+      y: Align.center,
+      backgroundColor: "transparent"
+    });
+    productTitle = new TextLayer({
+      textAlign: Align.left,
+      parent: productData,
+      text: item.title,
+      fontSize: 14,
+      fontWeight: "bold",
+      color: "#000000"
+    });
+    productSubtitle = new TextLayer({
+      parent: productData,
+      color: "#666666",
+      text: item.description,
+      x: productTitle.x,
+      y: productTitle.maxY,
+      fontSize: 13,
+      height: 14,
+      width: 164,
+      truncate: true
+    });
+    productQty = new TextLayer({
+      parent: productData,
+      text: "Qty. " + item.quantity,
+      y: productSubtitle.maxY,
+      x: productTitle.x,
+      color: "#666666",
+      fontSize: 13,
+      height: 14,
+      width: 164,
+      truncate: true
+    });
+    productData.height = productTitle.height + productSubtitle.height + productQty.height;
+    productData.y = Align.center;
+  }
+
+  return ReceiptItem;
+
+})(Layer);
+
+Receipt = (function(superClass) {
+  extend(Receipt, superClass);
+
+  function Receipt(options, receipt) {
+    var index, item, j, k, layer, len, len1, paymentDetails, paymentDetailsLabel, paymentMethod, products, ref, ref1, shippingAddress, shippingDetails, shippingDetailsLabel, title, total, totalCost, totalLabel;
+    if (options == null) {
+      options = {};
+    }
+    options.width = 256;
+    options.borderWidth = 1;
+    options.borderColor = "#EBEBEB";
+    options.backgroundColor = "transparent";
+    options.borderRadius = 18;
+    options.totalCost = 0;
+    Receipt.__super__.constructor.call(this, options);
+    title = new TextLayer({
+      parent: this,
+      text: "Order confirmation",
+      fontSize: 14,
+      color: "#666666",
+      width: this.width,
+      padding: {
+        left: 12,
+        top: 12,
+        bottom: 12
+      },
+      borderColor: "#EBEBEB",
+      borderWidth: 1,
+      borderRadius: {
+        topLeft: 18,
+        topRight: 18
+      }
+    });
+    products = new Layer({
+      height: 0,
+      backgroundColor: "transparent",
+      parent: this,
+      y: title.maxY + 8,
+      width: 230,
+      x: Align.center
+    });
+    ref = receipt.products;
+    for (index = j = 0, len = ref.length; j < len; index = ++j) {
+      item = ref[index];
+      options.totalCost += item.itemPrice * item.quantity;
+      item = new ReceiptItem({
+        parent: products,
+        y: index * 78
+      }, item);
+      products.height += item.height + 8;
+    }
+    paymentDetails = new Layer({
+      parent: this,
+      width: 230,
+      y: products.maxY + 8,
+      x: products.x,
+      backgroundColor: "transparent"
+    });
+    paymentDetailsLabel = new TextLayer({
+      text: "Paid with",
+      parent: paymentDetails,
+      fontSize: 13,
+      color: "#666666"
+    });
+    paymentMethod = new TextLayer({
+      parent: paymentDetails,
+      fontSize: 13,
+      color: "#000000",
+      text: receipt.paymentMethod,
+      y: paymentDetailsLabel.maxY
+    });
+    paymentDetails.height = paymentMethod.height + paymentDetailsLabel.height;
+    shippingDetails = new Layer({
+      parent: this,
+      width: 230,
+      x: products.x,
+      y: paymentDetails.maxY + 8,
+      backgroundColor: "transparent"
+    });
+    shippingDetailsLabel = new TextLayer({
+      text: "Ship to",
+      parent: shippingDetails,
+      fontSize: 13,
+      color: "#666666"
+    });
+    shippingAddress = new TextLayer({
+      text: receipt.shipTo,
+      parent: shippingDetails,
+      fontSize: 13,
+      color: "#000000",
+      y: shippingDetailsLabel.maxY
+    });
+    shippingDetails.height = shippingDetailsLabel.height + shippingAddress.height;
+    total = new Layer({
+      parent: this,
+      width: this.width,
+      y: shippingDetails.maxY + 12,
+      borderColor: "#EBEBEB",
+      borderWidth: 1,
+      backgroundColor: "transparent",
+      height: title.height,
+      borderRadius: {
+        bottomLeft: 18,
+        bottomRight: 18
+      }
+    });
+    totalLabel = new TextLayer({
+      x: 8,
+      y: Align.center,
+      parent: total,
+      fontSize: 14,
+      color: "#666666",
+      text: "Total"
+    });
+    this.height = this.children.length * 8 - 4;
+    ref1 = this.children;
+    for (k = 0, len1 = ref1.length; k < len1; k++) {
+      layer = ref1[k];
+      this.height += layer.height;
+    }
+    totalCost = new TextLayer({
+      parent: total,
+      x: Align.right(-12),
+      fontSize: 14,
+      color: "#000000",
+      fontWeight: "bold",
+      y: Align.center,
+      text: receipt.currency + " " + options.totalCost
+    });
+  }
+
+  return Receipt;
+
+})(Layer);
+
+receiptSampleData = {
+  products: [
+    {
+      title: "Classic White T-Shirt",
+      description: "100% Cotton, 200% Comfortable",
+      image: "images/product.png",
+      quantity: 2,
+      itemPrice: 13.97
+    }, {
+      title: "Classic White T-Shirt",
+      description: "100% Cotton, 200% Comfortable",
+      image: "images/product.png",
+      quantity: 1,
+      itemPrice: 15.43
+    }, {
+      title: "Classic White T-Shirt",
+      description: "100% Cotton, 200% Comfortable",
+      image: "images/product.png",
+      quantity: 3,
+      itemPrice: 9.67
+    }
+  ],
+  paymentMethod: "Visa 2345",
+  shipTo: "1 Hacker Way \nMenlo Park, CA 94025",
+  currency: "$"
+};
+
+exports.ReceiptItem = ReceiptItem;
+
+exports.Receipt = Receipt;

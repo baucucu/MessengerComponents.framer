@@ -639,3 +639,194 @@ class Location extends Layer
 
 
 exports.Location = Location
+
+# Receipt
+#########
+
+class ReceiptItem extends Layer
+	constructor: (options = {}, item) ->
+		options.height = 70
+		options.width = 242
+		options.backgroundColor = "transparent"
+		super options
+		productImage = new Layer
+			parent: @
+			width: 70
+			height: 70
+			image: item.image
+			borderColor: "#EBEBEB"
+			borderWidth: 1
+			borderRadius: 2
+		productData = new Layer
+			width: 164
+			parent: @
+			x: productImage.maxX + 8
+			y: Align.center
+			backgroundColor: "transparent"
+		productTitle = new TextLayer
+			textAlign: Align.left
+			parent: productData
+			text: item.title
+			fontSize: 14
+			fontWeight: "bold"
+			color: "#000000"
+		productSubtitle = new TextLayer
+			parent: productData
+			color: "#666666"
+			text: item.description
+			x: productTitle.x
+			y: productTitle.maxY
+			fontSize: 13
+			height: 14
+			width: 164
+			truncate: true
+		productQty = new TextLayer
+			parent: productData
+			text: "Qty. #{item.quantity}"
+			y: productSubtitle.maxY
+			x: productTitle.x
+			color: "#666666"
+			fontSize: 13
+			height: 14
+			width: 164
+			truncate: true
+		productData.height = productTitle.height + productSubtitle.height + productQty.height
+		productData.y = Align.center
+
+class Receipt extends Layer
+	constructor: (options = {}, receipt) ->
+		options.width = 256
+		options.borderWidth = 1
+		options.borderColor = "#EBEBEB"
+		options.backgroundColor = "transparent"
+		options.borderRadius = 18
+		options.totalCost = 0
+		super options
+		title = new TextLayer
+			parent: @
+			text: "Order confirmation"
+			fontSize: 14
+			color: "#666666"
+			width: @.width
+			padding:
+				left: 12
+				top: 12
+				bottom: 12
+			borderColor: "#EBEBEB"
+			borderWidth: 1
+			borderRadius:
+				topLeft: 18
+				topRight: 18
+		products = new Layer
+			height: 0
+			backgroundColor: "transparent"
+			parent: @
+			y: title.maxY + 8
+			width: 230
+			x: Align.center
+		for item, index in receipt.products
+			options.totalCost += item.itemPrice * item.quantity
+			item = new ReceiptItem({parent: products, y: index * 78}, item)
+			products.height += item.height + 8
+		paymentDetails = new Layer
+			parent: @
+			width: 230
+			y: products.maxY + 8
+			x: products.x
+			backgroundColor: "transparent"
+		paymentDetailsLabel = new TextLayer
+			text: "Paid with"
+			parent: paymentDetails
+			fontSize: 13
+			color: "#666666"
+		paymentMethod = new TextLayer
+			parent: paymentDetails
+			fontSize: 13
+			color: "#000000"
+			text: receipt.paymentMethod
+			y: paymentDetailsLabel.maxY
+		paymentDetails.height = paymentMethod.height + paymentDetailsLabel.height
+		shippingDetails = new Layer
+			parent: @
+			width: 230
+			x: products.x
+			y: paymentDetails.maxY + 8
+			backgroundColor: "transparent"
+		shippingDetailsLabel = new TextLayer
+			text: "Ship to"
+			parent: shippingDetails
+			fontSize: 13
+			color: "#666666"
+		shippingAddress = new TextLayer
+			text: receipt.shipTo
+			parent: shippingDetails
+			fontSize: 13
+			color: "#000000"
+			y: shippingDetailsLabel.maxY
+		shippingDetails.height = shippingDetailsLabel.height + shippingAddress.height
+		total = new Layer
+			parent: @
+			width: @.width
+			y: shippingDetails.maxY + 12
+			borderColor: "#EBEBEB"
+			borderWidth: 1
+			backgroundColor: "transparent"
+			height: title.height
+			borderRadius:
+				bottomLeft: 18
+				bottomRight: 18
+		totalLabel = new TextLayer
+			x: 8
+			y: Align.center
+			parent: total
+			fontSize: 14
+			color: "#666666"
+			text: "Total"
+		@.height = @.children.length * 8 - 4
+		for layer in @.children
+			@.height += layer.height
+		totalCost = new TextLayer
+			parent: total
+			x: Align.right(-12)
+			fontSize: 14
+			color: "#000000"
+			fontWeight: "bold"
+			y: Align.center
+			text: "#{receipt.currency} #{options.totalCost}"
+
+
+
+receiptSampleData = {
+	products: [
+		{
+			title: "Classic White T-Shirt",
+			description: "100% Cotton, 200% Comfortable",
+			image: "images/product.png"
+			quantity: 2,
+			itemPrice: 13.97
+		},
+		{
+			title: "Classic White T-Shirt",
+			description: "100% Cotton, 200% Comfortable",
+			image: "images/product.png"
+			quantity: 1,
+			itemPrice: 15.43
+		},
+		{
+			title: "Classic White T-Shirt",
+			description: "100% Cotton, 200% Comfortable",
+			image: "images/product.png"
+			quantity: 3,
+			itemPrice: 9.67
+		}
+	],
+	paymentMethod: "Visa 2345",
+	shipTo: "1 Hacker Way \nMenlo Park, CA 94025"
+	currency: "$"
+}
+
+# sampleReceipt = new Receipt({}, receiptSampleData)
+# item = new ReceiptItem({y: test.maxY}, receipt.products[0])
+
+exports.ReceiptItem  = ReceiptItem
+exports.Receipt = Receipt
