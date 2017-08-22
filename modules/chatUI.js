@@ -1,4 +1,4 @@
-var Buttons, Card, Carousel, ChatHeader, List, ListItem, Location, QuickReplies, QuickReply, TextBubble, TextButtons, TypingIndicator,
+var Buttons, Card, Carousel, ChatHeader, List, ListItem, Location, QuickReplies, QuickReply, TextBubble, TextButtons, TypingIndicator, replies,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -60,15 +60,22 @@ QuickReply = (function(superClass) {
   extend(QuickReply, superClass);
 
   function QuickReply(options, reply) {
+    var icon;
     if (options == null) {
       options = {};
+    }
+    if (options.icon === void 0) {
+      options.iconWidth = 0;
+    } else {
+      options.iconWidth = 24;
     }
     options.text = reply;
     options.fontSize = 17;
     options.color = "#0084FF";
     options.padding = {
       vertical: 8,
-      horizontal: 12
+      left: 12 + options.iconWidth,
+      right: 12
     };
     options.borderColor = "#0084FF";
     options.borderWidth = 1;
@@ -77,13 +84,21 @@ QuickReply = (function(superClass) {
     this.onTap(function() {
       return print(options.text);
     });
+    if (options.icon !== void 0) {
+      icon = new Layer({
+        parent: this,
+        x: 6,
+        y: 6,
+        width: 24,
+        height: 24,
+        image: options.icon
+      });
+    }
   }
 
   return QuickReply;
 
 })(TextLayer);
-
-exports.QuickReply = QuickReply;
 
 QuickReplies = (function(superClass) {
   extend(QuickReplies, superClass);
@@ -116,8 +131,9 @@ QuickReplies = (function(superClass) {
     for (index = j = 0, len = replies.length; j < len; index = ++j) {
       reply = replies[index];
       quickReply = new QuickReply({
+        icon: reply.icon,
         parent: container
-      }, reply);
+      }, reply.reply);
       container.width += quickReply.width + 12;
       if (container.width < 375) {
         container.x = Align.center;
@@ -140,7 +156,21 @@ QuickReplies = (function(superClass) {
 
 })(ScrollComponent);
 
-exports.QuickReplies = QuickReplies;
+replies = [
+  {
+    icon: "images/locationIcon.png",
+    reply: "No thanks"
+  }, {
+    icon: void 0,
+    reply: "No thanks"
+  }, {
+    icon: void 0,
+    reply: "No thanks"
+  }, {
+    icon: "images/locationIcon.png",
+    reply: "No thanks"
+  }
+];
 
 Buttons = (function(superClass) {
   extend(Buttons, superClass);

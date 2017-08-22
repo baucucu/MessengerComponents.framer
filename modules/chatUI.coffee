@@ -50,20 +50,32 @@ exports.TextBubble = TextBubble
 #############
 class QuickReply extends TextLayer
 	constructor: (options = {}, reply) ->
+		if options.icon is undefined
+			options.iconWidth = 0
+		else
+			options.iconWidth = 24
 		options.text = reply
 		options.fontSize = 17
 		options.color = "#0084FF"
 		options.padding =
 			vertical: 8
-			horizontal: 12
+			left: 12 + options.iconWidth
+			right: 12
 		options.borderColor = "#0084FF"
 		options.borderWidth = 1
 		options.borderRadius = 18
 		super options
 		@.onTap ->
 			print options.text
+		if options.icon isnt undefined
 
-exports.QuickReply = QuickReply
+			icon = new Layer
+				parent: @
+				x: 6
+				y: 6
+				width: 24
+				height: 24
+				image: options.icon
 
 class QuickReplies extends ScrollComponent
 	constructor: (options = {}, replies) ->
@@ -84,7 +96,7 @@ class QuickReplies extends ScrollComponent
 			backgroundColor: "transparent"
 			width: 0
 		for reply, index in replies
-			quickReply = new QuickReply({parent: container}, reply)
+			quickReply = new QuickReply({icon: reply.icon, parent: container}, reply.reply)
 			container.width += quickReply.width + 12
 			if container.width < 375 then container.x = Align.center else container.x = Align.left()
 			if index isnt 0 then quickReply.x = container.children[index - 1].maxX + 12
@@ -95,11 +107,16 @@ class QuickReplies extends ScrollComponent
 			right: 0
 			left: 0
 
-exports.QuickReplies = QuickReplies
+replies = [{icon: "images/locationIcon.png", reply: "No thanks"},{icon: undefined, reply: "No thanks"}, {icon: undefined, reply: "No thanks"}, {icon: "images/locationIcon.png", reply: "No thanks"}]
 
-# replies = ["No thanks", "Timisoara", "Iasi", "Cluj-Napoca"]
 
 # test = new QuickReplies({}, replies)
+# sampleReply = {
+# 	icon: "images/locationIcon.png"
+# 	reply: "No thanks"
+# }
+#
+# quicky = new QuickReply({icon: sampleReply.icon}, sampleReply.reply)
 
 #TextButtons
 ############
