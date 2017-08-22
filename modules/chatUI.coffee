@@ -560,3 +560,54 @@ exports.List = List
 # listItem3 = new ListItem({y: listItem2.maxY}, listMessage.items.item3)
 # listItem4 = new ListItem({y: listItem3.maxY}, listMessage.items.item4)
 # button = new Buttons({y: listItem4.maxY}, ["View more"])
+
+#Location
+#########
+
+class Location extends Layer
+	constructor: (options = {}, location) ->
+		map = new Layer
+			borderRadius:
+				topLeft: 18
+				topRight: 18
+			width: 256
+			height: Math.round ( 255 / 1.9 )
+			borderColor: "#EBEBEB"
+			borderWidth: 1
+		map.image = "https://maps.googleapis.com/maps/api/staticmap?center=#{location.name}&zoom=#{location.zoom}&scale=#{location.scale}&size=#{map.width}x#{map.height}&maptype=roadmap&format=png&visual_refresh=true"
+
+
+		label = new Layer
+			width: 256
+			height: 53
+			y: map.maxY
+			backgroundColor: "#ffffff"
+			borderRadius:
+				bottomLeft: 18
+				bottomRight: 18
+			borderColor: "#EBEBEB"
+			borderWidth: 1
+		title = new TextLayer
+			text: "#{location.name}"
+			color: "#000000"
+			x: 12
+			y: 8
+			parent: label
+			fontSize: 14
+			fontWeight: "medium"
+		subtitle = new TextLayer
+			text: "#{location.subtitle}"
+			y: title.maxY
+			x: 12
+			parent: label
+			fontSize: 13
+			color: "#000000"
+
+location =
+	name: "Bucuresti, Romania"
+	subtitle: "Tap to view on map"
+	zoom:12
+	scale:1
+# test = new Location({}, location)
+
+exports.Location = Location
