@@ -603,11 +603,11 @@ class Location extends Layer
 			fontSize: 13
 			color: "#000000"
 
-location =
-	name: "Bucuresti, Romania"
-	subtitle: "Tap to view on map"
-	zoom:12
-	scale:1
+# location =
+# 	name: "Bucuresti, Romania"
+# 	subtitle: "Tap to view on map"
+# 	zoom:12
+# 	scale:1
 # test = new Location({}, location)
 
 exports.Location = Location
