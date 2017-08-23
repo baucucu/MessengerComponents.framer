@@ -108,7 +108,7 @@ exports.MyDays = MyDays
 # Message List Item
 
 class MessageListItem extends Layer
-	@user = undefined
+	# @user = undefined
 
 	constructor: (options = {}, user) ->
 		options.name ?= "MessageListItem"
@@ -121,7 +121,7 @@ class MessageListItem extends Layer
 
 		super options
 
-		@user = user
+		# @user = user
 
 		avatar = new Avatar({parent: @, y: style.margin * options.scale })
 		avatar.setUser(user)
@@ -166,6 +166,9 @@ class MessageListItem extends Layer
 			lastMessageTime.fontWeight = 500
 			lastMessageTime.color = "#000000"
 
+		@.on Events.TouchEnd, ->
+			Screen.emit "GotoChat", user
+
 exports.MessageListItem = MessageListItem
 
 
@@ -184,8 +187,8 @@ class MessageList extends Layer
 		for user, index in users
 			message = new MessageListItem({parent: @, y: options.scale * index * 74}, user)
 
-			message.on Events.Tap, ->
-				Screen.emit "GotoChat", @.user
+			# message.on Events.Tap, ->
+			# 	Screen.emit "GotoChat", @.user
 
 exports.MessageList = MessageList
 

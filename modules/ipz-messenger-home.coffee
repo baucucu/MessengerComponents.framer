@@ -1,6 +1,7 @@
 ios = require 'ios-kit'
 ipz = require 'ipz-messenger-kit'
 
+
 class IpzMessengerHome extends Layer
 
     @avatar = undefined

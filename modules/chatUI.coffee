@@ -107,7 +107,11 @@ class QuickReplies extends ScrollComponent
 			right: 0
 			left: 0
 
-replies = [{icon: "images/locationIcon.png", reply: "No thanks"},{icon: undefined, reply: "No thanks"}, {icon: undefined, reply: "No thanks"}, {icon: "images/locationIcon.png", reply: "No thanks"}]
+
+exports.QuickReply = QuickReply
+exports.QuickReplies = QuickReplies
+
+# replies = [{icon: "images/locationIcon.png", reply: "No thanks"},{icon: undefined, reply: "No thanks"}, {icon: undefined, reply: "No thanks"}, {icon: "images/locationIcon.png", reply: "No thanks"}]
 
 
 # test = new QuickReplies({}, replies)
@@ -494,7 +498,6 @@ class ListItem extends Layer
 				height: 70
 				borderRadius: 4
 				brightness: 100
-# 		itemDetails.y = Align.bottom(-8)
 		@.stateSwitch "#{item.state}"
 		itemDetails.stateSwitch "#{item.state}"
 		itemTitle.stateSwitch "#{item.state}"
@@ -796,34 +799,34 @@ class Receipt extends Layer
 
 
 
-receiptSampleData = {
-	products: [
-		{
-			title: "Classic White T-Shirt",
-			description: "100% Cotton, 200% Comfortable",
-			image: "images/product.png"
-			quantity: 2,
-			itemPrice: 13.97
-		},
-		{
-			title: "Classic White T-Shirt",
-			description: "100% Cotton, 200% Comfortable",
-			image: "images/product.png"
-			quantity: 1,
-			itemPrice: 15.43
-		},
-		{
-			title: "Classic White T-Shirt",
-			description: "100% Cotton, 200% Comfortable",
-			image: "images/product.png"
-			quantity: 3,
-			itemPrice: 9.67
-		}
-	],
-	paymentMethod: "Visa 2345",
-	shipTo: "1 Hacker Way \nMenlo Park, CA 94025"
-	currency: "$"
-}
+# receiptSampleData = {
+# 	products: [
+# 		{
+# 			title: "Classic White T-Shirt",
+# 			description: "100% Cotton, 200% Comfortable",
+# 			image: "images/product.png"
+# 			quantity: 2,
+# 			itemPrice: 13.97
+# 		},
+# 		{
+# 			title: "Classic White T-Shirt",
+# 			description: "100% Cotton, 200% Comfortable",
+# 			image: "images/product.png"
+# 			quantity: 1,
+# 			itemPrice: 15.43
+# 		},
+# 		{
+# 			title: "Classic White T-Shirt",
+# 			description: "100% Cotton, 200% Comfortable",
+# 			image: "images/product.png"
+# 			quantity: 3,
+# 			itemPrice: 9.67
+# 		}
+# 	],
+# 	paymentMethod: "Visa 2345",
+# 	shipTo: "1 Hacker Way \nMenlo Park, CA 94025"
+# 	currency: "$"
+# }
 
 # sampleReceipt = new Receipt({}, receiptSampleData)
 # item = new ReceiptItem({y: test.maxY}, receipt.products[0])

@@ -41,7 +41,7 @@ class IpzChatBot extends Layer
     goBack:() ->        
         @flow.showPrevious()
 
-    appendMessage:(message) ->
-        @chatView.appendMessage(message)
+    appendMessage:(message, messageType) ->
+        @chatView.appendMessage(message, messageType)
 
 module.exports = IpzChatBot

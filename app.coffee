@@ -3,6 +3,7 @@
 ios = require "ios-kit"
 usersModule = require "ipz-dal-usersDAL"
 IpzChatBot = require "ipz-chatbot"
+samples = require "chatSamples"
 
 
 # Global settings
@@ -15,10 +16,30 @@ ios.device.width = Screen.width
 ios.device.scale = 1
 
 
+
 # Init view
 #################
 bot = new IpzChatBot({})
 bot.gotoMain()
+
+
+
+# SAMPLE
+#################
+
+appendSampleMessage = (message, messageType) ->
+    bot.appendMessage(message, messageType)
+
+runSample = () ->
+    setTimeout(appendSampleMessage, 500, samples.botInfo, "ChatHeader")
+    setTimeout(appendSampleMessage, 1500, samples.messageText1, "TextBubble")
+    setTimeout(appendSampleMessage, 2500, samples.messageText2, "TextBubble")
+    setTimeout(appendSampleMessage, 3500, samples.replies, "QuickReplies")
+    setTimeout(appendSampleMessage, 4500, samples.buttonsContent, "TextButtons")
+    setTimeout(appendSampleMessage, 5500, samples.carouselMessage, "Carousel")
+    setTimeout(appendSampleMessage, 6500, samples.listMessage, "List")
+    setTimeout(appendSampleMessage, 7500, samples.location, "Location")
+    setTimeout(appendSampleMessage, 8500, samples.receiptSampleData, "Receipt")
 
 
 # Navigation events
@@ -28,13 +49,19 @@ Screen.on "GotoMain", ->
 
 Screen.on "GotoChat", (user)->
     bot.gotoChat(user)
+    runSample()
 
 Screen.on "SendMessage", (message) ->
-    bot.appendMessage(message)
+    userMessage = { text: message, sender: "user" }
+    bot.appendMessage(userMessage, "TextBubble")
 
 Screen.on "GoBack", ->
     bot.goBack()
 
+
+
+# Hook to Data
+#################
 
 # DB callback
 getUsers_Callback= (isError, usersString) ->
