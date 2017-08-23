@@ -32,15 +32,18 @@ appendSampleMessage = (message, messageType) ->
 
 runSample = () ->
     setTimeout(appendSampleMessage, 500, samples.botInfo, "ChatHeader")
-    setTimeout(appendSampleMessage, 1500, samples.messageText1, "TextBubble")
-    setTimeout(appendSampleMessage, 2500, samples.messageText2, "TextBubble")
-    setTimeout(appendSampleMessage, 3500, samples.replies, "QuickReplies")
-    setTimeout(appendSampleMessage, 4500, samples.buttonsContent, "TextButtons")
-    setTimeout(appendSampleMessage, 5500, samples.carouselMessage, "Carousel")
-    setTimeout(appendSampleMessage, 6500, samples.listMessage, "List")
-    setTimeout(appendSampleMessage, 7500, samples.location, "Location")
-    setTimeout(appendSampleMessage, 8500, samples.receiptSampleData, "Receipt")
-
+    setTimeout(appendSampleMessage, 1000, samples.buttonsContent, "TextButtons")
+    setTimeout(appendSampleMessage, 3000, "", "TypingIndicator")
+    setTimeout(appendSampleMessage, 4000, samples.messageText1, "TextBubble")
+    setTimeout(appendSampleMessage, 6000, samples.replies, "QuickReplies")
+    setTimeout(appendSampleMessage, 10000, samples.carouselMessage, "Carousel")
+    setTimeout(appendSampleMessage, 13000, "", "TypingIndicator")
+    setTimeout(appendSampleMessage, 14000, samples.messageText2, "TextBubble")
+    setTimeout(appendSampleMessage, 16000, samples.listMessage, "List")
+    setTimeout(appendSampleMessage, 19000, "", "TypingIndicator")
+    setTimeout(appendSampleMessage, 20000, samples.messageText1, "TextBubble")
+    setTimeout(appendSampleMessage, 22000, samples.receiptSampleData, "Receipt")
+    setTimeout(appendSampleMessage, 24000, samples.location, "Location")
 
 # Navigation events
 #################

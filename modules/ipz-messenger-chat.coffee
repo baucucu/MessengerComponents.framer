@@ -7,7 +7,8 @@ class IpzMessengerChat extends Layer
     @navBar = undefined
     @messageScroll = undefined
     @lastMessage = undefined
-
+    @typingIndicator = undefined
+    
     constructor:(options = {}) ->
         options.name ?= "Messenger.Chat"
         options.width ?= Screen.width
@@ -26,15 +27,6 @@ class IpzMessengerChat extends Layer
         @navBar.left.on Events.Tap, ->
             Screen.emit "GoBack"
         
-        @messageScroll = new ScrollComponent
-            name:"ConversationScroll"
-            superLayer: @
-            scrollHorizontal: false
-            directionLock: true
-            y: @navBar.maxY
-            width: @.width
-            height: @.height - @navBar.height
-            
         keyboard = new ios.Keyboard
             superLayer: @
             hidden:true
@@ -45,11 +37,22 @@ class IpzMessengerChat extends Layer
             superLayer: @
             keyboard: keyboard
             placeholder: "Type a message"
-            borderRadius: 2
+            borderRadius: 10
             constraints:
                 width: @.width
                 height: 30
                 bottom: 0
+
+        @messageScroll = new ScrollComponent
+            name:"ConversationScroll"
+            superLayer: @
+            scrollHorizontal: false
+            directionLock: true
+            y: @navBar.maxY
+            width: @.width
+            height: @.height - @navBar.height - textField.height
+            maxY: textField.y
+        
 
         textField.on Events.TouchEnd, ->
 	        textField.keyboard.keys.return.on Events.Tap, ->
@@ -61,6 +64,7 @@ class IpzMessengerChat extends Layer
                 if textField.keyboard.maxY > Screen.height
                     textField.constraints.bottom = undefined
                     textField.maxY = textField.keyboard.y
+                    # @messageScroll.maxY = textField.y
                 if textField.keyboard.y == Screen.height
                     textField.keyboard.area.visible = true
                     
@@ -88,13 +92,16 @@ class IpzMessengerChat extends Layer
     appendMessage:(message, messageType) ->
         options = {superLayer: @messageScroll.content, y: @lastMessage.maxY + 10}
 
+        if @typingIndicator != undefined
+            @typingIndicator.destroy()
+            @typingIndicator = undefined
+
         switch messageType
             when "ChatHeader"
                 chatHeader = new ipz.IpzChatHeader(options, message)
                 @lastMessage = chatHeader
             when "TypingIndicator"
-                typingIndicator = new ipz.IpzTypingIndicator(options)
-                @lastMessage = typingIndicator
+                @typingIndicator = new ipz.IpzTypingIndicator(options)
             when "TextBubble"
                 msgBubble = new ipz.IpzTextBubble(options, message)
                 @lastMessage = msgBubble
@@ -117,6 +124,6 @@ class IpzMessengerChat extends Layer
                 rec = new ipz.IpzReceipt(options, message)
                 @lastMessage = rec
                 
-        @messageScroll.scrollToLayer(@lastMessage)
+        @messageScroll.scrollToPoint(y: @lastMessage.maxY)
 
 module.exports = IpzMessengerChat
