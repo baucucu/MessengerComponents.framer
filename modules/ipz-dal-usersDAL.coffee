@@ -1,6 +1,6 @@
 class BaseDAL
     url = "https://fbusers-4494.restdb.io/rest"
-    apikey = "5956382dafce09e87211e986"
+    apikey = "599d6987bf78f0d50ea2f183"
 
     getDbData: (table, query, max, filter, sort, sortDir, callback) ->
         queryString = "#{url}/#{table}?apikey=#{apikey}&max=#{max}&sort=#{sort}&dir=#{sortDir}&filter=#{filter}&idtolink=true&q="+JSON.stringify(query)

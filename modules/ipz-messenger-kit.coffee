@@ -5,7 +5,6 @@ kit = require 'messenger-kit'
 chatUI = require 'chatUI'
 
 exports.IpzMessengerHome = require "ipz-messenger-home"
-exports.IpzMessengerCalls = require "ipz-messenger-calls"
 exports.IpzMessengerSearchBox = require "ipz-messenger-searchBox"
 
 exports.IpzMessengerNavBar = nav.create
@@ -30,6 +29,10 @@ exports.IpzTypingIndicator = chatUI.TypingIndicator
 exports.IpzChatHeader = chatUI.ChatHeader
 exports.IpzChatListItem = chatUI.ListItem
 exports.IpzChatList = chatUI.List
+exports.IpzLocation = chatUI.Location
+exports.IpzReceiptItem = chatUI.ReceiptItem
+exports.IpzReceipt = chatUI.Receipt
+
 
 # TODO create a separate global module for all Styles
 exports.style = kit.style
