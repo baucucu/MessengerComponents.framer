@@ -30,20 +30,36 @@ bot.gotoMain()
 appendSampleMessage = (message, messageType) ->
     bot.appendMessage(message, messageType)
 
+runBubbles = () ->
+    setTimeout(appendSampleMessage, 1000, samples.botInfo, "ChatHeader")
+    setTimeout(appendSampleMessage, 3000, "", "TypingIndicator")
+    setTimeout(appendSampleMessage, 4000, samples.messageText2, "TextBubble")
+    setTimeout(appendSampleMessage, 6000, samples.messageText2, "TextBubble")
+
+    setTimeout(appendSampleMessage, 8000, samples.messageText1, "TextBubble")
+    setTimeout(appendSampleMessage, 10000, samples.messageText1, "TextBubble")
+    
+    setTimeout(appendSampleMessage, 15000, "", "TypingIndicator")
+    setTimeout(appendSampleMessage, 16000, samples.messageText2, "TextBubble")    
+    setTimeout(appendSampleMessage, 18000, samples.messageText2, "TextBubble")
+    setTimeout(appendSampleMessage, 21000, "", "TypingIndicator")
+    setTimeout(appendSampleMessage, 22000, samples.messageText2, "TextBubble")
+    
+    # setTimeout(appendSampleMessage, 24000, samples.messageText1, "TextBubble")
+
 runSample = () ->
     setTimeout(appendSampleMessage, 500, samples.botInfo, "ChatHeader")
     setTimeout(appendSampleMessage, 1000, samples.buttonsContent, "TextButtons")
-    setTimeout(appendSampleMessage, 3000, "", "TypingIndicator")
     setTimeout(appendSampleMessage, 4000, samples.messageText1, "TextBubble")
     setTimeout(appendSampleMessage, 6000, samples.replies, "QuickReplies")
+    setTimeout(appendSampleMessage, 8000, samples.location, "Location")
     setTimeout(appendSampleMessage, 10000, samples.carouselMessage, "Carousel")
     setTimeout(appendSampleMessage, 13000, "", "TypingIndicator")
     setTimeout(appendSampleMessage, 14000, samples.messageText2, "TextBubble")
     setTimeout(appendSampleMessage, 16000, samples.listMessage, "List")
-    setTimeout(appendSampleMessage, 19000, "", "TypingIndicator")
     setTimeout(appendSampleMessage, 20000, samples.messageText1, "TextBubble")
     setTimeout(appendSampleMessage, 22000, samples.receiptSampleData, "Receipt")
-    setTimeout(appendSampleMessage, 24000, samples.location, "Location")
+    
 
 # Navigation events
 #################
@@ -60,7 +76,6 @@ Screen.on "SendMessage", (message) ->
 
 Screen.on "GoBack", ->
     bot.goBack()
-
 
 
 # Hook to Data

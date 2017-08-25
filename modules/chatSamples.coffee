@@ -3,7 +3,7 @@ exports.botInfo =
 	botName: "Vodafone Chatbot"
 	botFans: "62,438 people like this"
 	botCategory: "Telecom"
-	botAvatar: "https://unsplash.it/375/667/?random"
+	botAvatar: "images/Amanda.png" #"https://unsplash.it/375/667/?random"
 
 # chatHeader = new ChatHeader({y: 100, parent: null}, bot)
 
@@ -38,7 +38,7 @@ exports.buttonsContent =
 cardMessage =
 	title: "Would you like to get a coffee at 7?"
 	subtitle: "Subtitle\nSubtitle\nSubtitle"
-	image: "https://source.unsplash.com/random"
+	image: "images/Amanda.png" #"https://source.unsplash.com/random"
 	buttons: ["Cluj", "Cluj", "Cluj"]
 
 exports.carouselMessage = [cardMessage, cardMessage, cardMessage, cardMessage, cardMessage]
@@ -57,14 +57,14 @@ exports.listMessage =
 			title: "Classic T-shirt collection"
 			subtitle: "See all our colors"
 			link: "www.imprezzio.com"
-			image: "http://lorempixel.com/400/200/sports/"
+			image: "images/Amanda.png" #"http://lorempixel.com/400/200/sports/"
 			button: "View"
 		},
 		{
 			state: "regular"
 			title: "Classic White t-shirt"
 			subtitle: "100% cotton, 200% comfortable"
-			image: "http://lorempixel.com/400/200/sports/"
+			image: "images/Amanda.png" #"http://lorempixel.com/400/200/sports/"
 			link: "www.imprezzio.com"
 			button: "Shop Now"
 		},
@@ -72,7 +72,7 @@ exports.listMessage =
 			state: "regular"
 			title: "Classic Blue t-shirt"
 			subtitle: "100% cotton, 200% comfortable"
-			image: "http://lorempixel.com/400/200/sports/"
+			image: "images/Amanda.png" #"http://lorempixel.com/400/200/sports/"
 			link: "www.imprezzio.com"
 			button: "Shop Now"
 		},
@@ -80,7 +80,7 @@ exports.listMessage =
 			state: "regular"
 			title: "Classic Black t-shirt"
 			subtitle: "100% cotton, 200% comfortable"
-			image: "http://lorempixel.com/400/200/sports/"
+			image: "images/Amanda.png" #"http://lorempixel.com/400/200/sports/"
 			link: "www.imprezzio.com"
 			button: "Shop Now"
 		}

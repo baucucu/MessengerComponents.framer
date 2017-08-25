@@ -4,9 +4,17 @@ utils = require 'ipz-utils'
 
 class IpzMessengerChat extends Layer
     
+    @user = undefined
+    @avatar = undefined
+
     @navBar = undefined
     @messageScroll = undefined
+    
+    @msgContainer = undefined
+    @messageCount = 0
     @lastMessage = undefined
+    @lastSender = undefined
+    @msgBubble = undefined
     @typingIndicator = undefined
     
     constructor:(options = {}) ->
@@ -49,7 +57,7 @@ class IpzMessengerChat extends Layer
             scrollHorizontal: false
             directionLock: true
             y: @navBar.maxY
-            width: @.width
+            width: @.width - 20
             height: @.height - @navBar.height - textField.height
             maxY: textField.y
         
@@ -74,8 +82,110 @@ class IpzMessengerChat extends Layer
                     Screen.emit "SendMessage", textField.text.html
                     textField.text.html = ""
 
+    appendMessage:(message, messageType) ->
+        # if last item was a typing indicator, destroy it
+        if @typingIndicator != undefined
+            @msgContainer.destroy()
+            @typingIndicator = undefined
 
-    setUser:(user) ->        
+        if (messageType != "TextBubble" && messageType != "TypingIndicator")
+            @msgBubble = undefined
+
+        if (messageType == "ChatHeader")
+            @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: @lastMessage.maxY + 10}, message)
+            @avatar = undefined
+            @msgBubble = undefined
+            @lastSender = undefined
+        else
+            @msgContainer = new Layer
+                name: "msgContainer.#{@messageCount}"
+                superLayer: @messageScroll.content
+                width: @messageScroll.width
+                y: 10
+                backgroundColor: "transparent"
+                            
+            if (@lastMessage != undefined)
+                if (@msgBubble != undefined && @lastSender != undefined && @lastSender == message.sender)
+                    @msgContainer.y = @lastMessage.maxY + 3
+                else
+                    @msgContainer.y = @lastMessage.maxY + 10
+            
+            options = {name:"#{messageType}.#{@messageCount}", superLayer: @msgContainer}
+            
+            if (message.sender != "user")
+                if (@avatar == undefined)
+                    @avatar = new ipz.IpzAvatar
+                        name: "Avatar.#{@messageCount}"
+                        superLayer: @msgContainer 
+                        x: Align.left(8)
+                        scale:0.9
+                    @avatar.setUser(@user)
+                options.x = @avatar.maxX + 8
+            else
+                @avatar = undefined
+
+            switch messageType
+                when "TypingIndicator"
+                    @typingIndicator = new ipz.IpzTypingIndicator(options)
+
+                when "TextBubble"
+                    stackSide = "right"
+                    if (message.sender != "user")
+                        stackSide = "left"
+
+                    # merge last message
+                    if (@msgBubble != undefined && @lastSender != undefined && message.sender == @lastSender)
+                        @msgBubble.mergeBottom(stackSide)
+
+                    # append new message
+                    @msgBubble = new ipz.IpzTextBubble(options, message)
+
+                    # merge new message
+                    if (@lastSender != undefined && message.sender == @lastSender)
+                        @msgBubble.mergeTop(stackSide)
+
+                when "QuickReplies"
+                    quicks = new ipz.IpzQuickReplies(options, message)
+
+                when "TextButtons"
+                    txtButtons = new ipz.IpzChatTextButtons(options, message)
+
+                when "Carousel"
+                    carousel = new ipz.IpzCarousel(options, message)
+
+                when "List"
+                    list = new ipz.IpzChatList(options, message)
+
+                when "Location"
+                    loc = new ipz.IpzLocation(options, message)
+
+                when "Receipt"
+                    rec = new ipz.IpzReceipt(options, message)
+            
+
+            @msgContainer.height = @msgContainer.children[@msgContainer.children.length-1].height
+
+            if (@avatar != undefined)
+                @avatar.superLayer = @msgContainer
+                @avatar.y = Align.bottom
+
+        if (messageType != "TypingIndicator")
+            @lastMessage = @msgContainer
+            @lastSender = message.sender        
+            @messageCount = @messageCount + 1
+
+        if (@msgContainer.maxY > @messageScroll.maxY)
+            endLayer = new Layer
+                superLayer:@messageScroll.content
+                height: 1
+                width: 1
+                backgroundColor: "transparent"
+                y: @msgContainer.maxY
+
+            @messageScroll.scrollToLayer(endLayer)
+
+    setUser:(user) ->  
+        @user = user      
         ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])
 
         # clear all previous messages
@@ -83,47 +193,7 @@ class IpzMessengerChat extends Layer
         @messageScroll.updateContent()
         @lastMessage = undefined
 
-        if (@lastMessage == undefined)
-            msgContent = {text:user.messageText, sender:"chatbot"}
-            @lastMessage = new ipz.IpzTextBubble({superLayer: @messageScroll.content, y:10}, msgContent)
-        else
-            @lastMessage.text = user.messageText
-
-    appendMessage:(message, messageType) ->
-        options = {superLayer: @messageScroll.content, y: @lastMessage.maxY + 10}
-
-        if @typingIndicator != undefined
-            @typingIndicator.destroy()
-            @typingIndicator = undefined
-
-        switch messageType
-            when "ChatHeader"
-                chatHeader = new ipz.IpzChatHeader(options, message)
-                @lastMessage = chatHeader
-            when "TypingIndicator"
-                @typingIndicator = new ipz.IpzTypingIndicator(options)
-            when "TextBubble"
-                msgBubble = new ipz.IpzTextBubble(options, message)
-                @lastMessage = msgBubble
-            when "QuickReplies"
-                quicks = new ipz.IpzQuickReplies(options, message)
-                @lastMessage = quicks
-            when "TextButtons"
-                txtButtons = new ipz.IpzChatTextButtons(options, message)
-                @lastMessage = txtButtons
-            when "Carousel"
-                carousel = new ipz.IpzCarousel(options, message)
-                @lastMessage = carousel
-            when "List"
-                list = new ipz.IpzChatList(options, message)
-                @lastMessage = list
-            when "Location"
-                loc = new ipz.IpzLocation(options, message)
-                @lastMessage = loc
-            when "Receipt"
-                rec = new ipz.IpzReceipt(options, message)
-                @lastMessage = rec
-                
-        @messageScroll.scrollToPoint(y: @lastMessage.maxY)
+        msgContent = {text:user.messageText, sender:"chatbot"}
+        @.appendMessage(msgContent, "TextBubble")
 
 module.exports = IpzMessengerChat

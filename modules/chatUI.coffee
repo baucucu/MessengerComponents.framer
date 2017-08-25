@@ -14,7 +14,6 @@ class TextBubble extends TextLayer
 		@.states =
 				chatbot:
 					backgroundColor: "#F1F0F0"
-					x: Align.left
 					color: "#000000"
 				user:
 					backgroundColor: "#0084FF"
@@ -22,16 +21,43 @@ class TextBubble extends TextLayer
 					color: "#FFFFFF"
 				button:
 					backgroundColor: "#F1F0F0"
-					x: Align.left
 					width: 256
 					color: "#000000"
 					borderRadius:
 						bottomLeft: 0
 						bottomRight: 0
+				stackBottomLeft:
+					borderRadius:
+						bottomLeft: 0
+				stackBottomRight:
+					borderRadius:
+						bottomRight: 0
+				stackTopLeft:
+					borderRadius:
+						topLeft: 0
+				stackTopRight:
+					borderRadius:
+						topRight: 0
 		@.maxWidth()
 		@.stateSwitch options.sender
 	maxWidth: () ->
 		if  @.width > 256 then @.width = 256
+
+	mergeBottom: (side) ->
+		if (side == "left" || side == "both")
+			# @.borderRadius.bottomLeft = 0
+			@.stateSwitch "stackBottomLeft"
+		if (side == "right" || side == "both")
+			@.stateSwitch "stackBottomRight"
+			# @.borderRadius.bottomRight = 0
+
+	mergeTop: (side) ->
+		if (side == "left" || side == "both")
+			@.stateSwitch "stackTopLeft"
+			# @.borderRadius.topLeft = 0
+		if (side == "right" || side == "both")
+			@.stateSwitch "stackTopRight"
+			# @.borderRadius.topRight = 0
 
 exports.TextBubble = TextBubble
 
