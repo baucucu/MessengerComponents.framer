@@ -187,9 +187,6 @@ class MessageList extends Layer
 		for user, index in users
 			message = new MessageListItem({parent: @, y: options.scale * index * 74}, user)
 
-			# message.on Events.Tap, ->
-			# 	Screen.emit "GotoChat", @.user
-
 exports.MessageList = MessageList
 
 # Active users

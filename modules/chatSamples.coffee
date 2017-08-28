@@ -1,4 +1,23 @@
 
+exports.allTypesFlow = '[
+	{
+		"type": "ChatHeader", 
+		"delay": "500", 
+		"botName": "Vodafone Chatbot", 
+		"botFans": "62,438 people like this", 
+		"botCategory": "Telecom", 
+		"botAvatar": "images/Amanda.png"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2000", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "chatbot"
+	}
+	]'
+
+
+
 exports.botInfo =
 	botName: "Vodafone Chatbot"
 	botFans: "62,438 people like this"

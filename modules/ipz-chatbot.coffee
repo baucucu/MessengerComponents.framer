@@ -26,22 +26,45 @@ class IpzChatBot extends Layer
 
         @flow.header = @statusBar
 
+        @.handleEvents(@)
+
+    
+
     gotoMain: () ->
         @flow.showNext(@mainView)
 
-    setUser:(user) ->
+    setUser: (user) ->
         @mainView.setUser(user)
         ios.utils.update(@statusBar.carrier, [text:user.Carrier])
         @statusBar.carrier = user.Carrier
 
-    gotoChat:(user) ->
-        @chatView.setUser(user)
+    gotoChat: (user) ->
         @flow.showNext(@chatView)
+        @chatView.setUser(user)
 
-    goBack:() ->        
+    goBack: () ->        
         @flow.showPrevious()
 
-    appendMessage:(message, messageType) ->
+    appendMessage: (message, messageType) ->
         @chatView.appendMessage(message, messageType)
+
+    runConversationFlow: (conversationFlow) ->
+        conversation = JSON.parse conversationFlow
+        for message in conversation
+            setTimeout(appendMessage, message.delay, message, message.type)
+
+    handleEvents: (bot) ->
+        Screen.on "GotoMain", ->
+            bot.gotoMain()
+
+        Screen.on "GotoChat", (user)->
+            bot.gotoChat(user)
+
+        Screen.on "SendMessage", (message) ->
+            userMessage = { text: message, sender: "user" }
+            bot.appendMessage(userMessage, "TextBubble")
+
+        Screen.on "GoBack", ->
+            bot.goBack()
 
 module.exports = IpzChatBot

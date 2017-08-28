@@ -27,55 +27,43 @@ bot.gotoMain()
 # SAMPLE
 #################
 
-appendSampleMessage = (message, messageType) ->
-    bot.appendMessage(message, messageType)
+# appendSampleMessage = (message, messageType) ->
+#     bot.appendMessage(message, messageType)
 
-runBubbles = () ->
-    setTimeout(appendSampleMessage, 1000, samples.botInfo, "ChatHeader")
-    setTimeout(appendSampleMessage, 3000, "", "TypingIndicator")
-    setTimeout(appendSampleMessage, 4000, samples.messageText2, "TextBubble")
-    setTimeout(appendSampleMessage, 6000, samples.messageText2, "TextBubble")
+# runBubbles = () ->
+#     setTimeout(appendSampleMessage, 1000, samples.botInfo, "ChatHeader")
+#     setTimeout(appendSampleMessage, 3000, "", "TypingIndicator")
+#     setTimeout(appendSampleMessage, 4000, samples.messageText2, "TextBubble")
+#     setTimeout(appendSampleMessage, 6000, samples.messageText2, "TextBubble")
 
-    setTimeout(appendSampleMessage, 8000, samples.messageText1, "TextBubble")
-    setTimeout(appendSampleMessage, 10000, samples.messageText1, "TextBubble")
+#     setTimeout(appendSampleMessage, 8000, samples.messageText1, "TextBubble")
+#     setTimeout(appendSampleMessage, 10000, samples.messageText1, "TextBubble")
     
-    setTimeout(appendSampleMessage, 15000, "", "TypingIndicator")
-    setTimeout(appendSampleMessage, 16000, samples.messageText2, "TextBubble")    
-    setTimeout(appendSampleMessage, 18000, samples.messageText2, "TextBubble")
-    setTimeout(appendSampleMessage, 21000, "", "TypingIndicator")
-    setTimeout(appendSampleMessage, 22000, samples.messageText2, "TextBubble")
+#     setTimeout(appendSampleMessage, 15000, "", "TypingIndicator")
+#     setTimeout(appendSampleMessage, 16000, samples.messageText2, "TextBubble")    
+#     setTimeout(appendSampleMessage, 18000, samples.messageText2, "TextBubble")
+#     setTimeout(appendSampleMessage, 21000, "", "TypingIndicator")
+#     setTimeout(appendSampleMessage, 22000, samples.messageText2, "TextBubble")
     
-    # setTimeout(appendSampleMessage, 24000, samples.messageText1, "TextBubble")
+#     # setTimeout(appendSampleMessage, 24000, samples.messageText1, "TextBubble")
 
-runSample = () ->
-    setTimeout(appendSampleMessage, 500, samples.botInfo, "ChatHeader")
-    setTimeout(appendSampleMessage, 1000, samples.buttonsContent, "TextButtons")
-    setTimeout(appendSampleMessage, 4000, samples.messageText1, "TextBubble")
-    setTimeout(appendSampleMessage, 6000, samples.replies, "QuickReplies")
-    setTimeout(appendSampleMessage, 8000, samples.location, "Location")
-    setTimeout(appendSampleMessage, 10000, samples.carouselMessage, "Carousel")
-    setTimeout(appendSampleMessage, 13000, "", "TypingIndicator")
-    setTimeout(appendSampleMessage, 14000, samples.messageText2, "TextBubble")
-    setTimeout(appendSampleMessage, 16000, samples.listMessage, "List")
-    setTimeout(appendSampleMessage, 20000, samples.messageText1, "TextBubble")
-    setTimeout(appendSampleMessage, 22000, samples.receiptSampleData, "Receipt")
-    
+# runSample = () ->
+#     setTimeout(appendSampleMessage, 500, samples.botInfo, "ChatHeader")
+#     setTimeout(appendSampleMessage, 1000, samples.buttonsContent, "TextButtons")
+#     setTimeout(appendSampleMessage, 4000, samples.messageText1, "TextBubble")
+#     setTimeout(appendSampleMessage, 6000, samples.replies, "QuickReplies")
+#     setTimeout(appendSampleMessage, 8000, samples.location, "Location")
+#     setTimeout(appendSampleMessage, 10000, samples.carouselMessage, "Carousel")
+#     setTimeout(appendSampleMessage, 13000, "", "TypingIndicator")
+#     setTimeout(appendSampleMessage, 14000, samples.messageText2, "TextBubble")
+#     setTimeout(appendSampleMessage, 16000, samples.listMessage, "List")
+#     setTimeout(appendSampleMessage, 20000, samples.messageText1, "TextBubble")
+#     setTimeout(appendSampleMessage, 22000, samples.receiptSampleData, "Receipt")
 
-# Navigation events
-#################
-Screen.on "GotoMain", ->
-    bot.gotoMain()
-
-Screen.on "GotoChat", (user)->
-    bot.gotoChat(user)
-    runSample()
-
-Screen.on "SendMessage", (message) ->
-    userMessage = { text: message, sender: "user" }
-    bot.appendMessage(userMessage, "TextBubble")
-
-Screen.on "GoBack", ->
-    bot.goBack()
+# runJsonSample = () ->
+#     sampleFlow = JSON.parse samples.allTypesFlow
+#     for message in sampleFlow
+#         setTimeout(appendSampleMessage, message.delay, message, message.type)
 
 
 # Hook to Data
