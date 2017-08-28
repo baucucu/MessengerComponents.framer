@@ -92,7 +92,7 @@ class IpzMessengerChat extends Layer
             @msgBubble = undefined
 
         if (messageType == "ChatHeader")
-            @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: @lastMessage.maxY + 10}, message)
+            @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: @lastMessage.maxY + 10}, message.botInfo)
             @avatar = undefined
             @msgBubble = undefined
             @lastSender = undefined
@@ -145,22 +145,22 @@ class IpzMessengerChat extends Layer
                         @msgBubble.mergeTop(stackSide)
 
                 when "QuickReplies"
-                    quicks = new ipz.IpzQuickReplies(options, message)
+                    quicks = new ipz.IpzQuickReplies(options, message.replies)
 
                 when "TextButtons"
-                    txtButtons = new ipz.IpzChatTextButtons(options, message)
+                    txtButtons = new ipz.IpzChatTextButtons(options, message.buttonsContent)
 
                 when "Carousel"
-                    carousel = new ipz.IpzCarousel(options, message)
+                    carousel = new ipz.IpzCarousel(options, message.carouselMessage)
 
                 when "List"
-                    list = new ipz.IpzChatList(options, message)
+                    list = new ipz.IpzChatList(options, message.listMessage)
 
                 when "Location"
-                    loc = new ipz.IpzLocation(options, message)
+                    loc = new ipz.IpzLocation(options, message.location)
 
                 when "Receipt"
-                    rec = new ipz.IpzReceipt(options, message)
+                    rec = new ipz.IpzReceipt(options, message.receiptData)
             
 
             @msgContainer.height = @msgContainer.children[@msgContainer.children.length-1].height

@@ -6,6 +6,7 @@ IpzChatBot = require "ipz-chatbot"
 samples = require "chatSamples"
 
 
+
 # Global settings
 #################
 Screen.backgroundColor = "white"
@@ -26,68 +27,24 @@ bot.gotoMain()
 
 # SAMPLE
 #################
+bot.on "ChatOpened", (user) ->
+    # TODO: we can get a different flow by user from the db
+    bot.runConversationFlow(bot, samples.allTypesFlow)
 
-# appendSampleMessage = (message, messageType) ->
-#     bot.appendMessage(message, messageType)
-
-# runBubbles = () ->
-#     setTimeout(appendSampleMessage, 1000, samples.botInfo, "ChatHeader")
-#     setTimeout(appendSampleMessage, 3000, "", "TypingIndicator")
-#     setTimeout(appendSampleMessage, 4000, samples.messageText2, "TextBubble")
-#     setTimeout(appendSampleMessage, 6000, samples.messageText2, "TextBubble")
-
-#     setTimeout(appendSampleMessage, 8000, samples.messageText1, "TextBubble")
-#     setTimeout(appendSampleMessage, 10000, samples.messageText1, "TextBubble")
-    
-#     setTimeout(appendSampleMessage, 15000, "", "TypingIndicator")
-#     setTimeout(appendSampleMessage, 16000, samples.messageText2, "TextBubble")    
-#     setTimeout(appendSampleMessage, 18000, samples.messageText2, "TextBubble")
-#     setTimeout(appendSampleMessage, 21000, "", "TypingIndicator")
-#     setTimeout(appendSampleMessage, 22000, samples.messageText2, "TextBubble")
-    
-#     # setTimeout(appendSampleMessage, 24000, samples.messageText1, "TextBubble")
-
-# runSample = () ->
-#     setTimeout(appendSampleMessage, 500, samples.botInfo, "ChatHeader")
-#     setTimeout(appendSampleMessage, 1000, samples.buttonsContent, "TextButtons")
-#     setTimeout(appendSampleMessage, 4000, samples.messageText1, "TextBubble")
-#     setTimeout(appendSampleMessage, 6000, samples.replies, "QuickReplies")
-#     setTimeout(appendSampleMessage, 8000, samples.location, "Location")
-#     setTimeout(appendSampleMessage, 10000, samples.carouselMessage, "Carousel")
-#     setTimeout(appendSampleMessage, 13000, "", "TypingIndicator")
-#     setTimeout(appendSampleMessage, 14000, samples.messageText2, "TextBubble")
-#     setTimeout(appendSampleMessage, 16000, samples.listMessage, "List")
-#     setTimeout(appendSampleMessage, 20000, samples.messageText1, "TextBubble")
-#     setTimeout(appendSampleMessage, 22000, samples.receiptSampleData, "Receipt")
-
-# runJsonSample = () ->
-#     sampleFlow = JSON.parse samples.allTypesFlow
-#     for message in sampleFlow
-#         setTimeout(appendSampleMessage, message.delay, message, message.type)
 
 
 # Hook to Data
 #################
-
 # DB callback
-getUsers_Callback= (isError, usersString) ->
-    if isError == true
-        # TODO better error handling
+gotUsers= (isError, usersString) ->
+    # TODO better error handling
+    if isError == true        
         return null
 
-    users = JSON.parse usersString
-    myDays = usersDB.getMyDays(users)
-    unreadMessageCount = usersDB.getUnreadCount(users)
-
-    loggedInUser = users[0]
-    loggedInUser.Carrier = "VodafoneRO"
-    loggedInUser.Friends = users[1..20]
-    loggedInUser.MyDays = myDays
-    loggedInUser.HomeBadge = unreadMessageCount
-
+    loggedInUser = usersDB.setLoggedInUser(usersString, "VodafoneRO")
     bot.setUser(loggedInUser)
 
 # Get data
 usersDB = new usersModule
-usersDB.getUsers({}, 20, "", "serialno", -1, getUsers_Callback)
+usersDB.getUsers({}, 20, "", "serialno", -1, gotUsers)
 

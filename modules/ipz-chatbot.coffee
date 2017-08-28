@@ -1,6 +1,7 @@
 ios = require "ios-kit"
 IpzMessenger = require "ipz-messenger"
 IpzMessengerChat = require "ipz-messenger-chat"
+utils = require "ipz-utils"
 
 class IpzChatBot extends Layer
     @flow = undefined
@@ -28,30 +29,32 @@ class IpzChatBot extends Layer
 
         @.handleEvents(@)
 
-    
-
     gotoMain: () ->
         @flow.showNext(@mainView)
+
+    gotoChat: (user) ->
+        @flow.showNext(@chatView)
+        @chatView.setUser(user)
+        @.emit "ChatOpened", user
+
+    goBack: () ->        
+        @flow.showPrevious()
 
     setUser: (user) ->
         @mainView.setUser(user)
         ios.utils.update(@statusBar.carrier, [text:user.Carrier])
         @statusBar.carrier = user.Carrier
 
-    gotoChat: (user) ->
-        @flow.showNext(@chatView)
-        @chatView.setUser(user)
-
-    goBack: () ->        
-        @flow.showPrevious()
-
     appendMessage: (message, messageType) ->
         @chatView.appendMessage(message, messageType)
 
-    runConversationFlow: (conversationFlow) ->
+    appendMessage = (bot, message) ->
+        bot.appendMessage(message, message.type)
+
+    runConversationFlow: (bot, conversationFlow) ->
         conversation = JSON.parse conversationFlow
         for message in conversation
-            setTimeout(appendMessage, message.delay, message, message.type)
+            setTimeout(appendMessage, message.delay*1000, bot, message)
 
     handleEvents: (bot) ->
         Screen.on "GotoMain", ->

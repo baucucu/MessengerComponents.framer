@@ -2,17 +2,209 @@
 exports.allTypesFlow = '[
 	{
 		"type": "ChatHeader", 
-		"delay": "500", 
-		"botName": "Vodafone Chatbot", 
-		"botFans": "62,438 people like this", 
-		"botCategory": "Telecom", 
-		"botAvatar": "images/Amanda.png"
+		"delay": "0.5", 
+		"botInfo":
+		{
+			"botName": "Vodafone Chatbot", 
+			"botFans": "62,438 people like this", 
+			"botCategory": "Telecom", 
+			"botAvatar": "images/Amanda.png"
+		}
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "2000", 
+		"delay": "2", 
 		"text": "What about drinks tomorrow at 7?", 
 		"sender": "chatbot"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "4", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "6", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "8", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "10", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "12", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "14", 
+		"replies":[
+			{"icon": "images/locationIcon.png", "reply": "No thanks"},
+			{"reply": "No thanks"}, 
+			{"reply": "No thanks"}, 
+			{"icon": "images/locationIcon.png", "reply": "No thanks"}
+		]
+	},
+	{
+		"type": "TextButtons", 
+		"delay": "16", 
+		"buttonsContent":
+		{
+			"message": 
+			{
+				"text": "Where do you want to meet?", 
+				"sender": "button"
+			},
+			"buttons": ["Iasi", "Cluj", "Timisoara"]
+		}
+	},	
+	{
+		"type": "TextBubble", 
+		"delay": "18", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	},
+	{
+		"type": "Carousel", 
+		"delay": "20", 
+		"carouselMessage": [
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["Cluj", "Cluj", "Cluj"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["Cluj", "Cluj", "Cluj"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["Cluj", "Cluj", "Cluj"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["Cluj", "Cluj", "Cluj"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["Cluj", "Cluj", "Cluj"]
+			}
+		]
+	},
+	{
+		"type": "List",
+		"delay": "24",
+		"listMessage" :
+		{
+			"hasHeader": "true",
+			"hasButtons": "true",
+			"button": ["View more"],
+			"items":[
+			{
+				"state": "header",
+				"title": "Classic T-shirt collection",
+				"subtitle": "See all our colors",
+				"link": "www.imprezzio.com",
+				"image": "images/product.png",
+				"button": "View"
+			},
+			{
+				"state": "regular",
+				"title": "Classic White t-shirt",
+				"subtitle": "100% cotton, 200% comfortable",
+				"image": "images/product.png",
+				"link": "www.imprezzio.com",
+				"button": "Shop Now"
+			},
+			{
+				"state": "regular",
+				"title": "Classic Blue t-shirt",
+				"subtitle": "100% cotton, 200% comfortable",
+				"image": "images/product.png",
+				"link": "www.imprezzio.com",
+				"button": "Shop Now"
+			},
+			{
+				"state": "regular",
+				"title": "Classic Black t-shirt",
+				"subtitle": "100% cotton, 200% comfortable",
+				"image": "images/product.png",
+				"link": "www.imprezzio.com",
+				"button": "Shop Now"
+			}
+			]
+		}
+	},
+	{
+		"type" : "Location",
+		"delay" : "28",
+		"location":
+		{
+			"name": "Bucuresti, Romania",
+			"subtitle": "Tap to view on map",
+			"zoom":"12",
+			"scale":"1"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "30", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	},
+	{
+		"type": "Receipt",
+		"delay": "32",
+		"receiptData": 
+		{
+			"products": [
+			{
+				"title": "Classic White T-Shirt",
+				"description": "100% Cotton, 200% Comfortable",
+				"image": "images/product.png",
+				"quantity": "2",
+				"itemPrice": "13.97"
+			},
+			{
+				"title": "Classic White T-Shirt",
+				"description": "100% Cotton, 200% Comfortable",
+				"image": "images/product.png",
+				"quantity": "1",
+				"itemPrice": "15.43"
+			},
+			{
+				"title": "Classic White T-Shirt",
+				"description": "100% Cotton, 200% Comfortable",
+				"image": "images/product.png",
+				"quantity": "3",
+				"itemPrice": "9.67"
+			}
+			],
+			"paymentMethod": "Visa 2345",
+			"shipTo": "1 Hacker Way \\nMenlo Park, CA 94025",
+			"currency": "$"
+		}
 	}
 	]'
 

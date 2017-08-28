@@ -174,6 +174,8 @@ class TextButtons extends Layer
 		textBubble = new TextBubble({parent: @}, message.message)
 		buttons = new Buttons({parent: @, y: textBubble.maxY}, message.buttons)
 
+		@.height = textBubble.height + buttons.height
+
 exports.TextButtons = TextButtons
 
 
