@@ -11,7 +11,7 @@ class IpzMessengerChat extends Layer
     @messageScroll = undefined
     
     @msgContainer = undefined
-    @messageCount = 0
+    @messageCount = undefined
     @lastMessage = undefined
     @lastSender = undefined
     @msgBubble = undefined
@@ -31,6 +31,7 @@ class IpzMessengerChat extends Layer
             left:"< Back"
             title: "Name"
             right: "Details"
+            backgroundColor: Screen.backgroundColor
 
         @navBar.left.on Events.Tap, ->
             Screen.emit "GoBack"
@@ -51,17 +52,22 @@ class IpzMessengerChat extends Layer
                 height: 30
                 bottom: 0
 
-        @messageScroll = new ScrollComponent
+        msgScrollHeight = @.height
+        msgScroll = new ScrollComponent
             name:"ConversationScroll"
             superLayer: @
             scrollHorizontal: false
             directionLock: true
             y: @navBar.maxY
             width: @.width - 20
-            height: @.height - @navBar.height - textField.height
+            height: msgScrollHeight - @navBar.height - textField.height
             maxY: textField.y
-        
 
+        @messageScroll = msgScroll
+
+        @messageCount = 0
+        
+        # Keyboard and Text Input events
         textField.on Events.TouchEnd, ->
 	        textField.keyboard.keys.return.on Events.Tap, ->
                 if textField.text.html.length>0
@@ -69,12 +75,10 @@ class IpzMessengerChat extends Layer
                     textField.text.html = ""
                 
             textField.keyboard.on "change:y", ->
-                if textField.keyboard.maxY > Screen.height
-                    textField.constraints.bottom = undefined
-                    textField.maxY = textField.keyboard.y
-                    # @messageScroll.maxY = textField.y
-                if textField.keyboard.y == Screen.height
-                    textField.keyboard.area.visible = true
+                textField.constraints.bottom = undefined
+                textField.maxY = textField.keyboard.y
+                msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
+                msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
                     
         Events.wrap(window).addEventListener "keydown", (event) ->
             if event.keyCode is 13
@@ -92,7 +96,11 @@ class IpzMessengerChat extends Layer
             @msgBubble = undefined
 
         if (messageType == "ChatHeader")
-            @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: @lastMessage.maxY + 10}, message.botInfo)
+            msgY = 10
+            if (@lastMessage != undefined)
+                msgY = @lastMessage.maxY + 10
+
+            @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: msgY}, message.botInfo)
             @avatar = undefined
             @msgBubble = undefined
             @lastSender = undefined
@@ -184,7 +192,7 @@ class IpzMessengerChat extends Layer
 
             @messageScroll.scrollToLayer(endLayer)
 
-    setUser:(user) ->  
+    setUser:(user, showLastMsg) ->  
         @user = user      
         ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])
 
@@ -193,15 +201,19 @@ class IpzMessengerChat extends Layer
         @messageScroll.updateContent()
         @lastMessage = undefined
 
-        msgContent = {text:user.messageText, sender:"chatbot"}
-        @.appendMessage(msgContent, "TextBubble")
+        if showLastMsg == true
+            msgContent = {text:user.messageText, sender:"chatbot"}
+            @.appendMessage(msgContent, "TextBubble")
+
+    # mockTap=(buttonText) ->
+    #     Screen.emit "SendMessage", buttonText
 
     mockEvent:(customEvent) ->
         target = @lastMessage.children[@lastMessage.children.length-1]
-
+        
         switch customEvent.type
-            when "scroll"                
-                target.scrollToLayer(target.content.children[customEvent.index])
-            # when "tap"
+            when "carousel-scroll-and-tap"
+                target.mockScrollAndTap(customEvent)
+            # TODO add other events
 
 module.exports = IpzMessengerChat

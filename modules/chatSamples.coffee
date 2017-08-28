@@ -121,17 +121,10 @@ exports.allTypesFlow = '[
 		"delay": "22",
 		"event":
 		{
-			"type":"scroll",
-			"index": "3"
-		}
-	},
-	{
-		"type": "MockEvent",
-		"delay": "24",
-		"event":
-		{
-			"type": "tap",
-			"index": "1"
+			"type":"carousel-scroll-and-tap",
+			"scrollindex": "3",
+			"tapindex": "1",
+			"tapDelay": "3"
 		}
 	},
 	{

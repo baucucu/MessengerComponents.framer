@@ -253,6 +253,14 @@ class Card extends Layer
 		for layer in @.children
 			@.height += layer.height
 
+	mockTap=(buttonText) ->
+        Screen.emit "SendMessage", buttonText
+
+	mockTap: (customEvent) ->
+		targetButtons = @.children[@.children.length - 1]
+		targetButton = targetButtons.children[customEvent.tapindex]
+		setTimeout(mockTap, customEvent.tapDelay*1000, targetButton.text)
+
 exports.Card = Card
 
 class Carousel extends ScrollComponent
@@ -280,6 +288,11 @@ class Carousel extends ScrollComponent
 			else
 				card.animate "middle"
 
+	mockScrollAndTap: (customEvent) ->
+		targetCard = @.content.children[customEvent.scrollindex]
+		@.scrollToLayer(targetCard)
+
+		targetCard.mockTap(customEvent)
 
 exports.Carousel = Carousel
 
