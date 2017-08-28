@@ -167,7 +167,7 @@ exports.bar = (array) ->
 			bottom:0
 
 	bar.divider = new ios.View
-		backgroundColor:"#B2B2B2"
+		backgroundColor:"#E4E5E7"
 		name:".divider"
 		superLayer:bar
 		constraints:

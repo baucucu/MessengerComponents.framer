@@ -21,7 +21,7 @@ class IpzMessengerSearchBox extends Layer
             superLayer: searchBar
             height: 28
             borderRadius: 5
-            backgroundColor: "#DEDEDE"
+            backgroundColor: "#E4E5E7"
 
         searchPlaceholder = new TextLayer
             superLayer: search

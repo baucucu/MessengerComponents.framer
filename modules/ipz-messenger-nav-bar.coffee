@@ -11,7 +11,7 @@ exports.defaults =
 	activeColor:'blue'
 	inactiveColor:'grey'
 	backgroundColor:"rgba(255, 255, 255, .8)"
-	dividerBackgroundColor:"#B2B2B2"
+	dividerBackgroundColor:"#E4E5E7"
 
 exports.defaults.props = Object.keys(exports.defaults)
 

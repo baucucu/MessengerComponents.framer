@@ -46,7 +46,8 @@ class IpzMessengerChat extends Layer
             superLayer: @
             keyboard: keyboard
             placeholder: "Type a message"
-            borderRadius: 10
+            borderRadius: 15
+            lineHeight: 2.6
             constraints:
                 width: @.width
                 height: 30

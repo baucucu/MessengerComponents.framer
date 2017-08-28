@@ -92,7 +92,7 @@ class MyDays extends ScrollComponent
 			myDay.parent = @.content
 			myDay.width = 90
 			myDay.height = 125
-			myDay.x = index * (myDay.width + style.margin/2)
+			myDay.x = index * (myDay.width + style.margin/2)			
 			myDay.y = Align.center
 			myDay.borderRadius = 5
 			myDay.subLayers[0].width = myDay.subLayers[0].height = 14
@@ -132,7 +132,7 @@ class MessageListItem extends Layer
 			parent: @
 			x: avatar.maxX + options.scale * 20
 			y: avatar.y
-			lineHeight: 1.5
+			lineHeight: 1.7
 			text: user.firstname + " " + user.lastname
 			fontSize: 17 * options.scale
 
@@ -144,7 +144,7 @@ class MessageListItem extends Layer
 			y: name.maxY
 			lineHeight: 1.5
 			width: @.width - avatar.width - 8
-			height: 19
+			height: 23
 			text: user.messageText
 			fontSize: 16 * options.scale
 			truncate: "true"
@@ -157,6 +157,7 @@ class MessageListItem extends Layer
 			y: name.y
 			fontSize: 15 * options.scale
 			text: user.messageTime
+			marginTop: 5
 
 		if user.unread is true
 			lastMessage.fontWeight = 500
