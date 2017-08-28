@@ -20,12 +20,12 @@ class IpzMessenger extends Layer
             activeIcon:"images/HomeIconActive.png"
             view: new ipz.IpzMessengerHome({superLayer: @})
             
-        callsTab = new ipz.IpzMessengerTab
+        discoverTab = new ipz.IpzMessengerTab
             superLayer: @
-            label:"Calls"
-            activeIcon:"images/CallsIconActive.png"
+            label:"Discover"
+            activeIcon:"images/DiscoverIconActive.png"
             view: new ios.View
-                name:"Calls.view"
+                name:"Discover.view"
                 superLayer: @
                 backgroundColor: "red"
             
@@ -61,7 +61,7 @@ class IpzMessenger extends Layer
             
         @tabBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[@homeTab, callsTab, cameraTab, peopleTab, gamesTab]
+            tabs:[@homeTab, peopleTab, cameraTab, gamesTab, discoverTab]
             start:0
             activeColor:"blue"
             inactiveColor:"grey"            

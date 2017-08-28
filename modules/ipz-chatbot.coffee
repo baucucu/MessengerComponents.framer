@@ -8,6 +8,7 @@ class IpzChatBot extends Layer
     @mainView = undefined
     @chatView = undefined
     @statusBar = undefined
+    @commands = undefined
 
     constructor:(options = {}) ->
         options.name ?= "ChatBot"
@@ -27,6 +28,7 @@ class IpzChatBot extends Layer
 
         @flow.header = @statusBar
 
+        @commands = []
         @.handleEvents(@)
 
     gotoMain: () ->
@@ -37,7 +39,11 @@ class IpzChatBot extends Layer
         @chatView.setUser(user)
         @.emit "ChatOpened", user
 
-    goBack: () ->        
+    goBack: () ->
+        for c in @commands
+            clearTimeout(c)
+        @commands = []
+
         @flow.showPrevious()
 
     setUser: (user) ->
@@ -45,16 +51,31 @@ class IpzChatBot extends Layer
         ios.utils.update(@statusBar.carrier, [text:user.Carrier])
         @statusBar.carrier = user.Carrier
 
+
+
     appendMessage: (message, messageType) ->
         @chatView.appendMessage(message, messageType)
 
-    appendMessage = (bot, message) ->
-        bot.appendMessage(message, message.type)
+    mockEvent: (customEvent) ->
+        @chatView.mockEvent(customEvent)
+    
+    pushCommand: (c) ->
+        @commands.push(c)
 
+
+    handleConversationItem = (bot, item) ->
+        if item.type == "MockEvent"
+            bot.mockEvent(item.event)
+        else
+            bot.appendMessage(item, item.type)
+
+    
     runConversationFlow: (bot, conversationFlow) ->
         conversation = JSON.parse conversationFlow
-        for message in conversation
-            setTimeout(appendMessage, message.delay*1000, bot, message)
+        for item in conversation
+            bot.pushCommand(setTimeout(handleConversationItem, item.delay*1000, bot, item))
+
+
 
     handleEvents: (bot) ->
         Screen.on "GotoMain", ->

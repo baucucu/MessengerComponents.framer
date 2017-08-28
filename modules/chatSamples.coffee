@@ -12,6 +12,10 @@ exports.allTypesFlow = '[
 		}
 	},
 	{
+		"type": "TypingIndicator",
+		"delay": "1"
+	},
+	{
 		"type": "TextBubble", 
 		"delay": "2", 
 		"text": "What about drinks tomorrow at 7?", 
@@ -84,37 +88,55 @@ exports.allTypesFlow = '[
 				"title": "Would you like to get a coffee at 7?",
 				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
 				"image": "images/product.png",
-				"buttons": ["Cluj", "Cluj", "Cluj"]
+				"buttons": ["zero", "one", "two"]
 			},
 			{
 				"title": "Would you like to get a coffee at 7?",
 				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
 				"image": "images/product.png",
-				"buttons": ["Cluj", "Cluj", "Cluj"]
+				"buttons": ["zero", "one", "two"]
 			},
 			{
 				"title": "Would you like to get a coffee at 7?",
 				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
 				"image": "images/product.png",
-				"buttons": ["Cluj", "Cluj", "Cluj"]
+				"buttons": ["zero", "one", "two"]
 			},
 			{
 				"title": "Would you like to get a coffee at 7?",
 				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
 				"image": "images/product.png",
-				"buttons": ["Cluj", "Cluj", "Cluj"]
+				"buttons": ["zero", "one", "two"]
 			},
 			{
 				"title": "Would you like to get a coffee at 7?",
 				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
 				"image": "images/product.png",
-				"buttons": ["Cluj", "Cluj", "Cluj"]
+				"buttons": ["zero", "one", "two"]
 			}
 		]
 	},
 	{
-		"type": "List",
+		"type": "MockEvent",
+		"delay": "22",
+		"event":
+		{
+			"type":"scroll",
+			"index": "3"
+		}
+	},
+	{
+		"type": "MockEvent",
 		"delay": "24",
+		"event":
+		{
+			"type": "tap",
+			"index": "1"
+		}
+	},
+	{
+		"type": "List",
+		"delay": "44",
 		"listMessage" :
 		{
 			"hasHeader": "true",
@@ -158,7 +180,7 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type" : "Location",
-		"delay" : "28",
+		"delay" : "48",
 		"location":
 		{
 			"name": "Bucuresti, Romania",
@@ -169,13 +191,13 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "30", 
+		"delay": "50", 
 		"text": "What about drinks tomorrow at 7?", 
 		"sender": "user"
 	},
 	{
 		"type": "Receipt",
-		"delay": "32",
+		"delay": "52",
 		"receiptData": 
 		{
 			"products": [

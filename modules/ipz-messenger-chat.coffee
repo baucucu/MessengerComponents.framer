@@ -196,4 +196,12 @@ class IpzMessengerChat extends Layer
         msgContent = {text:user.messageText, sender:"chatbot"}
         @.appendMessage(msgContent, "TextBubble")
 
+    mockEvent:(customEvent) ->
+        target = @lastMessage.children[@lastMessage.children.length-1]
+
+        switch customEvent.type
+            when "scroll"                
+                target.scrollToLayer(target.content.children[customEvent.index])
+            # when "tap"
+
 module.exports = IpzMessengerChat

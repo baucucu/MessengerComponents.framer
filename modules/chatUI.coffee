@@ -82,8 +82,11 @@ class QuickReply extends TextLayer
 		options.borderWidth = 1
 		options.borderRadius = 18
 		super options
-		@.onTap ->
-			print options.text
+		
+		@.on Events.TouchEnd, ->
+			# print options.text
+			Screen.emit "SendMessage", options.text
+
 		if options.icon isnt undefined
 
 			icon = new Layer
@@ -156,8 +159,9 @@ class Buttons extends Layer
 			button.padding =
 				horizontal: (256 - button.width) / 2
 				vertical: 10
-			button.onTap ->
-				print @.text
+			button.on Events.TouchEnd, ->
+				#print @.text
+				Screen.emit "SendMessage", @.text
 
 		button.borderRadius =
 			bottomLeft: 18
@@ -207,8 +211,8 @@ class Card extends Layer
 			image: message.image
 			width: 256
 			height: 256/1.9
-		image.onTap ->
-			print "image"
+		# image.onTap ->
+		# 	print "image"
 
 		titles = new Layer
 			parent: @
@@ -217,8 +221,8 @@ class Card extends Layer
 			backgroundColor: "#FFFFFF"
 			borderColor: "#F1F0F0"
 			borderWidth: 0.5
-		titles.onTap ->
-			print "titles"
+		# titles.onTap ->
+		# 	print "titles"
 
 		title = new TextLayer
 			parent: titles
@@ -488,8 +492,8 @@ class ListItem extends Layer
 		itemButton.stateSwitch "#{item.state}"
 		image.stateSwitch "#{item.state}"
 
-		@.onTap ->
-			print @.children[0].children[0].font
+		# @.onTap ->
+		# 	print @.children[0].children[0].font
 		itemDetails.y = Align.center
 
 
@@ -559,8 +563,8 @@ class Location extends Layer
 			color: "#000000"
 		@.width = map.width
 		@.height = map.height + label.height
-		@.onTap ->
-			print @
+		# @.onTap ->
+		# 	print @
 
 
 exports.Location = Location

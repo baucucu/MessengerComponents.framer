@@ -52,6 +52,17 @@ class IpzMessengerHome extends Layer
                 width: @.width
                 height: @.height
                 backgroundColor: Screen.backgroundColor
+        
+        callsTab = new ipz.IpzMessengerTab
+            label:"Calls"
+            fontsize:options.navBarLabelsFontSize
+            superLayer: @
+            view: new ios.View
+                name:"Calls.view"
+                superLayer: @
+                width: @.width
+                height: @.height
+                backgroundColor: Screen.backgroundColor
 
         @messagesTab = new ipz.IpzMessengerTab
             label:"Messages"
@@ -68,7 +79,7 @@ class IpzMessengerHome extends Layer
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[@messagesTab, activeTab, groupsTab]
+            tabs:[@messagesTab, activeTab, groupsTab, callsTab]
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
