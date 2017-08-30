@@ -74,6 +74,17 @@ exports.tab = (array) ->
 			leading:setup.padding
 			trailing:setup.padding
 
+	tab.divider = new ios.View
+		backgroundColor:"blue"
+		name:".divider"
+		superLayer:tab
+		visible:false
+		constraints:
+			leading:0
+			trailing:0
+			bottom: 0
+			height:.8
+
 	if setup.activeIcon != undefined
 		tab.icon = new ios.View
 			name: setup.label + ".icon"
@@ -121,12 +132,15 @@ exports.tab = (array) ->
 	tab.setActive = (value) ->
 		if (value == true)
 			tab.label.color = ios.utils.color("blue")
+			tab.divider.visible = true
 			if (tab.imageLayer != undefined)
 				tab.imageLayer.saturate = 100
 				tab.imageLayer.brightness = 100
+				
 		else
 			if (!setup.alwaysActive)
 				tab.label.color = ios.utils.color("grey")
+				tab.divider.visible = false
 				if (tab.imageLayer != undefined)
 					tab.imageLayer.saturate = 0
 					tab.imageLayer.brightness = 180

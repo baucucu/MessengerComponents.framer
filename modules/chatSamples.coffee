@@ -63,7 +63,7 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "TextButtons", 
-		"delay": "16", 
+		"delay": "20", 
 		"buttonsContent":
 		{
 			"message": 
@@ -76,13 +76,13 @@ exports.allTypesFlow = '[
 	},	
 	{
 		"type": "TextBubble", 
-		"delay": "18", 
+		"delay": "22", 
 		"text": "What about drinks tomorrow at 7?", 
 		"sender": "user"
 	},
 	{
 		"type": "Carousel", 
-		"delay": "20", 
+		"delay": "24", 
 		"carouselMessage": [
 			{
 				"title": "Would you like to get a coffee at 7?",
@@ -118,10 +118,10 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "MockEvent",
-		"delay": "22",
+		"delay": "26",
 		"event":
 		{
-			"type":"carousel-scroll-and-tap",
+			"type":"scroll-and-tap",
 			"scrollindex": "3",
 			"tapindex": "1",
 			"tapDelay": "3"

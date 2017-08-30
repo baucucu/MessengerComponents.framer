@@ -84,11 +84,9 @@ class QuickReply extends TextLayer
 		super options
 		
 		@.on Events.TouchEnd, ->
-			# print options.text
-			Screen.emit "SendMessage", options.text
+			buttonClick options.text
 
 		if options.icon isnt undefined
-
 			icon = new Layer
 				parent: @
 				x: 6
@@ -96,6 +94,13 @@ class QuickReply extends TextLayer
 				width: 24
 				height: 24
 				image: options.icon
+
+	buttonClick= (message) ->
+		Screen.emit "SendMessage", message
+
+	mockTap: (customEvent) ->
+		message = @.text
+		setTimeout(buttonClick, customEvent.tapDelay*1000, message)
 
 class QuickReplies extends ScrollComponent
 	constructor: (options = {}, replies) ->
@@ -124,9 +129,16 @@ class QuickReplies extends ScrollComponent
 
 		container.parent = @.content
 		@.contentInset =
-			right: 0
+			right: 100
 			left: 0
 		@.height = container.height
+
+	mockScrollAndTap: (customEvent) ->
+		container = @.content.children[0]
+		targetReply = container.children[customEvent.scrollindex]
+		@.scrollToLayer(targetReply, 0, 0, true, time: 2)
+
+		targetReply.mockTap(customEvent)
 
 
 exports.QuickReply = QuickReply
@@ -137,6 +149,29 @@ exports.QuickReplies = QuickReplies
 #TextButtons
 ############
 
+class Button extends TextLayer
+	constructor: (options) ->
+		options.backgroundColor ?= "#FFFFFF"
+		options.fontSize ?= 17
+		options.color ?= "#0084FF"
+		options.borderWidth ?= 0.5
+		options.borderColor ?= "#F1F0F0"
+		
+		super options
+
+		@.on Events.TouchEnd, ->
+			buttonClick @.text
+
+	buttonClick= (message) ->
+		Screen.emit "SendMessage", message
+
+	mockTap: (customEvent) ->
+		message = @.text
+		setTimeout(buttonClick, customEvent.tapDelay*1000, message)
+
+
+exports.Button = Button
+
 class Buttons extends Layer
 	constructor: (options = {}, buttons) ->
 		options.backgroundColor = "#FFFFFF"
@@ -144,24 +179,19 @@ class Buttons extends Layer
 		options.height = 0
 		super options
 		for button, index in buttons
-			button = new TextLayer
+			button = new Button
 				parent: @
 				text: buttons[index]
 				x: Align.left()
 				y: index * 45
 				height: 45
-				backgroundColor: "#FFFFFF"
-				fontSize: 17
-				color: "#0084FF"
-				borderWidth: 0.5
-				borderColor: "#F1F0F0"
 			@.height += button.height
 			button.padding =
 				horizontal: (256 - button.width) / 2
 				vertical: 10
-			button.on Events.TouchEnd, ->
-				#print @.text
-				Screen.emit "SendMessage", @.text
+			# button.on Events.TouchEnd, ->
+			# 	#print @.text
+			# 	Screen.emit "SendMessage", @.text
 
 		button.borderRadius =
 			bottomLeft: 18
@@ -253,13 +283,15 @@ class Card extends Layer
 		for layer in @.children
 			@.height += layer.height
 
-	mockTap=(buttonText) ->
-        Screen.emit "SendMessage", buttonText
+	# mockTap=(buttonText) ->
+    #     Screen.emit "SendMessage", buttonText
 
 	mockTap: (customEvent) ->
 		targetButtons = @.children[@.children.length - 1]
 		targetButton = targetButtons.children[customEvent.tapindex]
-		setTimeout(mockTap, customEvent.tapDelay*1000, targetButton.text)
+
+		targetButton.mockTap(customEvent)
+		# setTimeout(mockTap, customEvent.tapDelay*1000, targetButton.text)
 
 exports.Card = Card
 
@@ -290,7 +322,7 @@ class Carousel extends ScrollComponent
 
 	mockScrollAndTap: (customEvent) ->
 		targetCard = @.content.children[customEvent.scrollindex]
-		@.scrollToLayer(targetCard)
+		@.scrollToLayer(targetCard, 0, 0, true, time: 2)
 
 		targetCard.mockTap(customEvent)
 

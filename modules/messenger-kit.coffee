@@ -102,6 +102,10 @@ class MyDays extends ScrollComponent
 			myDay.changeStatus("myDay")
 			myDay.setUser(user)
 
+		@.contentInset =
+			right: 0
+			left: 0
+
 exports.MyDays = MyDays
 
 

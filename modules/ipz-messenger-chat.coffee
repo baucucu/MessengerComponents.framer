@@ -96,10 +96,14 @@ class IpzMessengerChat extends Layer
         if (messageType != "TextBubble" && messageType != "TypingIndicator")
             @msgBubble = undefined
 
-        if (messageType == "ChatHeader")
-            msgY = 10
-            if (@lastMessage != undefined)
+        msgY = 10
+        if (@lastMessage != undefined)
+            if (@msgBubble != undefined && @lastSender != undefined && @lastSender == message.sender)
+                msgY = @lastMessage.maxY + 3
+            else
                 msgY = @lastMessage.maxY + 10
+
+        if (messageType == "ChatHeader")
 
             @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: msgY}, message.botInfo)
             @avatar = undefined
@@ -110,14 +114,8 @@ class IpzMessengerChat extends Layer
                 name: "msgContainer.#{@messageCount}"
                 superLayer: @messageScroll.content
                 width: @messageScroll.width
-                y: 10
+                y: msgY
                 backgroundColor: "transparent"
-                            
-            if (@lastMessage != undefined)
-                if (@msgBubble != undefined && @lastSender != undefined && @lastSender == message.sender)
-                    @msgContainer.y = @lastMessage.maxY + 3
-                else
-                    @msgContainer.y = @lastMessage.maxY + 10
             
             options = {name:"#{messageType}.#{@messageCount}", superLayer: @msgContainer}
             
@@ -191,7 +189,7 @@ class IpzMessengerChat extends Layer
                 backgroundColor: "transparent"
                 y: @msgContainer.maxY
 
-            @messageScroll.scrollToLayer(endLayer)
+            @messageScroll.scrollToLayer(endLayer, 0, 1, true, time: 1)
 
     setUser:(user, showLastMsg) ->  
         @user = user      
@@ -213,7 +211,7 @@ class IpzMessengerChat extends Layer
         target = @lastMessage.children[@lastMessage.children.length-1]
         
         switch customEvent.type
-            when "carousel-scroll-and-tap"
+            when "scroll-and-tap"
                 target.mockScrollAndTap(customEvent)
             # TODO add other events
 

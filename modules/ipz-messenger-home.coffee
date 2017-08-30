@@ -74,12 +74,14 @@ class IpzMessengerHome extends Layer
                 scrollHorizontal: false
                 directionLock: true
                 width: @.width
+                mouseWheelEnabled: true
 
         @messagesTab.view.content.backgroundColor = @.backgroundColor
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
             tabs:[@messagesTab, activeTab, groupsTab, callsTab]
+            start:0
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
