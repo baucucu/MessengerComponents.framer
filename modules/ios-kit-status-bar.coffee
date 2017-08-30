@@ -26,9 +26,13 @@ exports.create = (array) ->
 		height:20
 
 	switch ios.device.name
+		when "iphone-6s"
+			@topConstraint = 5
+			@batteryIcon = -8
+			@bluetooth = -7
 		when "iphone-6s-plus"
 			@topConstraint = 5
-			@batteryIcon = 5
+			@batteryIcon = 0
 			@bluetooth = 5
 
 		when "fullscreen"
