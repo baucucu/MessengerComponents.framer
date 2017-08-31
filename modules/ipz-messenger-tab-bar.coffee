@@ -75,15 +75,14 @@ exports.tab = (array) ->
 			trailing:setup.padding
 
 	tab.divider = new ios.View
-		backgroundColor:"blue"
-		name:".divider"
-		superLayer:tab
-		visible:false
+		backgroundColor:"grey"
+		name:".divider-top"
+		superLayer:tab		
 		constraints:
 			leading:0
 			trailing:0
 			bottom: 0
-			height:.8
+			height:.5
 
 	if setup.activeIcon != undefined
 		tab.icon = new ios.View
@@ -94,6 +93,7 @@ exports.tab = (array) ->
 				width:setup.iconsize
 				height:setup.iconsize
 				align:"horizontal"
+		tab.divider.visible = false
 		tab.imageLayer = new ios.View
 			name: setup.label + ".image"
 			superLayer:tab.icon
@@ -116,8 +116,7 @@ exports.tab = (array) ->
 				fontSize: setup.badgeTextStyle.fontSize
 				color: setup.badgeTextStyle.color
 				textAlign: setup.badgeTextStyle.textAlign	
-			tab.badge.visible = false
-
+			tab.badge.visible = false			
 	if (setup.label != "")	
 		tab.label = new ios.Text
 			name: setup.label + ".label"
@@ -132,7 +131,7 @@ exports.tab = (array) ->
 	tab.setActive = (value) ->
 		if (value == true)
 			tab.label.color = ios.utils.color("blue")
-			tab.divider.visible = true
+			tab.divider.backgroundColor = "blue"
 			if (tab.imageLayer != undefined)
 				tab.imageLayer.saturate = 100
 				tab.imageLayer.brightness = 100
@@ -140,7 +139,7 @@ exports.tab = (array) ->
 		else
 			if (!setup.alwaysActive)
 				tab.label.color = ios.utils.color("grey")
-				tab.divider.visible = false
+				tab.divider.backgroundColor = "grey"
 				if (tab.imageLayer != undefined)
 					tab.imageLayer.saturate = 0
 					tab.imageLayer.brightness = 180
@@ -182,7 +181,7 @@ exports.bar = (array) ->
 
 	bar.divider = new ios.View
 		backgroundColor:"#E4E5E7"
-		name:".divider"
+		name:".divider-bottom"
 		superLayer:bar
 		constraints:
 			leading:0
@@ -202,7 +201,7 @@ exports.bar = (array) ->
 	if setup.type == "navBar"
 		bar.constraints.top = setup.barTop
 		bar.bg.constraints.top = 0
-		bar.divider.y = setup.height
+		bar.divider.y = setup.height		
 	else
 		bar.constraints.bottom = 0
 		bar.bg.constraints.bottom = 0
