@@ -65,6 +65,7 @@ class IpzMessengerChat extends Layer
             width: @.width - 20
             height: msgScrollHeight - @navBar.height - textField.height
             maxY: textField.y
+            backgroundColor: Screen.backgroundColor
 
         @messageScroll = msgScroll
 
@@ -129,6 +130,8 @@ class IpzMessengerChat extends Layer
                         x: Align.left(8)
                         scale:0.9
                     @avatar.setUser(@user)
+
+                @avatar.superLayer = @msgContainer
                 options.x = @avatar.maxX + 8
             else
                 @avatar = undefined
@@ -176,8 +179,7 @@ class IpzMessengerChat extends Layer
 
             @msgContainer.height = @msgContainer.children[@msgContainer.children.length-1].height
 
-            if (@avatar != undefined)
-                @avatar.superLayer = @msgContainer
+            if (@avatar != undefined)                
                 @avatar.y = Align.bottom
 
         if (messageType != "TypingIndicator" && messageType != "QuickReplies")

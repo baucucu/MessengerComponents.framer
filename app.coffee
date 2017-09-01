@@ -29,7 +29,7 @@ bot.gotoMain()
 #################
 bot.on "ChatOpened", (user) ->
     # TODO: we can get a different flow by user from the db
-    bot.runConversationFlow(bot, samples.allTypesFlow)
+    bot.runConversationFlow(bot, samples.Vodafone1)
 
 
 

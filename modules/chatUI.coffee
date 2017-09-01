@@ -45,19 +45,15 @@ class TextBubble extends TextLayer
 
 	mergeBottom: (side) ->
 		if (side == "left" || side == "both")
-			# @.borderRadius.bottomLeft = 0
 			@.stateSwitch "stackBottomLeft"
 		if (side == "right" || side == "both")
 			@.stateSwitch "stackBottomRight"
-			# @.borderRadius.bottomRight = 0
 
 	mergeTop: (side) ->
 		if (side == "left" || side == "both")
 			@.stateSwitch "stackTopLeft"
-			# @.borderRadius.topLeft = 0
 		if (side == "right" || side == "both")
 			@.stateSwitch "stackTopRight"
-			# @.borderRadius.topRight = 0
 
 exports.TextBubble = TextBubble
 
@@ -100,7 +96,6 @@ class QuickReply extends TextLayer
 
 	mockTap: () ->
 		message = @.text
-		# setTimeout(buttonClick, customEvent.tapDelay*1000, message)
 		buttonClick(message)
 
 class QuickReplies extends ScrollComponent
@@ -141,13 +136,15 @@ class QuickReplies extends ScrollComponent
 
 	mockScrollAndTap: (customEvent) ->
 		container = @.content.children[0]
-		targetReply = container.children[customEvent.scrollindex]
-		if (targetReply != undefined)
+		scrollTarget = container.children[customEvent.scrollindex]
+		tapTarget = container.children[customEvent.tapindex]
+		if (scrollTarget != undefined)
 			if (@.scrollHorizontal == true)
-				@.scrollToPoint(x:targetReply.x, y:targetReply.y, true, time: 2)
-			# targetReply.mockTap(customEvent)
+				@.scrollToPoint(x:scrollTarget.x, y:scrollTarget.y, true, time: 2)
+		
+		if (tapTarget != undefined)
 			replies = @
-			setTimeout(mockTap, customEvent.tapDelay*1000, replies, targetReply)
+			setTimeout(mockTap, customEvent.tapDelay*1000, replies, tapTarget)
 
 
 exports.QuickReply = QuickReply
@@ -209,7 +206,6 @@ class TextButtons extends Layer
 	@buttons = undefined
 	constructor: (options = {}, message) ->
 		options.backgroundColor = "transparent"
-		# options.width = options.height = 0
 		super options
 
 		textBubble = new TextBubble({parent: @}, message.message)
@@ -253,8 +249,6 @@ class Card extends Layer
 			image: message.image
 			width: 256
 			height: 256/1.9
-		# image.onTap ->
-		# 	print "image"
 
 		titles = new Layer
 			parent: @
@@ -263,8 +257,6 @@ class Card extends Layer
 			backgroundColor: "#FFFFFF"
 			borderColor: "#F1F0F0"
 			borderWidth: 0.5
-		# titles.onTap ->
-		# 	print "titles"
 
 		title = new TextLayer
 			parent: titles
@@ -276,34 +268,33 @@ class Card extends Layer
 			width: 256
 			color: "#000000"
 			padding:
-				top: 8
+				top: 8				
+		titles.height = title.maxY
 
-		subtitle = new TextLayer
-			parent: titles
-			text: "Subtitle\nSubtitle\nSubtitle"
-			x: Align.left(12)
-			y: title.maxY
-			width: 256
-			fontSize: 13
-			color: "#666666"
-			padding:
-				bottom: 8
-		titles.height = subtitle.maxY
+		if (message.subtitle != undefined)
+			subtitle = new TextLayer
+				parent: titles
+				text: message.subtitle
+				x: Align.left(12)
+				y: title.maxY
+				width: 256
+				fontSize: 13
+				color: "#666666"
+				padding:
+					bottom: 8
+			titles.height = subtitle.maxY
 
 		buttons = new Buttons({parent: @, y: titles.maxY}, message.buttons)
 		@.height = 0
 		for layer in @.children
 			@.height += layer.height
 
-	# mockTap=(buttonText) ->
-    #     Screen.emit "SendMessage", buttonText
-
 	mockTap: (customEvent) ->
 		targetButtons = @.children[@.children.length - 1]
 		targetButton = targetButtons.children[customEvent.tapindex]
 
-		targetButton.mockTap(customEvent)
-		# setTimeout(mockTap, customEvent.tapDelay*1000, targetButton.text)
+		if (targetButton != undefined)
+			targetButton.mockTap(customEvent)
 
 exports.Card = Card
 
@@ -336,7 +327,7 @@ class Carousel extends ScrollComponent
 
 	mockScrollAndTap: (customEvent) ->
 		targetCard = @.content.children[customEvent.scrollindex]
-		@.scrollToLayer(targetCard, 0.5, 0, true, time: 2)
+		@.scrollToLayer(targetCard, 0.5, 0, true, time: customEvent.scrolltime)
 
 		targetCard.mockTap(customEvent)
 
