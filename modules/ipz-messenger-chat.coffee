@@ -16,6 +16,8 @@ class IpzMessengerChat extends Layer
     @lastSender = undefined
     @msgBubble = undefined
     @typingIndicator = undefined
+
+    @lastInteractiveMessage = undefined
     
     constructor:(options = {}) ->
         options.name ?= "Messenger.Chat"
@@ -104,11 +106,11 @@ class IpzMessengerChat extends Layer
                 msgY = @lastMessage.maxY + 10
 
         if (messageType == "ChatHeader")
-
             @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: msgY}, message.botInfo)
             @avatar = undefined
             @msgBubble = undefined
             @lastSender = undefined
+            
         else
             @msgContainer = new Layer
                 name: "msgContainer.#{@messageCount}"
@@ -119,7 +121,7 @@ class IpzMessengerChat extends Layer
             
             options = {name:"#{messageType}.#{@messageCount}", superLayer: @msgContainer}
             
-            if (message.sender != "user")
+            if (message.sender != "user" && messageType != "QuickReplies")
                 if (@avatar == undefined)
                     @avatar = new ipz.IpzAvatar
                         name: "Avatar.#{@messageCount}"
@@ -152,16 +154,18 @@ class IpzMessengerChat extends Layer
                         @msgBubble.mergeTop(stackSide)
 
                 when "QuickReplies"
-                    quicks = new ipz.IpzQuickReplies(options, message.replies)
+                    @lastInteractiveMessage = new ipz.IpzQuickReplies(options, message.replies)
 
                 when "TextButtons"
-                    txtButtons = new ipz.IpzChatTextButtons(options, message.buttonsContent)
+                    @lastInteractiveMessage = new ipz.IpzChatTextButtons(options, message.buttonsContent)
 
                 when "Carousel"
-                    carousel = new ipz.IpzCarousel(options, message.carouselMessage)
+                    options.offset = options.x
+                    options.x = 8
+                    @lastInteractiveMessage = new ipz.IpzCarousel(options, message.carouselMessage)
 
                 when "List"
-                    list = new ipz.IpzChatList(options, message.listMessage)
+                    @lastInteractiveMessage = new ipz.IpzChatList(options, message.listMessage)
 
                 when "Location"
                     loc = new ipz.IpzLocation(options, message.location)
@@ -176,7 +180,7 @@ class IpzMessengerChat extends Layer
                 @avatar.superLayer = @msgContainer
                 @avatar.y = Align.bottom
 
-        if (messageType != "TypingIndicator")
+        if (messageType != "TypingIndicator" && messageType != "QuickReplies")
             @lastMessage = @msgContainer
             @lastSender = message.sender        
             @messageCount = @messageCount + 1
@@ -204,15 +208,13 @@ class IpzMessengerChat extends Layer
             msgContent = {text:user.messageText, sender:"chatbot"}
             @.appendMessage(msgContent, "TextBubble")
 
-    # mockTap=(buttonText) ->
-    #     Screen.emit "SendMessage", buttonText
-
     mockEvent:(customEvent) ->
-        target = @lastMessage.children[@lastMessage.children.length-1]
+        target = @lastInteractiveMessage
         
         switch customEvent.type
             when "scroll-and-tap"
                 target.mockScrollAndTap(customEvent)
-            # TODO add other events
+            when "tap"
+                target.mockTap(customEvent)
 
 module.exports = IpzMessengerChat

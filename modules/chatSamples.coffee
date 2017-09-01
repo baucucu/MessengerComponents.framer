@@ -1,8 +1,53 @@
 
+exports.carouselFlow = '[
+	{
+		"type": "Carousel", 
+		"delay": "2", 
+		"carouselMessage": [
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			}
+		]
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	}
+]'
+
 exports.allTypesFlow = '[
 	{
 		"type": "ChatHeader", 
-		"delay": "0.5", 
+		"delay": "1", 
 		"botInfo":
 		{
 			"botName": "Vodafone Chatbot", 
@@ -13,7 +58,7 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "TypingIndicator",
-		"delay": "1"
+		"delay": "2"
 	},
 	{
 		"type": "TextBubble", 
@@ -22,48 +67,29 @@ exports.allTypesFlow = '[
 		"sender": "chatbot"
 	},
 	{
-		"type": "TextBubble", 
-		"delay": "4", 
-		"text": "What about drinks tomorrow at 7?", 
-		"sender": "user"
-	},
-	{
-		"type": "TextBubble", 
-		"delay": "6", 
-		"text": "What about drinks tomorrow at 7?", 
-		"sender": "user"
-	},
-	{
-		"type": "TextBubble", 
-		"delay": "8", 
-		"text": "What about drinks tomorrow at 7?", 
-		"sender": "user"
-	},
-	{
-		"type": "TextBubble", 
-		"delay": "10", 
-		"text": "What about drinks tomorrow at 7?", 
-		"sender": "chatbot"
-	},
-	{
-		"type": "TextBubble", 
-		"delay": "12", 
-		"text": "What about drinks tomorrow at 7?", 
-		"sender": "chatbot"
-	},
-	{
 		"type": "QuickReplies", 
-		"delay": "14", 
+		"delay": "2", 
 		"replies":[
-			{"icon": "images/locationIcon.png", "reply": "No thanks"},
 			{"reply": "No thanks"}, 
-			{"reply": "No thanks"}, 
-			{"icon": "images/locationIcon.png", "reply": "No thanks"}
+			{"reply": "Awesome"}, 
+			{"reply": "Where?"}, 
+			{"icon": "images/locationIcon.png", "reply": "Sounds good"}
 		]
 	},
 	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "1",
+			"tapindex": "1",
+			"tapDelay": "3"
+		}
+	},
+	{
 		"type": "TextButtons", 
-		"delay": "20", 
+		"delay": "6", 
 		"buttonsContent":
 		{
 			"message": 
@@ -73,16 +99,26 @@ exports.allTypesFlow = '[
 			},
 			"buttons": ["Iasi", "Cluj", "Timisoara"]
 		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"tap",
+			"tapindex": "1",
+			"tapDelay": "3"
+		}
 	},	
 	{
 		"type": "TextBubble", 
-		"delay": "22", 
+		"delay": "6", 
 		"text": "What about drinks tomorrow at 7?", 
 		"sender": "user"
 	},
 	{
 		"type": "Carousel", 
-		"delay": "24", 
+		"delay": "2", 
 		"carouselMessage": [
 			{
 				"title": "Would you like to get a coffee at 7?",
@@ -118,7 +154,7 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "MockEvent",
-		"delay": "26",
+		"delay": "2",
 		"event":
 		{
 			"type":"scroll-and-tap",
@@ -129,7 +165,7 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "List",
-		"delay": "44",
+		"delay": "6",
 		"listMessage" :
 		{
 			"hasHeader": "true",
@@ -172,8 +208,18 @@ exports.allTypesFlow = '[
 		}
 	},
 	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"tap",
+			"tapindex": "0",
+			"tapDelay": "3"
+		}
+	},
+	{
 		"type" : "Location",
-		"delay" : "48",
+		"delay" : "6",
 		"location":
 		{
 			"name": "Bucuresti, Romania",
@@ -184,13 +230,13 @@ exports.allTypesFlow = '[
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "50", 
+		"delay": "2", 
 		"text": "What about drinks tomorrow at 7?", 
 		"sender": "user"
 	},
 	{
 		"type": "Receipt",
-		"delay": "52",
+		"delay": "2",
 		"receiptData": 
 		{
 			"products": [

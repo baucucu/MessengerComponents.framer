@@ -98,15 +98,16 @@ class QuickReply extends TextLayer
 	buttonClick= (message) ->
 		Screen.emit "SendMessage", message
 
-	mockTap: (customEvent) ->
+	mockTap: () ->
 		message = @.text
-		setTimeout(buttonClick, customEvent.tapDelay*1000, message)
+		# setTimeout(buttonClick, customEvent.tapDelay*1000, message)
+		buttonClick(message)
 
 class QuickReplies extends ScrollComponent
 	constructor: (options = {}, replies) ->
 		options.scrollVertical = false
 		options.directionLock = true
-		options.width = Screen.width
+		options.width ?= options.superLayer.width
 		super options
 		@.appendReplies(replies)
 		@.scrollable()
@@ -125,20 +126,28 @@ class QuickReplies extends ScrollComponent
 			container.width += quickReply.width + 12
 			if container.width < 375 then container.x = Align.center else container.x = Align.left()
 			if index isnt 0 then quickReply.x = container.children[index - 1].maxX + 12
+		container.width -= 12
 		container.height = quickReply.height
 
 		container.parent = @.content
 		@.contentInset =
-			right: 100
+			right: 0
 			left: 0
 		@.height = container.height
+
+	mockTap= (replies, target) ->
+		target.mockTap()
+		replies.destroy()
 
 	mockScrollAndTap: (customEvent) ->
 		container = @.content.children[0]
 		targetReply = container.children[customEvent.scrollindex]
-		@.scrollToLayer(targetReply, 0, 0, true, time: 2)
-
-		targetReply.mockTap(customEvent)
+		if (targetReply != undefined)
+			if (@.scrollHorizontal == true)
+				@.scrollToPoint(x:targetReply.x, y:targetReply.y, true, time: 2)
+			# targetReply.mockTap(customEvent)
+			replies = @
+			setTimeout(mockTap, customEvent.tapDelay*1000, replies, targetReply)
 
 
 exports.QuickReply = QuickReply
@@ -189,9 +198,6 @@ class Buttons extends Layer
 			button.padding =
 				horizontal: (256 - button.width) / 2
 				vertical: 10
-			# button.on Events.TouchEnd, ->
-			# 	#print @.text
-			# 	Screen.emit "SendMessage", @.text
 
 		button.borderRadius =
 			bottomLeft: 18
@@ -200,15 +206,21 @@ class Buttons extends Layer
 exports.Buttons = Buttons
 
 class TextButtons extends Layer
+	@buttons = undefined
 	constructor: (options = {}, message) ->
 		options.backgroundColor = "transparent"
 		# options.width = options.height = 0
 		super options
 
 		textBubble = new TextBubble({parent: @}, message.message)
-		buttons = new Buttons({parent: @, y: textBubble.maxY}, message.buttons)
+		@buttons = new Buttons({parent: @, y: textBubble.maxY}, message.buttons)
 
-		@.height = textBubble.height + buttons.height
+		@.height = textBubble.height + @buttons.height
+
+	mockTap: (customEvent) ->
+		targetButton = @buttons.children[customEvent.tapindex]
+		if (targetButton != undefined)
+			targetButton.mockTap(customEvent)
 
 exports.TextButtons = TextButtons
 
@@ -301,13 +313,15 @@ class Carousel extends ScrollComponent
 		options.scrollVertical = false
 		options.directionLock = true
 		super options
+
+		options.offset ?= 0
 		for card, index in message
 			card = new Card({parent: @.content}, message[index])
-			card.x = index * (card.width + 4)
+			card.x = index * (card.width + 4) + options.offset
 		@.height = card.height
 		@.content.width = message.lenght * card.width
 		@.contentInset =
-			right: 0
+			right: 30
 			left: 0
 		@.fitCards()
 	fitCards: (options = {}) ->
@@ -322,7 +336,7 @@ class Carousel extends ScrollComponent
 
 	mockScrollAndTap: (customEvent) ->
 		targetCard = @.content.children[customEvent.scrollindex]
-		@.scrollToLayer(targetCard, 0, 0, true, time: 2)
+		@.scrollToLayer(targetCard, 0.5, 0, true, time: 2)
 
 		targetCard.mockTap(customEvent)
 
@@ -545,6 +559,8 @@ class ListItem extends Layer
 exports.ListItem = ListItem
 
 class List extends Layer
+	@button = undefined	
+
 	constructor: (options = {}, message) ->
 		options.width = 256
 		options.height = 0
@@ -554,9 +570,13 @@ class List extends Layer
 			listItem = new ListItem({parent: @}, item)
 			@.height += listItem.height
 			if index isnt 0 then listItem.y= @.children[index-1].maxY
-		button = new Buttons({parent: @, y: listItem.maxY}, message.button)
-		@.height += button.height
+		@button = new Buttons({parent: @, y: listItem.maxY}, message.button)
+		@.height += @button.height
 
+	mockTap: (customEvent) ->
+		targetButton = @button.children[customEvent.tapindex]
+		if (targetButton != undefined)
+			targetButton.mockTap(customEvent)
 
 exports.List = List
 

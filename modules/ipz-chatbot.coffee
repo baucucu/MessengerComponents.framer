@@ -72,8 +72,10 @@ class IpzChatBot extends Layer
     
     runConversationFlow: (bot, conversationFlow) ->
         conversation = JSON.parse conversationFlow
+        totalDelay = 0
         for item in conversation
-            bot.pushCommand(setTimeout(handleConversationItem, item.delay*1000, bot, item))
+            totalDelay = totalDelay + Number(item.delay)
+            bot.pushCommand(setTimeout(handleConversationItem, totalDelay*1000, bot, item))
 
 
 
