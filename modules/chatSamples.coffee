@@ -1,4 +1,28 @@
 
+exports.WebViewTest = '[
+	{
+		"type": "ChatHeader", 
+		"delay": "1", 
+		"botInfo":
+		{
+			"botName": "Vodafone Chatbot", 
+			"botFans": "62,438 people like this", 
+			"botCategory": "Telecom", 
+			"botAvatar": "images/vf-logo-large.png"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"text": "Get started", 
+		"sender": "user"
+	},
+	{
+		"type": "WebView", 
+		"delay": "2"
+	}
+]'
+
 exports.Vodafone1 = '[
 	{
 		"type": "ChatHeader", 
@@ -132,6 +156,7 @@ exports.Vodafone1 = '[
 		"event":
 		{
 			"type":"scroll-and-tap",
+			"startindex": "0",
 			"scrollindex": "7",
 			"scrolltime": "7",
 			"tapindex": "10",
@@ -144,6 +169,7 @@ exports.Vodafone1 = '[
 		"event":
 		{
 			"type":"scroll-and-tap",
+			"startindex": "7",
 			"scrollindex": "0",			
 			"scrolltime": "3",
 			"tapindex": "0",
@@ -193,6 +219,10 @@ exports.Vodafone1 = '[
 		"delay": "2", 
 		"text": "Sfarsit simulare", 
 		"sender": "chatbot"
+	},
+	{
+		"type": "WebView", 
+		"delay": "2"
 	}
 ]'
 

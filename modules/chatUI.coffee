@@ -17,7 +17,7 @@ class TextBubble extends TextLayer
 					color: "#000000"
 				user:
 					backgroundColor: "#0084FF"
-					x: Align.right
+					x: Align.right(-8)
 					color: "#FFFFFF"
 				button:
 					backgroundColor: "#F1F0F0"
@@ -303,18 +303,22 @@ class Carousel extends ScrollComponent
 		options.width = Screen.width
 		options.scrollVertical = false
 		options.directionLock = true
+
 		super options
 
 		options.offset ?= 0
+
 		for card, index in message
 			card = new Card({parent: @.content}, message[index])
 			card.x = index * (card.width + 4) + options.offset
-		@.height = card.height
+			
+		@.height = card.height		
 		@.content.width = message.lenght * card.width
 		@.contentInset =
 			right: 30
 			left: 0
 		@.fitCards()
+
 	fitCards: (options = {}) ->
 		cards = @.content.children
 		for card, index in cards

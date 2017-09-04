@@ -62,7 +62,7 @@ class IpzMessengerChat extends Layer
             scrollHorizontal: false
             directionLock: true
             y: @navBar.maxY
-            width: @.width - 20
+            width: @.width # - 20
             height: msgScrollHeight - @navBar.height - textField.height
             maxY: textField.y
             backgroundColor: Screen.backgroundColor
@@ -111,7 +111,9 @@ class IpzMessengerChat extends Layer
             @avatar = undefined
             @msgBubble = undefined
             @lastSender = undefined
-            
+
+        else if (messageType == "WebView")
+            webView = new ipz.IpzWebView({title:"TEST", left:""})            
         else
             @msgContainer = new Layer
                 name: "msgContainer.#{@messageCount}"
@@ -122,7 +124,7 @@ class IpzMessengerChat extends Layer
             
             options = {name:"#{messageType}.#{@messageCount}", superLayer: @msgContainer}
             
-            if (message.sender != "user" && messageType != "QuickReplies")
+            if (message.sender != "user" && messageType != "QuickReplies" && messageType != "WebView")
                 if (@avatar == undefined)
                     @avatar = new ipz.IpzAvatar
                         name: "Avatar.#{@messageCount}"
@@ -141,9 +143,9 @@ class IpzMessengerChat extends Layer
                     @typingIndicator = new ipz.IpzTypingIndicator(options)
 
                 when "TextBubble"
-                    stackSide = "right"
-                    if (message.sender != "user")
-                        stackSide = "left"
+                    stackSide = "left"
+                    if (message.sender == "user")                        
+                        stackSide = "right"
 
                     # merge last message
                     if (@msgBubble != undefined && @lastSender != undefined && message.sender == @lastSender)
@@ -164,7 +166,7 @@ class IpzMessengerChat extends Layer
 
                 when "Carousel"
                     options.offset = options.x
-                    options.x = 8
+                    options.x = 0
                     @lastInteractiveMessage = new ipz.IpzCarousel(options, message.carouselMessage)
 
                 when "List"
@@ -175,6 +177,7 @@ class IpzMessengerChat extends Layer
 
                 when "Receipt"
                     rec = new ipz.IpzReceipt(options, message.receiptData)
+                    
             
 
             @msgContainer.height = @msgContainer.children[@msgContainer.children.length-1].height
@@ -182,12 +185,12 @@ class IpzMessengerChat extends Layer
             if (@avatar != undefined)                
                 @avatar.y = Align.bottom
 
-        if (messageType != "TypingIndicator" && messageType != "QuickReplies")
+        if (messageType != "TypingIndicator" && messageType != "QuickReplies" && messageType != "WebView")
             @lastMessage = @msgContainer
             @lastSender = message.sender        
             @messageCount = @messageCount + 1
 
-        if (@msgContainer.maxY > @messageScroll.maxY)
+        if (messageType != "WebView" && @msgContainer.maxY > @messageScroll.maxY)
             endLayer = new Layer
                 superLayer:@messageScroll.content
                 height: 1

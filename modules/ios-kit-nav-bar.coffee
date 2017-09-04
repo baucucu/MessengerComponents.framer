@@ -20,15 +20,22 @@ exports.create = (array) ->
 	bar = new ios.View
 		name:"navBar"
 		backgroundColor: setup.backgroundColor
+		borderRadius:
+			topRight: 18
+			topLeft: 18
 		constraints:
 			leading:0
 			trailing:0
 			top:0
 			height:64
+		
 
 	bar.bg = new ios.View
 		superLayer:bar
 		backgroundColor:'transparent'
+		borderRadius:
+			topRight: 18
+			topLeft: 18
 		name:".bg"
 		constraints:
 			leading:0
