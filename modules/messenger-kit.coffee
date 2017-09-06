@@ -51,6 +51,7 @@ class Avatar extends Layer
 			messenger:
 				borderColor: "#FFFFFF"
 				image: "images/messengerIcon.png"
+				borderWidth: options.scale * 2
 			myDay:
 				borderColor: "#FFFFFF"
 				borderWidth: options.scale * 2
