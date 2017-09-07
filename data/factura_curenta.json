@@ -13,32 +13,26 @@
 	{
 		"type": "TextBubble", 
 		"delay": "1", 
-		"text": "Get started", 
+		"text": "Start simulare", 
 		"sender": "user"
 	},
 	{
-		"type": "TypingIndicator",
-		"delay": "1"
-	},
-	{
 		"type": "TextBubble", 
-		"delay": "2", 
+		"delay": "1", 
+		"typingDelay": "2",
 		"text": "Salut, Andrei!", 
 		"sender": "chatbot"
-	},	
-	{
-		"type": "TypingIndicator",
-		"delay": "2"
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "2", 
+		"delay": "3", 
+		"typingDelay": "2",
 		"text": "Cu ce te pot ajuta astazi?", 
 		"sender": "chatbot"
 	},
 	{
 		"type": "QuickReplies", 
-		"delay": "2", 
+		"delay": "4", 
 		"replies":[
 			{"reply": "🚀 Comenzi rapide"}, 
 			{"reply": "📱 Contul meu"}, 
@@ -68,20 +62,17 @@
 			"tapindex": "1",
 			"tapDelay": "3"
 		}
-	},	
-	{
-		"type": "TypingIndicator",
-		"delay": "6"
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "1", 
+		"delay": "4",
+		"typingDelay": "1", 
 		"text": "Contul meu:", 
 		"sender": "chatbot"
 	},	
 	{
 		"type": "Carousel", 
-		"delay": "0.5", 
+		"delay": "1.5", 
 		"carouselMessage": [
 			{
 				"title": "Facturi & Plati",
@@ -144,22 +135,19 @@
 			"scrollindex": "0",			
 			"scrolltime": "0.75",
 			"tapindex": "0",
-			"tapDelay": "6"
+			"tapDelay": "7"
 		}
-	},	
-	{
-		"type": "TypingIndicator",
-		"delay": "9"
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "2", 
+		"delay": "8",
+		"typingDelay": "2", 
 		"text": "Contul meu/ Facturi & Plati:", 
 		"sender": "chatbot"
 	},
 	{
 		"type": "QuickReplies", 
-		"delay": "0.5", 
+		"delay": "3", 
 		"replies":[
 			{"reply": "Factura curenta"}, 
 			{"reply": "Confirmare plata"}, 
@@ -180,19 +168,12 @@
 			"tapindex": "0",
 			"tapDelay": "2"
 		}
-	},	
-	{
-		"type": "TypingIndicator",
-		"delay": "4"
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "2", 
+		"delay": "4",
+		"typingDelay": "2", 
 		"text": "Sfarsit simulare", 
 		"sender": "chatbot"
-	},
-	{
-		"type": "WebView", 
-		"delay": "2"
 	}
 ]

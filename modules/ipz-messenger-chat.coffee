@@ -90,31 +90,39 @@ class IpzMessengerChat extends Layer
                     Screen.emit "SendMessage", textField.text.html
                     textField.text.html = ""
 
+    appendMessage= (chatView, message, messageType) ->
+        chatView.appendMessage(message, messageType)
+
     appendMessage:(message, messageType) ->
         # if last item was a typing indicator, destroy it
         if @typingIndicator != undefined
             @msgContainer.destroy()
             @typingIndicator = undefined
 
+        # if last message was not a TextBubble or TypingIndicator, don't stack messages
         if (messageType != "TextBubble" && messageType != "TypingIndicator")
             @msgBubble = undefined
 
+        # compute distance between messages differently if they need to be stacked
         msgY = 10
         if (@lastMessage != undefined)
+            # stack consecutive TextBubbles from the same sender
             if (@msgBubble != undefined && @lastSender != undefined && @lastSender == message.sender)
                 msgY = @lastMessage.maxY + 3
             else
                 msgY = @lastMessage.maxY + 10
 
         if (messageType == "ChatHeader")
+            # the message container is the actual chat header
             @msgContainer = new ipz.IpzChatHeader({name:"msg#{@messageCount}", superLayer: @messageScroll.content, y: msgY}, message.botInfo)
             @avatar = undefined
             @msgBubble = undefined
             @lastSender = undefined
 
         else if (messageType == "WebView")
-            webView = new ipz.IpzWebView({title:"TEST", left:""})            
+            webView = new ipz.IpzWebView({title:"TEST", left:""})
         else
+            # the message container is a layer that holds the avatar and the actual chat component
             @msgContainer = new Layer
                 name: "msgContainer.#{@messageCount}"
                 superLayer: @messageScroll.content
@@ -124,7 +132,9 @@ class IpzMessengerChat extends Layer
             
             options = {name:"#{messageType}.#{@messageCount}", superLayer: @msgContainer}
             
+            # user messages, QuickReplies and WebViews don't display an avatar
             if (message.sender != "user" && messageType != "QuickReplies" && messageType != "WebView")
+                # if previous chat component did not have an avatar, create one
                 if (@avatar == undefined)
                     @avatar = new ipz.IpzAvatar
                         name: "Avatar.#{@messageCount}"
@@ -133,50 +143,59 @@ class IpzMessengerChat extends Layer
                         scale:0.9
                     @avatar.setUser(@user)
 
+                # put the avatar in the new message container
                 @avatar.superLayer = @msgContainer
                 options.x = @avatar.maxX + 8
             else
                 @avatar = undefined
 
-            switch messageType
-                when "TypingIndicator"
-                    @typingIndicator = new ipz.IpzTypingIndicator(options)
+            typingDelay = message.typingDelay
+            if (message.typingDelay != undefined && typingDelay > 0)
+                @typingIndicator = new ipz.IpzTypingIndicator(options)
+                message.typingDelay = 0
+                chatView = @
+                setTimeout(appendMessage, Number(typingDelay)*1000, chatView, message, messageType)
+                messageType = "TypingIndicator"
+            else
+                switch messageType
+                    when "TypingIndicator"
+                        @typingIndicator = new ipz.IpzTypingIndicator(options)
 
-                when "TextBubble"
-                    stackSide = "left"
-                    if (message.sender == "user")                        
-                        stackSide = "right"
+                    when "TextBubble"
+                        stackSide = "left"
+                        if (message.sender == "user")                        
+                            stackSide = "right"
 
-                    # merge last message
-                    if (@msgBubble != undefined && @lastSender != undefined && message.sender == @lastSender)
-                        @msgBubble.mergeBottom(stackSide)
+                        # merge last message
+                        if (@msgBubble != undefined && @lastSender != undefined && message.sender == @lastSender)
+                            @msgBubble.mergeBottom(stackSide)
 
-                    # append new message
-                    @msgBubble = new ipz.IpzTextBubble(options, message)
+                        # append new message
+                        @msgBubble = new ipz.IpzTextBubble(options, message)
 
-                    # merge new message
-                    if (@lastSender != undefined && message.sender == @lastSender)
-                        @msgBubble.mergeTop(stackSide)
+                        # merge new message
+                        if (@lastSender != undefined && message.sender == @lastSender)
+                            @msgBubble.mergeTop(stackSide)
 
-                when "QuickReplies"
-                    @lastInteractiveMessage = new ipz.IpzQuickReplies(options, message.replies)
+                    when "QuickReplies"
+                        @lastInteractiveMessage = new ipz.IpzQuickReplies(options, message.replies)
 
-                when "TextButtons"
-                    @lastInteractiveMessage = new ipz.IpzChatTextButtons(options, message.buttonsContent)
+                    when "TextButtons"
+                        @lastInteractiveMessage = new ipz.IpzChatTextButtons(options, message.buttonsContent)
 
-                when "Carousel"
-                    options.offset = options.x
-                    options.x = 0
-                    @lastInteractiveMessage = new ipz.IpzCarousel(options, message.carouselMessage)
+                    when "Carousel"
+                        options.offset = options.x
+                        options.x = 0
+                        @lastInteractiveMessage = new ipz.IpzCarousel(options, message.carouselMessage)
 
-                when "List"
-                    @lastInteractiveMessage = new ipz.IpzChatList(options, message.listMessage)
+                    when "List"
+                        @lastInteractiveMessage = new ipz.IpzChatList(options, message.listMessage)
 
-                when "Location"
-                    loc = new ipz.IpzLocation(options, message.location)
+                    when "Location"
+                        loc = new ipz.IpzLocation(options, message.location)
 
-                when "Receipt"
-                    rec = new ipz.IpzReceipt(options, message.receiptData)
+                    when "Receipt"
+                        rec = new ipz.IpzReceipt(options, message.receiptData)
                     
             
 
