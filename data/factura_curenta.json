@@ -127,33 +127,29 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "2",
+		"delay": "1",
 		"event":
 		{
 			"type":"scroll-and-tap",
-			"startindex": "0",
 			"scrollindex": "7",
-			"scrolltime": "7",
-			"tapindex": "10",
-			"tapDelay": "1"
+			"scrolltime": "1"
 		}
 	},
 	{
 		"type": "MockEvent",
-		"delay": "8",
+		"delay": "7",
 		"event":
 		{
 			"type":"scroll-and-tap",
-			"startindex": "7",
 			"scrollindex": "0",			
-			"scrolltime": "3",
+			"scrolltime": "0.75",
 			"tapindex": "0",
-			"tapDelay": "4"
+			"tapDelay": "6"
 		}
 	},	
 	{
 		"type": "TypingIndicator",
-		"delay": "4"
+		"delay": "9"
 	},
 	{
 		"type": "TextBubble", 
@@ -182,7 +178,7 @@
 			"type":"scroll-and-tap",
 			"scrollindex": "0",
 			"tapindex": "0",
-			"tapDelay": "3"
+			"tapDelay": "2"
 		}
 	},	
 	{

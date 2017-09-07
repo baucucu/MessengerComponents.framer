@@ -1,44 +1,70 @@
 [
 	{
 		"type": "Carousel", 
-		"delay": "2", 
+		"delay": "0.5", 
 		"carouselMessage": [
 			{
-				"title": "Would you like to get a coffee at 7?",
-				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
-				"image": "images/product.png",
-				"buttons": ["zero", "one", "two"]
+				"title": "Facturi & Plati",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?url=https%3A%2F%2Fimagizer.imageshack.us%2F400x225f%2F922%2FMQrYNS.png&_nc_hash=AQCMl3-0kjo1Ts9c",
+				"buttons": ["Facturi & Plati"]
 			},
 			{
-				"title": "Would you like to get a coffee at 7?",
-				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
-				"image": "images/product.png",
-				"buttons": ["zero", "one", "two"]
+				"title": "Abonamentul meu",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDTyVum3qMhFtYy&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F923%2FEhhf93.jpg&_nc_hash=AQBZaOYOb7y1wfos",
+				"buttons": ["Abonamentul meu"]
 			},
 			{
-				"title": "Would you like to get a coffee at 7?",
-				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
-				"image": "images/product.png",
-				"buttons": ["zero", "one", "two"]
+				"title": "Adauga optiuni noi",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQBZy1Qsfy3QOgsX&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FufrXzU.jpg&_nc_hash=AQBWU3yKSNtpFe4f",
+				"buttons": ["Adauga optiuni noi"]
 			},
 			{
-				"title": "Would you like to get a coffee at 7?",
-				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
-				"image": "images/product.png",
-				"buttons": ["zero", "one", "two"]
+				"title": "Roaming",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAWOnQ1NLO4kyn7&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2FKHxAYE.jpg&_nc_hash=AQDVD8U1PvjxJam3",
+				"buttons": ["Roaming"]
 			},
 			{
-				"title": "Would you like to get a coffee at 7?",
-				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
-				"image": "images/product.png",
-				"buttons": ["zero", "one", "two"]
+				"title": "International",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAWOnQ1NLO4kyn7&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2FKHxAYE.jpg&_nc_hash=AQDVD8U1PvjxJam3",
+				"buttons": ["International"]
+			},
+			{
+				"title": "Reincarcare",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDwEpYa6xeLqGhw&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FAX3Fnb.jpg&_nc_hash=AQD3hivKUyBf6VRN",
+				"buttons": ["Reincarcare"]
+			},
+			{
+				"title": "Casuta vocala",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAhLc4gHP68TL4X&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2Fu7Ty0L.jpg&_nc_hash=AQBrJLAp50wgIIhO",
+				"buttons": ["Casuta vocala"]
+			},
+			{
+				"title": "⬅️ Inapoi",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDLCAGbUI3L-JJO&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FOV7lbl.jpg&_nc_hash=AQDTH8r2qGQZ_rDA",
+				"buttons": ["⬅️ Inapoi"]
 			}
 		]
 	},
 	{
-		"type": "TextBubble", 
-		"delay": "2", 
-		"text": "What about drinks tomorrow at 7?", 
-		"sender": "user"
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "7",
+			"scrolltime": "1"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "7",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",			
+			"scrolltime": "0.75",
+			"tapindex": "0",
+			"tapDelay": "6"
+		}
 	}
 ]

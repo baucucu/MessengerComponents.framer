@@ -299,6 +299,8 @@ class Card extends Layer
 exports.Card = Card
 
 class Carousel extends ScrollComponent
+	@currentCardIndex = undefined
+
 	constructor: (options = {}, message) ->
 		options.width = Screen.width
 		options.scrollVertical = false
@@ -314,10 +316,18 @@ class Carousel extends ScrollComponent
 			
 		@.height = card.height		
 		@.content.width = message.lenght * card.width
+		@.content.draggable.overdrag = false		
 		@.contentInset =
 			right: 30
 			left: 0
 		@.fitCards()
+
+		@currentCardIndex = 0
+
+		scroll = @
+		@.onScrollEnd ->
+			scroll.scrollToClosestLayer(0.5, 0.5)
+
 
 	fitCards: (options = {}) ->
 		cards = @.content.children
@@ -329,11 +339,24 @@ class Carousel extends ScrollComponent
 			else
 				card.animate "middle"
 
-	mockScrollAndTap: (customEvent) ->
-		targetCard = @.content.children[customEvent.scrollindex]
-		@.scrollToLayer(targetCard, 0.5, 0, true, time: customEvent.scrolltime)
+	mockScroll= (scroll, index, scrollTime) ->
+		targetCard = scroll.content.children[index]
+		scroll.scrollToLayer(targetCard, 0.5, 0, true, curve: "bezier-curve", curveOptions:[0.5, 0.5, 1], time: scrollTime/8)
 
-		targetCard.mockTap(customEvent)
+	mockScrollAndTap: (customEvent) ->
+		scroll = @
+		for index in [@currentCardIndex..customEvent.scrollindex]
+			delay = index
+			if @currentCardIndex > customEvent.scrollindex
+				delay = @currentCardIndex - index
+
+			setTimeout(mockScroll, customEvent.scrolltime * 1000 * delay, scroll, index, customEvent.scrolltime)
+
+		@currentCardIndex = customEvent.scrollindex
+
+		if (customEvent.tapindex != undefined)
+			targetCard = scroll.content.children[customEvent.scrollindex]
+			targetCard.mockTap(customEvent)
 
 exports.Carousel = Carousel
 
