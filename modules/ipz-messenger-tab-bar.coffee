@@ -31,7 +31,7 @@ exports.defaults = {
 		blur:false
 		activeColor:"blue"
 		inactiveColor:"gray"
-		viewTop:0
+		viewTop:0			
 	}
 }
 
@@ -72,17 +72,7 @@ exports.tab = (array) ->
 			top:setup.padding
 			bottom:setup.padding
 			leading:setup.padding
-			trailing:setup.padding
-
-	tab.divider = new ios.View
-		backgroundColor:"grey"
-		name:".divider-top"
-		superLayer:tab		
-		constraints:
-			leading:0
-			trailing:0
-			bottom: 0
-			height:.5
+			trailing:setup.padding	
 
 	if setup.activeIcon != undefined
 		tab.icon = new ios.View
@@ -93,7 +83,7 @@ exports.tab = (array) ->
 				width:setup.iconsize
 				height:setup.iconsize
 				align:"horizontal"
-		tab.divider.visible = false
+		
 		tab.imageLayer = new ios.View
 			name: setup.label + ".image"
 			superLayer:tab.icon
@@ -130,16 +120,14 @@ exports.tab = (array) ->
 
 	tab.setActive = (value) ->
 		if (value == true)
-			tab.label.color = ios.utils.color("blue")
-			tab.divider.backgroundColor = "blue"
+			tab.label.color = ios.utils.color("blue")			
 			if (tab.imageLayer != undefined)
 				tab.imageLayer.saturate = 100
 				tab.imageLayer.brightness = 100
 				
 		else
 			if (!setup.alwaysActive)
-				tab.label.color = ios.utils.color("grey")
-				tab.divider.backgroundColor = "grey"
+				tab.label.color = ios.utils.color("grey")				
 				if (tab.imageLayer != undefined)
 					tab.imageLayer.saturate = 0
 					tab.imageLayer.brightness = 180
@@ -197,14 +185,26 @@ exports.bar = (array) ->
 			trailing:0
 			top:0
 			bottom:0
+	
+	bar.activeDivider = new ios.View
+		backgroundColor:"blue"
+		name:".divider-top"
+		superLayer:bar		
+		constraints:			
+			bottom: 0
+			height:.5
+			width: specs.width
 
 	if setup.type == "navBar"
 		bar.constraints.top = setup.barTop
 		bar.bg.constraints.top = 0
-		bar.divider.y = setup.height		
+		bar.divider.y = setup.height
+		bar.divider.height = 0.5
+			
 	else
 		bar.constraints.bottom = 0
 		bar.bg.constraints.bottom = 0
+		bar.activeDivider.visible = false	
 
 	setActive = (tabIndex) ->
 		for tab, index in setup.tabs
@@ -255,7 +255,12 @@ exports.bar = (array) ->
 		tab.on Events.TouchStart, ->
 			tabIndex = @.x / ios.utils.px(specs.width)
 			setActive(tabIndex)
-
+		tab.on Events.Click, ->
+			bar.activeDivider.animate
+				properties:					
+					x: @.x
+				curve: "spring(200, 23, 0)"
+		
 	bar.box.constraints =
 		align:"horizontal"
 

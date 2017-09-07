@@ -12,7 +12,7 @@ class IpzMessengerHome extends Layer
         options.width ?= options.superLayer.width
         options.height ?= options.superLayer.height
         options.backgroundColor ?= Screen.backgroundColor
-        options.navBarLabelsFontSize ?= 17
+        options.navBarLabelsFontSize ?= 13
 
         super options
 
