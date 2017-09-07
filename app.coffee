@@ -1,35 +1,17 @@
 # Requires
 ##########
-ios = require "ios-kit"
-usersModule = require "ipz-dal-usersDAL"
 IpzChatBot = require "ipz-chatbot"
-samples = require "chatSamples"
-
-
-
-# Global settings
-#################
-Screen.backgroundColor = "white"
-Framer.Defaults.Layer.force2d = true
-ios.device.name = "iphone-6s"
-ios.device.height = Screen.height
-ios.device.width = Screen.width
-ios.device.scale = 1
+data = require "ipz-data-providers"
+utils = require "ipz-utils"
 
 
 
 # Init view
 #################
+utils.init()
+
 bot = new IpzChatBot({})
 bot.gotoMain()
-
-
-
-# SAMPLE
-#################
-bot.on "ChatOpened", (user) ->
-    # TODO: we can get a different flow by user from the db
-    bot.runConversationFlow(bot, samples.Vodafone1)
 
 
 
@@ -37,14 +19,21 @@ bot.on "ChatOpened", (user) ->
 #################
 # DB callback
 gotUsers= (isError, usersString) ->
-    # TODO better error handling
-    if isError == true        
-        return null
-
-    loggedInUser = usersDB.setLoggedInUser(usersString, "VodafoneRO")
+    loggedInUser = usersProvider.setLoggedInUser(usersString, "VodafoneRO")
     bot.setUser(loggedInUser)
 
 # Get data
-usersDB = new usersModule
-usersDB.getUsers({}, 20, "", "serialno", -1, gotUsers)
+usersProvider = new data.UsersProvider
+usersProvider.getUsers(gotUsers)
 
+
+
+# Event handling
+#################
+gotUserFlow= (isError, flow) ->
+    bot.runConversationFlow(bot, flow)
+
+bot.on "ChatOpened", (user) ->  
+    flowProvider = new data.FlowProvider
+    flowProvider.getFlow(user.flow, gotUserFlow)  
+    

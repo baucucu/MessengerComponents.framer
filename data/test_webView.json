@@ -1,0 +1,23 @@
+[
+	{
+		"type": "ChatHeader", 
+		"delay": "1", 
+		"botInfo":
+		{
+			"botName": "Vodafone Chatbot", 
+			"botFans": "62,438 people like this", 
+			"botCategory": "Telecom", 
+			"botAvatar": "images/vf-logo-large.png"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"text": "Get started", 
+		"sender": "user"
+	},
+	{
+		"type": "WebView", 
+		"delay": "0.5"
+	}
+]

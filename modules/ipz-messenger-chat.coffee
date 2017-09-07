@@ -67,8 +67,8 @@ class IpzMessengerChat extends Layer
             maxY: textField.y
             backgroundColor: Screen.backgroundColor
 
+        msgScroll.content.backgroundColor = Screen.backgroundColor
         @messageScroll = msgScroll
-
         @messageCount = 0
         
         # Keyboard and Text Input events

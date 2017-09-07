@@ -1,0 +1,44 @@
+[
+	{
+		"type": "Carousel", 
+		"delay": "2", 
+		"carouselMessage": [
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			},
+			{
+				"title": "Would you like to get a coffee at 7?",
+				"subtitle": "Subtitle\\nSubtitle\\nSubtitle",
+				"image": "images/product.png",
+				"buttons": ["zero", "one", "two"]
+			}
+		]
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"text": "What about drinks tomorrow at 7?", 
+		"sender": "user"
+	}
+]

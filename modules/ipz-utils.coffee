@@ -1,5 +1,13 @@
+ios = require "ios-kit"
 
 class IpzUtils
+    @init:() ->
+        Screen.backgroundColor = "white"
+        Framer.Defaults.Layer.force2d = true
+        ios.device.name = "iphone-6s"
+        ios.device.height = Screen.height
+        ios.device.width = Screen.width
+        ios.device.scale = 1
 
     @setVisible: (component, visible) ->
         component.visible = visible
@@ -15,6 +23,6 @@ class IpzUtils
                 child.destroy()
         if (includeSelf is true)
             component.destroy()
-        return true
+        return true    
 
 module.exports = IpzUtils

@@ -19,7 +19,7 @@ exports.WebViewTest = '[
 	},
 	{
 		"type": "WebView", 
-		"delay": "2"
+		"delay": "0.5"
 	}
 ]'
 

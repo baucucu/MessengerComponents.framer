@@ -1,0 +1,202 @@
+[
+	{
+		"type": "ChatHeader", 
+		"delay": "1", 
+		"botInfo":
+		{
+			"botName": "Vodafone Chatbot", 
+			"botFans": "62,438 people like this", 
+			"botCategory": "Telecom", 
+			"botAvatar": "images/vf-logo-large.png"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"text": "Get started", 
+		"sender": "user"
+	},
+	{
+		"type": "TypingIndicator",
+		"delay": "1"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"text": "Salut, Andrei!", 
+		"sender": "chatbot"
+	},	
+	{
+		"type": "TypingIndicator",
+		"delay": "2"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"text": "Cu ce te pot ajuta astazi?", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "2", 
+		"replies":[
+			{"reply": "🚀 Comenzi rapide"}, 
+			{"reply": "📱 Contul meu"}, 
+			{"reply": "📯 Urgente"}, 
+			{"reply": "⚙️ Setari"},
+			{"reply": "📔 Ajutor"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "2",
+			"tapindex": "10",
+			"tapDelay": "1"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "4",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "1",
+			"tapDelay": "3"
+		}
+	},	
+	{
+		"type": "TypingIndicator",
+		"delay": "6"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"text": "Contul meu:", 
+		"sender": "chatbot"
+	},	
+	{
+		"type": "Carousel", 
+		"delay": "0.5", 
+		"carouselMessage": [
+			{
+				"title": "Facturi & Plati",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?url=https%3A%2F%2Fimagizer.imageshack.us%2F400x225f%2F922%2FMQrYNS.png&_nc_hash=AQCMl3-0kjo1Ts9c",
+				"buttons": ["Facturi & Plati"]
+			},
+			{
+				"title": "Abonamentul meu",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDTyVum3qMhFtYy&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F923%2FEhhf93.jpg&_nc_hash=AQBZaOYOb7y1wfos",
+				"buttons": ["Abonamentul meu"]
+			},
+			{
+				"title": "Adauga optiuni noi",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQBZy1Qsfy3QOgsX&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FufrXzU.jpg&_nc_hash=AQBWU3yKSNtpFe4f",
+				"buttons": ["Adauga optiuni noi"]
+			},
+			{
+				"title": "Roaming",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAWOnQ1NLO4kyn7&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2FKHxAYE.jpg&_nc_hash=AQDVD8U1PvjxJam3",
+				"buttons": ["Roaming"]
+			},
+			{
+				"title": "International",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAWOnQ1NLO4kyn7&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2FKHxAYE.jpg&_nc_hash=AQDVD8U1PvjxJam3",
+				"buttons": ["International"]
+			},
+			{
+				"title": "Reincarcare",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDwEpYa6xeLqGhw&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FAX3Fnb.jpg&_nc_hash=AQD3hivKUyBf6VRN",
+				"buttons": ["Reincarcare"]
+			},
+			{
+				"title": "Casuta vocala",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAhLc4gHP68TL4X&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2Fu7Ty0L.jpg&_nc_hash=AQBrJLAp50wgIIhO",
+				"buttons": ["Casuta vocala"]
+			},
+			{
+				"title": "⬅️ Inapoi",
+				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDLCAGbUI3L-JJO&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FOV7lbl.jpg&_nc_hash=AQDTH8r2qGQZ_rDA",
+				"buttons": ["⬅️ Inapoi"]
+			}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"startindex": "0",
+			"scrollindex": "7",
+			"scrolltime": "7",
+			"tapindex": "10",
+			"tapDelay": "1"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "8",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"startindex": "7",
+			"scrollindex": "0",			
+			"scrolltime": "3",
+			"tapindex": "0",
+			"tapDelay": "4"
+		}
+	},	
+	{
+		"type": "TypingIndicator",
+		"delay": "4"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"text": "Contul meu/ Facturi & Plati:", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "0.5", 
+		"replies":[
+			{"reply": "Factura curenta"}, 
+			{"reply": "Confirmare plata"}, 
+			{"reply": "Amanare plata"}, 
+			{"reply": "Reemitere factura"},
+			{"reply": "Factura detaliata"},
+			{"reply": "Conturi IBAN"},
+			{"reply": "⬅️ Inapoi"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "0",
+			"tapDelay": "3"
+		}
+	},	
+	{
+		"type": "TypingIndicator",
+		"delay": "4"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"text": "Sfarsit simulare", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "WebView", 
+		"delay": "2"
+	}
+]

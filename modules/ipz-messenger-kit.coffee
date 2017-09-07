@@ -1,5 +1,4 @@
 
-nav = require 'ipz-messenger-nav-bar'
 tab = require 'ipz-messenger-tab-bar'
 kit = require 'messenger-kit'
 chatUI = require 'chatUI'
@@ -8,7 +7,6 @@ webView = require 'ipz-webview'
 exports.IpzMessengerHome = require "ipz-messenger-home"
 exports.IpzMessengerSearchBox = require "ipz-messenger-searchBox"
 
-exports.IpzMessengerNavBar = nav.create
 exports.IpzMessengerTab = tab.tab
 exports.IpzMessengerTabBar = tab.bar
 
