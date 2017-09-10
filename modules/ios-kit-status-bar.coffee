@@ -16,7 +16,7 @@ exports.defaults.props = Object.keys(exports.defaults)
 exports.create = (array) ->
 	setup = ios.utils.setupComponent(array, exports.defaults)
 	statusBar = new Layer
-		backgroundColor:"transparent"
+		backgroundColor:"rgba(250,248,251,0.8)"
 		name:"statusBar.all"
 		superLayer:setup.superLayer
 	statusBar.type = setup.type

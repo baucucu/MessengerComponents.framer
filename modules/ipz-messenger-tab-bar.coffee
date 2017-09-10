@@ -27,7 +27,7 @@ exports.defaults = {
 		start:0
 		barTop:0
 		height:52
-		backgroundColor:"white"
+		backgroundColor:"rgba(250,248,251,0.8)"
 		blur:false
 		activeColor:"blue"
 		inactiveColor:"gray"
@@ -43,7 +43,7 @@ exports.tab = (array) ->
 
 	tab = new ios.View
 		superLayer:setup.superLayer
-		backgroundColor:"transparent"
+		backgroundColor:"rgba(250,248,251,0.8)"
 		name:setup.label
 
 	if (setup.view != undefined)
@@ -168,7 +168,7 @@ exports.bar = (array) ->
 			bottom:0
 
 	bar.divider = new ios.View
-		backgroundColor:"#E4E5E7"
+		backgroundColor:"#DFDEE0"
 		name:".divider-bottom"
 		superLayer:bar
 		constraints:
@@ -187,7 +187,7 @@ exports.bar = (array) ->
 			bottom:0
 	
 	bar.activeDivider = new ios.View
-		backgroundColor:"blue"
+		backgroundColor:"0D86ff"
 		name:".divider-top"
 		superLayer:bar		
 		constraints:			
@@ -238,12 +238,13 @@ exports.bar = (array) ->
 		if (setup.type == "navBar")
 			tab.view.constraints.top = setup.barTop + setup.height
 			tab.view.constraints.bottom = 0
+			tab.constraints.bottom = 5
 		else
 			tab.view.constraints.top = setup.viewTop
 			tab.view.constraints.height = tab.view.superLayer.height - setup.height - setup.viewTop
 		
 		tab.constraints.width = specs.width
-		tab.constraints.height = setup.height
+		tab.constraints.height = setup.height		
 
 		if index == 0
 			tab.constraints.leading = 0

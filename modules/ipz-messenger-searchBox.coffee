@@ -5,7 +5,7 @@ class IpzMessengerSearchBox extends Layer
         options.name ?= "Messenger.SearchBox"
         options.width ?= options.superLayer.width
         options.height = 32
-        options.backgroundColor ?= Screen.backgroundColor
+        options.backgroundColor ?= "rgba(250,248,251,0.8)"
 
         super options
 
@@ -18,16 +18,17 @@ class IpzMessengerSearchBox extends Layer
         search = new Layer
             width: searchBar.width - 100
             x: Align.center
+            y: Align.center
             superLayer: searchBar
             height: 28
             borderRadius: 5
-            backgroundColor: "#F0F1F3"
+            backgroundColor: "#E5E6EA"
 
         searchPlaceholder = new TextLayer
             superLayer: search
             text: "Search"
             fontSize: 14
-            fontFamily: ".SF NS Display"
+            fontFamily: "San Francisco, sans-serif" 
             letterSpacing: 0.0
             x: Align.center
             y: Align.center

@@ -35,6 +35,7 @@ class IpzMessengerHome extends Layer
             label:"Active"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
+            lineHeight: 20
             view: new ios.View
                 name:"Active.view"
                 superLayer: @
@@ -85,8 +86,8 @@ class IpzMessengerHome extends Layer
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
-            height: 22
-            barTop:searchBox.maxY + 5
+            height: 35            
+            barTop:searchBox.maxY
 
         ## END HEADER
 

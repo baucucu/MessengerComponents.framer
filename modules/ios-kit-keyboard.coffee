@@ -293,7 +293,7 @@ exports.create = (obj) ->
       borderRadius:ios.px(specs.letterKey.borderRadius)
       shadowY:colors.shadowY
       shadowColor:colors.shadowColor
-    key.style.fontFamily = "-apple-system, Helvetica, Arial, sans-serif"
+    key.style.fontFamily = "San Francisco, sans-serif" 
 
     #Disables Zoom
     key.on Events.TouchStart, (event) ->

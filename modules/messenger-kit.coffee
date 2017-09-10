@@ -136,8 +136,8 @@ class MessageListItem extends Layer
 			name: "name"
 			parent: @
 			x: avatar.maxX + options.scale * 20
-			y: avatar.y
-			lineHeight: 1.7
+			y: avatar.y + 6
+			lineHeight: 1
 			text: user.firstname + " " + user.lastname
 			fontSize: 17 * options.scale
 

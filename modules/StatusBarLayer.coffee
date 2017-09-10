@@ -44,7 +44,7 @@ defaults =
 	powered: false
 	carrier: "Carrier"
 	foregroundColor: ""
-	backgroundColor: ""
+	backgroundColor: "rgba(250,248,251,0.8)"
 	time: ""
 	percent: 100
 	showPercentage: true
@@ -403,7 +403,7 @@ class StatusBarLayer extends Layer
 				else
 					@.backgroundColor = "rgba(255, 255, 255, 0.5)"
 			else
-				@.backgroundColor = backgroundColor
+				@.backgroundColor = "#000"
 			if @options.vibrant == true
 				barColor = new Color(backgroundColor).alpha(.5)
 				@.backgroundColor = barColor

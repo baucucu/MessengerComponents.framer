@@ -14,7 +14,7 @@ class IpzChatBot extends Layer
         options.name ?= "ChatBot"
         options.width ?= Screen.width
         options.height ?= Screen.height
-        options.backgroundColor ?= Screen.backgroundColor
+        options.backgroundColor ?= "rgba(250,248,251,0.8)"
 
         super options
 

@@ -33,7 +33,7 @@ class IpzMessengerChat extends Layer
             left:"< Back"
             title: "Name"
             right: "Details"
-            backgroundColor: Screen.backgroundColor
+            backgroundColor: "rgba(250,248,251,0.8)"
 
         @navBar.left.on Events.Tap, ->
             Screen.emit "GoBack"
@@ -49,10 +49,10 @@ class IpzMessengerChat extends Layer
             keyboard: keyboard
             placeholder: "Type a message"
             borderRadius: 15
-            lineHeight: 2.6
+            lineHeight: 2            
             constraints:
                 width: @.width
-                height: 30
+                height: 33
                 bottom: 0
 
         msgScrollHeight = @.height

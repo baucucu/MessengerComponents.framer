@@ -17,7 +17,7 @@ exports.defaults =
 	backgroundColor:"transparent"
 	color:"black"
 	fontSize: 17
-	fontFamily:"-apple-system, Helvetica, Arial, sans-serif"
+	fontFamily:"San Francisco, sans-serif"	
 	fontWeight:"regular"
 	lineHeight:"auto"
 	name:"text layer"
