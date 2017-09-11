@@ -6,6 +6,7 @@ webView = require 'ipz-webview'
 
 exports.IpzMessengerHome = require "ipz-messenger-home"
 exports.IpzMessengerSearchBox = require "ipz-messenger-searchBox"
+exports.IpzMessengerKeyboard = require "ipz-messenger-keyboard"
 
 exports.IpzMessengerTab = tab.tab
 exports.IpzMessengerTabBar = tab.bar

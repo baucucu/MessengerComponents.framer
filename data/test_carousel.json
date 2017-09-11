@@ -50,21 +50,9 @@
 		"delay": "1",
 		"event":
 		{
-			"type":"scroll-and-tap",
-			"scrollindex": "7",
-			"scrolltime": "1"
-		}
-	},
-	{
-		"type": "MockEvent",
-		"delay": "7",
-		"event":
-		{
-			"type":"scroll-and-tap",
-			"scrollindex": "0",			
-			"scrolltime": "0.75",
-			"tapindex": "0",
-			"tapDelay": "6"
+			"type":"type",
+			"message": "The fox",
+			"returnDelay": "5"
 		}
 	}
 ]

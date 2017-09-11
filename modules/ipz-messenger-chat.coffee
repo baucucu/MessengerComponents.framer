@@ -18,6 +18,8 @@ class IpzMessengerChat extends Layer
     @typingIndicator = undefined
 
     @lastInteractiveMessage = undefined
+    @textField = undefined
+    @keyboard = undefined
     
     constructor:(options = {}) ->
         options.name ?= "Messenger.Chat"
@@ -35,25 +37,22 @@ class IpzMessengerChat extends Layer
             right: "Details"
             backgroundColor: "rgba(250,248,251,0.8)"
 
-        @navBar.left.on Events.Tap, ->
-            Screen.emit "GoBack"
         
-        keyboard = new ios.Keyboard
-            superLayer: @
-            hidden:true
-            returnText:"Send"
 
-        textField = new ios.Field
+        textField = new TextLayer
             name: "inputField"
             superLayer: @
-            keyboard: keyboard
-            placeholder: "Type a message"
-            borderRadius: 15
-            lineHeight: 2            
-            constraints:
-                width: @.width
-                height: 33
-                bottom: 0
+            text: "Type a message"
+            lineHeight: 2
+            fontSize: 14
+            fontFamily: "San Francisco, sans-serif" 
+            letterSpacing: 0.0            
+            borderRadius: 18
+            backgroundColor: "#E5E6EA"            
+            width: @.width
+            height: 32
+            y: Align.bottom
+        @textField = textField
 
         msgScrollHeight = @.height
         msgScroll = new ScrollComponent
@@ -62,33 +61,51 @@ class IpzMessengerChat extends Layer
             scrollHorizontal: false
             directionLock: true
             y: @navBar.maxY
-            width: @.width # - 20
-            height: msgScrollHeight - @navBar.height - textField.height
-            maxY: textField.y
+            width: @.width
             backgroundColor: Screen.backgroundColor
-
+            maxY: textField.y
+            height: msgScrollHeight - @navBar.height - textField.height
+        
         msgScroll.content.backgroundColor = Screen.backgroundColor
         @messageScroll = msgScroll
         @messageCount = 0
+
+        keyboard = new ipz.IpzMessengerKeyboard
+            superLayer:@
+        @keyboard = keyboard
+
+        keyboard.on "change:y", ->
+            textField.maxY = keyboard.y
+            msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
+            msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
+
+        textField.on Events.TouchEnd, ->            
+            keyboard.show()
+            # Utils.delay 1, ->
+            #     keyboard.mockTyping(textField, "The quick brown fox jumps over the lazy dog")
+
+        @navBar.left.on Events.Tap, ->
+            keyboard.hide()
+            Screen.emit "GoBack"
         
-        # Keyboard and Text Input events
-        textField.on Events.TouchEnd, ->
-	        textField.keyboard.keys.return.on Events.Tap, ->
-                if textField.text.html.length>0
-                    Screen.emit "SendMessage", textField.text.html
-                    textField.text.html = ""
+        # # Keyboard and Text Input events
+        # textField.on Events.TouchEnd, ->
+	    #     textField.keyboard.keys.return.on Events.Tap, ->
+        #         if textField.text.html.length>0
+        #             Screen.emit "SendMessage", textField.text.html
+        #             textField.text.html = ""
                 
-            textField.keyboard.on "change:y", ->
-                textField.constraints.bottom = undefined
-                textField.maxY = textField.keyboard.y
-                msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
-                msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
+        #     textField.keyboard.on "change:y", ->
+        #         textField.constraints.bottom = undefined
+        #         textField.maxY = textField.keyboard.y
+        #         msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
+        #         msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
                     
-        Events.wrap(window).addEventListener "keydown", (event) ->
-            if event.keyCode is 13
-                if textField.text.html.length>0
-                    Screen.emit "SendMessage", textField.text.html
-                    textField.text.html = ""
+        # Events.wrap(window).addEventListener "keydown", (event) ->
+        #     if event.keyCode is 13
+        #         if textField.text.html.length>0
+        #             Screen.emit "SendMessage", textField.text.html
+        #             textField.text.html = ""
 
     appendMessage= (chatView, message, messageType) ->
         chatView.appendMessage(message, messageType)
@@ -247,5 +264,8 @@ class IpzMessengerChat extends Layer
                 target.mockScrollAndTap(customEvent)
             when "tap"
                 target.mockTap(customEvent)
+            when "type"
+                @keyboard.show()
+                @keyboard.mockTyping(@textField, customEvent.message, customEvent.returnDelay)
 
 module.exports = IpzMessengerChat

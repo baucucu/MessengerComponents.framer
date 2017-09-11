@@ -6,6 +6,7 @@ class IpzMessengerHome extends Layer
 
     @avatar = undefined
     @messagesTab = undefined
+    @activeTab = undefined
 
     constructor:(options={}) ->
         options.name ?= "Messenger.Home"
@@ -31,7 +32,7 @@ class IpzMessengerHome extends Layer
             width: 24
             height: 24
 
-        activeTab = new ipz.IpzMessengerTab
+        @activeTab = new ipz.IpzMessengerTab
             label:"Active"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
@@ -81,7 +82,7 @@ class IpzMessengerHome extends Layer
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[@messagesTab, activeTab, groupsTab, callsTab]
+            tabs:[@messagesTab, @activeTab, groupsTab, callsTab]
             start:0
             activeColor:"blue"
             inactiveColor:"grey"
@@ -95,5 +96,6 @@ class IpzMessengerHome extends Layer
         @avatar.setUser(user)
         myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.MyDays)
         lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY}, user.Friends)
+        ios.utils.update(@activeTab.label, [text:"Active (#{user.ActiveCount})"])
 
 module.exports = IpzMessengerHome

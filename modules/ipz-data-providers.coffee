@@ -18,15 +18,14 @@ class UsersProvider extends JsonProvider
 
     setLoggedInUser:(usersString, carrier) ->
         users = JSON.parse usersString
-        myDays = @.getMyDays(users)
-        unreadMessageCount = @.getUnreadCount(users)
 
         loggedInUser = users[0]
         loggedInUser.Carrier = carrier
         loggedInUser.Friends = users[1..20]
-        loggedInUser.MyDays = myDays
-        loggedInUser.HomeBadge = unreadMessageCount
-
+        loggedInUser.ActiveCount = @.getActiveCount(users)
+        loggedInUser.MyDays = @.getMyDays(users)
+        loggedInUser.HomeBadge = @.getUnreadCount(users)
+        
         return loggedInUser
 
     getMyDays: (users) ->
@@ -40,6 +39,13 @@ class UsersProvider extends JsonProvider
         result = 0
         for user in users
 	        if user.unread is true
+		        result++
+        return result
+
+    getActiveCount: (users) ->
+        result = 0
+        for user in users
+	        if user.status is "active"
 		        result++
         return result
 

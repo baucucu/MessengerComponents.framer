@@ -34,7 +34,7 @@
       "myDayTime": 7,
       "status": "messenger",
       "unread": true,
-      "image_0": "http://lorempixel.com/270/375",
+      "image_0": "images/Cory.png",
       "flow": "test_all"
     },
     {
@@ -53,7 +53,7 @@
       "myDay": true,
       "myDayTime": 50,
       "status": "inactive",
-      "image_0": "http://lorempixel.com/270/375/technics",
+      "image_0": "images/Emma.png",
       "flow": "test_webView"
     },
     {
@@ -72,7 +72,7 @@
       "myDay": false,
       "myDayTime": 0,
       "status": "messenger",
-      "image_0": "http://lorempixel.com/270/375/sports",
+      "image_0": "images/Ethan.png",
       "flow": "test_carousel"
     },
     {
@@ -92,7 +92,7 @@
       "myDayTime": 0,
       "unread": true,
       "status": "active",
-      "image_0": "http://lorempixel.com/270/375/nature"
+      "image_0": "images/Florence.png"
     },
     {
       "_id": "59563b726f471d0800001443",
@@ -129,7 +129,7 @@
       "myDay": true,
       "myDayTime": 32,
       "status": "messenger",
-      "image_0": "http://lorempixel.com/270/375/business"
+      "image_0": "images/Lula.png"
     },
     {
       "_id": "59563b726f471d0800001451",
@@ -147,7 +147,7 @@
       "myDay": false,
       "myDayTime": 0,
       "status": "inactive",
-      "image_0": "http://lorempixel.com/270/375/people"
+      "image_0": "images/Margaret.png"
     },
     {
       "_id": "59563b726f471d080000144d",
