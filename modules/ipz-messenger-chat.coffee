@@ -186,7 +186,14 @@ class IpzMessengerChat extends Layer
                     when "Carousel"
                         options.offset = options.x
                         options.x = 0
-                        @lastInteractiveMessage = new ipz.IpzCarousel(options, message.carouselMessage)
+                        carousel = new ipz.IpzCarousel(options, message.carouselMessage)
+                        avatar = @avatar
+
+                        carousel.onScroll ->
+                            if (avatar != undefined)
+                                avatar.visible = (carousel.content.x >= 0)
+
+                        @lastInteractiveMessage = carousel
 
                     when "List"
                         @lastInteractiveMessage = new ipz.IpzChatList(options, message.listMessage)
@@ -202,7 +209,7 @@ class IpzMessengerChat extends Layer
             @msgContainer.height = @msgContainer.children[@msgContainer.children.length-1].height
 
             if (@avatar != undefined)                
-                @avatar.y = Align.bottom
+                @avatar.y = Align.bottom                
 
         if (messageType != "TypingIndicator" && messageType != "QuickReplies" && messageType != "WebView")
             @lastMessage = @msgContainer
