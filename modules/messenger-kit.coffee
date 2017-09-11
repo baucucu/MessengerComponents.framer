@@ -96,6 +96,9 @@ class MyDays extends ScrollComponent
 			myDay.x = index * (myDay.width + style.margin/2)			
 			myDay.y = Align.center
 			myDay.borderRadius = 5
+			myDay.shadowY = 3
+			myDay.shadowBlur = 5
+			myDay.shadowColor = "rgba(0,0,0,0.19)"
 			myDay.subLayers[0].width = myDay.subLayers[0].height = 14
 			myDay.subLayers[0].y = Align.top(-4)
 			myDay.subLayers[0].x = Align.right(4)
