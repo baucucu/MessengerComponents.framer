@@ -16,6 +16,7 @@ class IpzMessengerChat extends Layer
     @lastSender = undefined
     @msgBubble = undefined
     @typingIndicator = undefined
+    @webView = undefined
 
     @lastInteractiveMessage = undefined
     @textField = undefined
@@ -137,7 +138,8 @@ class IpzMessengerChat extends Layer
             @lastSender = undefined
 
         else if (messageType == "WebView")
-            webView = new ipz.IpzWebView({title:"TEST", left:""})
+            @webView = new ipz.IpzWebView({title:message.title, left:""})
+            @webView.setContent(message.content)
         else
             # the message container is a layer that holds the avatar and the actual chat component
             @msgContainer = new Layer
@@ -267,5 +269,8 @@ class IpzMessengerChat extends Layer
             when "type"
                 @keyboard.show()
                 @keyboard.mockTyping(@textField, customEvent.message, customEvent.returnDelay)
+            when "close-webview"
+                @webView.mockClose()
+
 
 module.exports = IpzMessengerChat

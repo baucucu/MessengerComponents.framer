@@ -1,0 +1,85 @@
+[
+   {
+		"type": "TextBubble", 
+		"delay": "0", 
+		"text": "Sfatul zilei: poți personaliza comenzile rapide, încât să conțină doar opțiunile importante pentru tine.", 
+		"sender": "chatbot"
+	},
+    {
+		"type": "TextBubble", 
+		"delay": "3",
+		"text": "Vrei să personalizezi comenzile rapide?", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "1", 
+		"replies":[
+			{"reply": "⚙️ Da, personalizare"}, 
+			{"reply": "⏩ Sari pasul acesta"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "0",
+			"tapDelay": "1"
+		}
+    },	
+	{
+		"type": "WebView", 
+		"delay": "3",
+		"title": "Comenzi Rapide",
+		"content": "PERSONALIZARE COMENZI RAPIDE"
+	},
+	{
+		"type": "MockEvent",
+		"delay": "10",
+		"event":
+		{
+			"type":"close-webview"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"typingDelay": "2",
+		"text": "Alege:", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "3", 
+		"replies":[
+			{"reply": "Cost control"}, 
+			{"reply": "Factura curenta"}, 
+			{"reply": "Reincarca cu cont VF"}, 
+			{"reply": "Notificari"},
+            {"reply": "Setare Comenzi Rapide"},
+            {"reply": "⬅️ Meniu principal"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "3",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "5",
+			"tapindex": "5",
+			"tapDelay": "3"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "4",
+		"typingDelay": "2", 
+		"text": "Sfarsit simulare", 
+		"sender": "chatbot"
+	}
+
+]

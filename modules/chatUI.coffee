@@ -106,6 +106,8 @@ class QuickReplies extends ScrollComponent
 		super options
 		@.appendReplies(replies)
 		@.scrollable()
+		@.on Events.TouchEnd, ->
+			@.destroy()
 
 	scrollable: () ->
 		if @.content.width < Screen.width + 1
@@ -341,7 +343,7 @@ class Carousel extends ScrollComponent
 
 	mockScroll= (scroll, index, scrollTime) ->
 		targetCard = scroll.content.children[index]
-		scroll.scrollToLayer(targetCard, 0.5, 0, true, curve: "bezier-curve", curveOptions:[0.5, 0.5, 1], time: scrollTime/8)
+		scroll.scrollToLayer(targetCard, 0.5, 0, true, curve: "ease-out", time: scrollTime/8)
 
 	mockScrollAndTap: (customEvent) ->
 		scroll = @
@@ -716,9 +718,12 @@ class Receipt extends Layer
 		options.borderRadius = 18
 		options.totalCost = 0
 		super options
+
+		receipt.title ?= "Order confirmation"
+
 		title = new TextLayer
 			parent: @
-			text: "Order confirmation"
+			text: receipt.title
 			fontSize: 14
 			color: "#666666"
 			width: @.width
@@ -752,7 +757,7 @@ class Receipt extends Layer
 			text: "Paid with"
 			parent: paymentDetails
 			fontSize: 13
-			color: "#666666"
+			color: "#666666"		
 		paymentMethod = new TextLayer
 			parent: paymentDetails
 			fontSize: 13

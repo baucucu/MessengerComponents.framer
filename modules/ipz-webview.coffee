@@ -3,6 +3,8 @@ ios = require "ios-kit"
 
 class WebView extends Layer
 
+    @contentPanel = undefined
+
     constructor: (options = {}) ->
         options.width = Screen.width
         options.height = Screen.height
@@ -17,10 +19,11 @@ class WebView extends Layer
 
         panel = new Layer
             superLayer: @
+            name: 'webView.Panel'
             width: @.width
             y: Align.top(panelTop)
             height: @.height - panelTop
-            backgroundColor: "white"
+            backgroundColor: Screen.backgroundColor
             borderRadius:
                 topRight: 18
                 topLeft: 18
@@ -36,6 +39,15 @@ class WebView extends Layer
                 topRight: 18
                 topLeft: 18
 
+        @contentPanel = new Layer
+            superLayer: panel
+            name: 'webView.content'
+            width: @.width
+            y: navBar.maxY
+            height: panel.height - navBar.height
+            backgroundColor = Screen.backgroundColor
+            ignoreEvents: false
+
         panel.on Events.TouchEnd, (event) ->
             event.stopPropagation()
 
@@ -44,5 +56,13 @@ class WebView extends Layer
 
         @.on Events.TouchEnd, ->
             @.destroy()
+
+    setContent: (content) ->
+        # @contentPanel.html = "<iframe src=\"#{content}\" width=\"#{@contentPanel.width}\" height=\"#{@contentPanel.height}\" />"
+        @contentPanel.html = content
+
+
+    mockClose: () ->
+        @.destroy()
 
 exports.WebView = WebView

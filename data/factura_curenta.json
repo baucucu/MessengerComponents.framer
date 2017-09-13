@@ -67,7 +67,7 @@
 		"type": "TextBubble", 
 		"delay": "4",
 		"typingDelay": "1", 
-		"text": "Contul meu:", 
+		"text": "Alege:", 
 		"sender": "chatbot"
 	},	
 	{
@@ -76,42 +76,56 @@
 		"carouselMessage": [
 			{
 				"title": "Facturi & Plati",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?url=https%3A%2F%2Fimagizer.imageshack.us%2F400x225f%2F922%2FMQrYNS.png&_nc_hash=AQCMl3-0kjo1Ts9c",
+				"subtitle": "Plata online a facturilor tale sau vizualizare factura detaliata",
+				"image": "images/VDF_chatbot_assets/VDF_chat_01-facturi-plati.jpg",
 				"buttons": ["Facturi & Plati"]
 			},
 			{
+				"title": "Cost control",
+				"subtitle": "Minutele / mesajele / internetul tau disponibil, in timp real",
+				"image": "images/VDF_chatbot_assets/VDF_chat_02-cost-control.jpg",
+				"buttons": ["Cost control"]
+			},
+			{
 				"title": "Abonamentul meu",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDTyVum3qMhFtYy&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F923%2FEhhf93.jpg&_nc_hash=AQBZaOYOb7y1wfos",
+				"subtitle": "Optiuni si servicii din abonamentul actual sau oportunitati de loialitate",
+				"image": "images/VDF_chatbot_assets/VDF_chat_03-abonamentul-meu.jpg",
 				"buttons": ["Abonamentul meu"]
 			},
 			{
 				"title": "Adauga optiuni noi",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQBZy1Qsfy3QOgsX&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FufrXzU.jpg&_nc_hash=AQBWU3yKSNtpFe4f",
+				"subtitle": "Activare pachete extra de minute, mesaje, date sau optiuni internationale",
+				"image": "images/VDF_chatbot_assets/VDF_chat_04-adauga-optiuni-noi.jpg",
 				"buttons": ["Adauga optiuni noi"]
 			},
 			{
 				"title": "Roaming",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAWOnQ1NLO4kyn7&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2FKHxAYE.jpg&_nc_hash=AQDVD8U1PvjxJam3",
+				"subtitle": "Activare sau dezactivare Roaming, activare extra optiuni internationale",
+				"image": "images/VDF_chatbot_assets/VDF_chat_05-roaming.jpg",
 				"buttons": ["Roaming"]
 			},
 			{
 				"title": "International",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAWOnQ1NLO4kyn7&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2FKHxAYE.jpg&_nc_hash=AQDVD8U1PvjxJam3",
+				"subtitle": "Detalii pachete curente sau activare optiuni noi pentru a vorbi in strainatate",
+				"image": "images/VDF_chatbot_assets/VDF_chat_06-international.jpg",
 				"buttons": ["International"]
 			},
 			{
 				"title": "Reincarcare",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDwEpYa6xeLqGhw&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FAX3Fnb.jpg&_nc_hash=AQD3hivKUyBf6VRN",
+				"subtitle": "Reincarcarea cartelei, prin metoda directa sau prin contul MyVodafone",
+				"image": "images/VDF_chatbot_assets/VDF_chat_07-reincarcare.jpg",
 				"buttons": ["Reincarcare"]
 			},
 			{
 				"title": "Casuta vocala",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQAhLc4gHP68TL4X&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F924%2Fu7Ty0L.jpg&_nc_hash=AQBrJLAp50wgIIhO",
+				"subtitle": "Mesajele vocale, optiunea de a raspunde la ele sau de a le sterge",
+				"image": "images/VDF_chatbot_assets/VDF_chat_08-casuta-vocala.jpg",
 				"buttons": ["Casuta vocala"]
 			},
 			{
 				"title": "⬅️ Inapoi",
-				"image": "https://external-frx5-1.xx.fbcdn.net/safe_image.php?d=AQDLCAGbUI3L-JJO&url=http%3A%2F%2Fimagizer.imageshack.us%2F400x300f%2F922%2FOV7lbl.jpg&_nc_hash=AQDTH8r2qGQZ_rDA",
+				"subtitle": "Intoarce-te la meniul principal",
+				"image": "images/VDF_chatbot_assets/VDF_chat_09-inapoi.jpg",
 				"buttons": ["⬅️ Inapoi"]
 			}
 		]
@@ -137,14 +151,40 @@
 			"tapindex": "0",
 			"tapDelay": "7"
 		}
+	},	
+	{
+		"type": "TextButtons", 
+		"delay": "8", 
+		"buttonsContent":
+		{
+			"message": 
+			{
+				"text": "Pentru a continua, accesează contul tău MyVodafone:", 
+				"sender": "button"
+			},
+			"buttons": ["Login MyVodafone"]
+		}
+	},	
+	{
+		"type": "WebView", 
+		"delay": "2",
+		"title": "MyVodafone",
+		"content": "LOGIN PAGE"
+	},
+	{
+		"type": "MockEvent",
+		"delay": "10",
+		"event":
+		{
+			"type":"close-webview"
+		}
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "8",
-		"typingDelay": "2", 
-		"text": "Contul meu/ Facturi & Plati:", 
+		"delay": "2",
+		"text": "Login cu succes.", 
 		"sender": "chatbot"
-	},
+	},	
 	{
 		"type": "QuickReplies", 
 		"delay": "3", 
@@ -160,12 +200,52 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "2",
+		"delay": "3",
 		"event":
 		{
 			"type":"scroll-and-tap",
 			"scrollindex": "0",
 			"tapindex": "0",
+			"tapDelay": "2"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "4",
+		"typingDelay": "1", 
+		"text": "Factura curentă:", 
+		"sender": "chatbot"
+	},	
+	{
+		"type": "TextBubble", 
+		"delay": "2",
+		"text": "Datele ultimei tale facturi vor fi disponibile în 48 ore. Rest plată de la factura din 28-08-2017, seria 555444555: 329.84 RON. Cod client 123123123", 
+		"sender": "chatbot"
+	},	
+	{
+		"type": "TextBubble", 
+		"delay": "1",
+		"text": "Alege:", 
+		"sender": "chatbot"
+	},		
+	{
+		"type": "QuickReplies", 
+		"delay": "1", 
+		"replies":[
+			{"reply": "Plateste factura"}, 
+			{"reply": "Factura detaliata"}, 
+			{"reply": "Amanare plata"},
+			{"reply": "⬅️ Meniu principal"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "5",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "3",
+			"tapindex": "3",
 			"tapDelay": "2"
 		}
 	},

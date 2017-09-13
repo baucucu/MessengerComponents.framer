@@ -1,0 +1,22 @@
+[
+	{
+		"type": "Receipt",
+		"delay": "2",
+		"receiptData": 
+		{
+            "title": "Factura curenta",
+			"products": [
+			{
+				"title": "Factura 555444555",
+				"description": "din 28-08-2017",
+				"image": "images/product.png",
+				"quantity": "1",
+				"itemPrice": "329.84"
+			}
+			],
+			"paymentMethod": "Visa 2345",
+			"shipTo": "Cod client 123123123",
+			"currency": "RON"
+		}
+    }
+]

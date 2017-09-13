@@ -1,0 +1,167 @@
+[
+	{
+		"type": "ChatHeader", 
+		"delay": "1", 
+		"botInfo":
+		{
+			"botName": "Vodafone Chatbot", 
+			"botFans": "62,438 people like this", 
+			"botCategory": "Telecom", 
+			"botAvatar": "images/vf-logo-large.png"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"text": "Start simulare", 
+		"sender": "user"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"typingDelay": "2",
+		"text": "Salut, Andrei!", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "3", 
+		"typingDelay": "2",
+		"text": "Cu ce te pot ajuta astazi?", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "4", 
+		"replies":[
+			{"reply": "🚀 Comenzi rapide"}, 
+			{"reply": "📱 Contul meu"}, 
+			{"reply": "📯 Urgente"}, 
+			{"reply": "⚙️ Setari"},
+			{"reply": "📔 Ajutor"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "0",
+			"tapDelay": "1"
+		}
+    },
+	{
+		"type": "TextBubble", 
+		"delay": "3", 
+		"typingDelay": "2",
+		"text": "Alege:", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "3", 
+		"replies":[
+			{"reply": "Cost control"}, 
+			{"reply": "Factura curenta"}, 
+			{"reply": "Reincarca cu cont VF"}, 
+			{"reply": "Notificari"},
+            {"reply": "Setare Comenzi Rapide"},
+            {"reply": "⬅️ Meniu principal"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "0",
+			"tapDelay": "2"
+		}
+    },	
+	{
+		"type": "TextButtons", 
+        "delay": "2", 
+        "typingDelay": "1",
+		"buttonsContent":
+		{
+			"message": 
+			{
+				"text": "Pentru a continua, accesează contul tău MyVodafone:", 
+				"sender": "button"
+			},
+			"buttons": ["Login MyVodafone"]
+		}
+	},	
+	{
+		"type": "WebView", 
+		"delay": "2",
+		"title": "MyVodafone",
+		"content": "LOGIN PAGE"
+	},
+	{
+		"type": "MockEvent",
+		"delay": "10",
+		"event":
+		{
+			"type":"close-webview"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2",
+		"text": "Login cu succes.", 
+		"sender": "chatbot"
+    },
+    {
+		"type": "TextBubble", 
+		"delay": "2",
+        "typingDelay": "2",
+		"text": "Astăzi, 11 sept. 2017 la ora 15:04 mai ai:\n📱 594 minute naționale din 700\n✈️ 123 minute internaționale din 200\n💬 219 mesaje naționale din 300\n🌐 4,1 GB trafic internet din 6 GB", 
+		"sender": "chatbot"
+    },
+	{
+		"type": "TextBubble", 
+		"delay": "3",
+		"text": "Cost suplimentar: 3,71 EUR", 
+		"sender": "chatbot"
+    },
+	{
+		"type": "TextBubble", 
+		"delay": "3", 
+		"typingDelay": "2",
+		"text": "Alege:", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "3", 
+		"replies":[
+			{"reply": "Factura curenta"}, 
+			{"reply": "Factura detaliata"},
+            {"reply": "⬅️ Inapoi"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "5",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "2",
+			"tapDelay": "2"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "4",
+		"typingDelay": "2", 
+		"text": "Sfarsit simulare", 
+		"sender": "chatbot"
+	}
+    
+]

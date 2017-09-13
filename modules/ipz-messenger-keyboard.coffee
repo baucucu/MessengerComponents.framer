@@ -42,11 +42,12 @@ class IpzMessengerKeyboard extends Layer
         @keyboardUp = true
         
     hide : (immediate = true) ->
-        if immediate
-            @.states.switchInstant("default")
-        else
-            @.states.switch("default")
-        @keyboardUp = false
+        if (@keyboardUp is true)
+            if immediate
+                @.states.switchInstant("default")
+            else
+                @.states.switch("default")
+            @keyboardUp = false
 
     mockTyping: (textField, filler_text, returnDelay) ->        
         filler_text = filler_text.split('')

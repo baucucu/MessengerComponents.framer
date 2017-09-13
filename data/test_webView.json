@@ -18,6 +18,8 @@
 	},
 	{
 		"type": "WebView", 
-		"delay": "0.5"
+		"delay": "0.5",
+		"title": "MyVodafone",
+		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot/"
 	}
 ]

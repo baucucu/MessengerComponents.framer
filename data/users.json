@@ -34,7 +34,7 @@
       "myDayTime": 7,
       "status": "messenger",
       "unread": true,
-      "image_0": "images/Cory.png",
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-1",
       "flow": "test_all"
     },
     {
@@ -42,7 +42,7 @@
       "firstname": "Orpha",
       "lastname": "Windler",
       "image": [
-        "0000000000000000000000000_30-30-people-8"
+        "0000000000000000000000000_30-30-people-3"
       ],
       "messageText": "test_webView",
       "messageTime": "2:47 AM",
@@ -53,7 +53,7 @@
       "myDay": true,
       "myDayTime": 50,
       "status": "inactive",
-      "image_0": "images/Emma.png",
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-3",
       "flow": "test_webView"
     },
     {
@@ -72,17 +72,17 @@
       "myDay": false,
       "myDayTime": 0,
       "status": "messenger",
-      "image_0": "images/Ethan.png",
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-9",
       "flow": "test_carousel"
     },
     {
       "_id": "59563b726f471d0800001450",
-      "firstname": "Ashtyn",
-      "lastname": "Tromp",
+      "firstname": "Vodafone",
+      "lastname": "Chatbot",
       "image": [
-        "0000000000000000000000000_30-30-people-4"
+        "images/vf-logo-large.png"
       ],
-      "messageText": "Voluptas minus qui sed quasi.",
+      "messageText": "Simulare - Cost control",
       "messageTime": "7:30 PM",
       "favorite": true,
       "birthday": false,
@@ -92,14 +92,15 @@
       "myDayTime": 0,
       "unread": true,
       "status": "active",
-      "image_0": "images/Florence.png"
+      "image_0": "images/vf-logo-large.png",
+      "flow": "cost_control"
     },
     {
       "_id": "59563b726f471d0800001443",
       "firstname": "Vodafone",
       "lastname": "Chatbot",
       "image": [
-        "images/vf-logo-large"
+        "images/vf-logo-large.png"
       ],
       "messageText": "Simulare - Factura curenta",
       "messageTime": "3:33 AM",
@@ -115,21 +116,22 @@
     },
     {
       "_id": "59563b726f471d0800001449",
-      "firstname": "Esther",
-      "lastname": "Bauch",
+      "firstname": "Vodafone",
+      "lastname": "Chatbot",
       "image": [
-        "0000000000000000000000000_30-30-people-6"
+        "images/vf-logo-large.png"
       ],
-      "messageText": "Repellat veniam aut laborum.",
+      "messageText": "Simulare - Personalizare comenzi rapide.",
       "messageTime": "12:33 AM",
       "favorite": false,
       "birthday": false,
       "wish": "Magni iste voluptate beatae veritatis voluptatem.",
       "_mock": true,
-      "myDay": true,
+      "myDay": false,
       "myDayTime": 32,
       "status": "messenger",
-      "image_0": "images/Lula.png"
+      "image_0": "images/vf-logo-large.png",
+      "flow": "configurare_comenzi_rapide"
     },
     {
       "_id": "59563b726f471d0800001451",
@@ -147,7 +149,7 @@
       "myDay": false,
       "myDayTime": 0,
       "status": "inactive",
-      "image_0": "images/Margaret.png"
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-2"
     },
     {
       "_id": "59563b726f471d080000144d",

@@ -21,6 +21,39 @@
 		"sender": "chatbot"
 	},
 	{
+		"type": "Receipt",
+		"delay": "2",
+		"receiptData": 
+		{
+			"products": [
+			{
+				"title": "Classic White T-Shirt",
+				"description": "100% Cotton, 200% Comfortable",
+				"image": "images/product.png",
+				"quantity": "2",
+				"itemPrice": "13.97"
+			},
+			{
+				"title": "Classic White T-Shirt",
+				"description": "100% Cotton, 200% Comfortable",
+				"image": "images/product.png",
+				"quantity": "1",
+				"itemPrice": "15.43"
+			},
+			{
+				"title": "Classic White T-Shirt",
+				"description": "100% Cotton, 200% Comfortable",
+				"image": "images/product.png",
+				"quantity": "3",
+				"itemPrice": "9.67"
+			}
+			],
+			"paymentMethod": "Visa 2345",
+			"shipTo": "1 Hacker Way \\nMenlo Park, CA 94025",
+			"currency": "$"
+		}
+	},
+	{
 		"type": "QuickReplies", 
 		"delay": "2", 
 		"replies":[
