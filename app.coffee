@@ -10,7 +10,8 @@ utils = require "ipz-utils"
 #################
 utils.init()
 
-bot = new IpzChatBot({})
+bot = new IpzChatBot
+    showStatusBar: false    # TODO detect mobile
 bot.gotoMain()
 
 

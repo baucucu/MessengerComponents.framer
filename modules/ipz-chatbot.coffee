@@ -18,15 +18,21 @@ class IpzChatBot extends Layer
 
         super options
 
-        @statusBar = new ios.StatusBar
+        options.showStatusBar ?= true
 
-        @mainView = new IpzMessenger({superLayer:@, y:@statusBar.maxY})
-        @chatView = new IpzMessengerChat({superLayer:@, y:@statusBar.maxY})
+        viewY = @.y
+        if options.showStatusBar is true
+            @statusBar = new ios.StatusBar
+            viewY = @statusBar.maxY
+
+        @mainView = new IpzMessenger({superLayer:@, y:viewY})
+        @chatView = new IpzMessengerChat({superLayer:@, y:viewY})
 
         @flow = new FlowComponent
             superLayer:@
 
-        @flow.header = @statusBar
+        if options.showStatusBar is true
+            @flow.header = @statusBar
 
         @commands = []
         @.handleEvents(@)
@@ -48,9 +54,10 @@ class IpzChatBot extends Layer
 
     setUser: (user) ->
         @mainView.setUser(user)
-        ios.utils.update(@statusBar.carrier, [text:user.Carrier])
-        @statusBar.carrier = user.Carrier
 
+        if (@statusBar != undefined)
+            ios.utils.update(@statusBar.carrier, [text:user.Carrier])
+            @statusBar.carrier = user.Carrier
 
 
     appendMessage: (message, messageType) ->

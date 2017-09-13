@@ -38,8 +38,6 @@ class IpzMessengerChat extends Layer
             right: "Details"
             backgroundColor: "rgba(250,248,251,0.8)"
 
-        
-
         textField = new TextLayer
             name: "inputField"
             superLayer: @
@@ -49,7 +47,7 @@ class IpzMessengerChat extends Layer
             fontFamily: "San Francisco, sans-serif" 
             letterSpacing: 0.0            
             borderRadius: 18
-            backgroundColor: "#E5E6EA"            
+            backgroundColor: "#F6F7FB"            
             width: @.width
             height: 32
             y: Align.bottom
@@ -82,31 +80,13 @@ class IpzMessengerChat extends Layer
 
         textField.on Events.TouchEnd, ->            
             keyboard.show()
-            # Utils.delay 1, ->
-            #     keyboard.mockTyping(textField, "The quick brown fox jumps over the lazy dog")
 
         @navBar.left.on Events.Tap, ->
             keyboard.hide()
             Screen.emit "GoBack"
-        
-        # # Keyboard and Text Input events
-        # textField.on Events.TouchEnd, ->
-	    #     textField.keyboard.keys.return.on Events.Tap, ->
-        #         if textField.text.html.length>0
-        #             Screen.emit "SendMessage", textField.text.html
-        #             textField.text.html = ""
-                
-        #     textField.keyboard.on "change:y", ->
-        #         textField.constraints.bottom = undefined
-        #         textField.maxY = textField.keyboard.y
-        #         msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
-        #         msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
-                    
-        # Events.wrap(window).addEventListener "keydown", (event) ->
-        #     if event.keyCode is 13
-        #         if textField.text.html.length>0
-        #             Screen.emit "SendMessage", textField.text.html
-        #             textField.text.html = ""
+
+        msgScroll.on Events.TouchEnd, ->
+            keyboard.hide(false)
 
     appendMessage= (chatView, message, messageType) ->
         chatView.appendMessage(message, messageType)
@@ -118,7 +98,7 @@ class IpzMessengerChat extends Layer
             @typingIndicator = undefined
 
         # if last message was not a TextBubble or TypingIndicator, don't stack messages
-        if (messageType != "TextBubble" && messageType != "TypingIndicator")
+        if (messageType != "TextBubble" && messageType != "TypingIndicator" && messageType != "QuickReplies")
             @msgBubble = undefined
 
         # compute distance between messages differently if they need to be stacked

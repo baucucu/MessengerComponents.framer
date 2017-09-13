@@ -17,20 +17,6 @@
 		"sender": "user"
 	},
 	{
-		"type": "TextBubble", 
-		"delay": "1", 
-		"typingDelay": "2",
-		"text": "Salut, Andrei!", 
-		"sender": "chatbot"
-	},
-	{
-		"type": "TextBubble", 
-		"delay": "3", 
-		"typingDelay": "2",
-		"text": "Cu ce te pot ajuta astazi?", 
-		"sender": "chatbot"
-	},
-	{
 		"type": "QuickReplies", 
 		"delay": "4", 
 		"replies":[

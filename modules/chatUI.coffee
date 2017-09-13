@@ -76,11 +76,11 @@ class QuickReply extends TextLayer
 			right: 12
 		options.borderColor = "#0084FF"
 		options.borderWidth = 1
-		options.borderRadius = 18
+		options.borderRadius = 18		
 		super options
 		
-		@.on Events.TouchEnd, ->
-			buttonClick options.text
+		# @.on Events.TouchEnd, ->
+		# 	buttonClick options.text
 
 		if options.icon isnt undefined
 			icon = new Layer
@@ -106,8 +106,8 @@ class QuickReplies extends ScrollComponent
 		super options
 		@.appendReplies(replies)
 		@.scrollable()
-		@.on Events.TouchEnd, ->
-			@.destroy()
+		# @.on Events.TouchEnd, ->
+		# 	@.destroy()
 
 	scrollable: () ->
 		if @.content.width < Screen.width + 1
@@ -120,9 +120,10 @@ class QuickReplies extends ScrollComponent
 			width: 0
 		for reply, index in replies
 			quickReply = new QuickReply({icon: reply.icon, parent: container}, reply.reply)
-			container.width += quickReply.width + 12
-			if container.width < 375 then container.x = Align.center else container.x = Align.left()
+			container.width += quickReply.width + 12			
 			if index isnt 0 then quickReply.x = container.children[index - 1].maxX + 12
+
+		if container.width < 375 then container.x = Align.center else container.x = Align.left()
 		container.width -= 12
 		container.height = quickReply.height
 
@@ -167,8 +168,8 @@ class Button extends TextLayer
 		
 		super options
 
-		@.on Events.TouchEnd, ->
-			buttonClick @.text
+		# @.on Events.TouchEnd, ->
+		# 	buttonClick @.text
 
 	buttonClick= (message) ->
 		Screen.emit "SendMessage", message

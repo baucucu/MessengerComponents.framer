@@ -11,11 +11,12 @@ class IpzMessengerKeyboard extends Layer
         defaultWidth = 750
         defaultHeight = 432
         @typeSpeed = .5
+        offset = 64
 
         @ratio = Screen.width/defaultWidth
         
         options.name ?= "Keyboard"
-        options.y = Screen.height       
+        options.y = Screen.height    
         options.width = defaultWidth*@ratio        
         options.height = defaultHeight*@ratio
         options.image = "images/keyboard.png"
@@ -29,7 +30,8 @@ class IpzMessengerKeyboard extends Layer
         }
 
         @.states.add({
-            show: { maxY: Screen.height - 64 }
+            show: { maxY: Screen.height - offset },
+            hide: { y: Screen.height - offset }
         })
 
         @.createKeyHighlight()        
@@ -44,9 +46,9 @@ class IpzMessengerKeyboard extends Layer
     hide : (immediate = true) ->
         if (@keyboardUp is true)
             if immediate
-                @.states.switchInstant("default")
+                @.states.switchInstant("hide")
             else
-                @.states.switch("default")
+                @.states.switch("hide")
             @keyboardUp = false
 
     mockTyping: (textField, filler_text, returnDelay) ->        
@@ -77,8 +79,8 @@ class IpzMessengerKeyboard extends Layer
         if (returnDelay > 0)
             Utils.delay returnDelay, ->
                 Screen.emit "SendMessage", textField.text
-                keyboard.hide()
-
+                keyboard.hide(false)
+                textField.text = "Type a message"
 
     createKeyHighlight: () ->        
         row1 = -114*@ratio
