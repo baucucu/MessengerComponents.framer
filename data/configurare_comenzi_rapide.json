@@ -56,7 +56,7 @@
 		"delay": "3", 
 		"replies":[
 			{"reply": "Cost control"}, 
-			{"reply": "Factura curenta"}, 
+			{"reply": "Factura"}, 
 			{"reply": "Reincarca cu cont VF"}, 
 			{"reply": "Notificari"},
             {"reply": "Setare Comenzi Rapide"},

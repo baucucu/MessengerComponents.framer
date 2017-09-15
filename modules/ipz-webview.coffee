@@ -15,6 +15,7 @@ class WebView extends Layer
 
         super options
 
+        origin = ""
         panelTop = 60
 
         panel = new Layer
@@ -58,11 +59,14 @@ class WebView extends Layer
             @.destroy()
 
     setContent: (content) ->
-        # @contentPanel.html = "<iframe src=\"#{content}\" width=\"#{@contentPanel.width}\" height=\"#{@contentPanel.height}\" />"
-        @contentPanel.html = content
+        @origin = content
+        @contentPanel.html = "<html><body><iframe id=\"myframe\" src=\"#{content}\" width=\"#{@contentPanel.width}\" height=\"#{@contentPanel.height}\" /></body></html>"
 
 
     mockClose: () ->
         @.destroy()
+
+    mockSendCustomJs: (customJs) ->
+        document.getElementById("myframe").contentWindow.postMessage(customJs,@origin);
 
 exports.WebView = WebView

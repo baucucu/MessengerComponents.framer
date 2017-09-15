@@ -251,6 +251,8 @@ class IpzMessengerChat extends Layer
                 @keyboard.mockTyping(@textField, customEvent.message, customEvent.returnDelay)
             when "close-webview"
                 @webView.mockClose()
+            when "send-custom-js-to-webview"
+                @webView.mockSendCustomJs(customEvent.customJs)
 
 
 module.exports = IpzMessengerChat

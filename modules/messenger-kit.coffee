@@ -131,7 +131,7 @@ class MessageListItem extends Layer
 
 		# @user = user
 
-		avatar = new Avatar({parent: @, y: style.margin * options.scale })
+		avatar = new Avatar({parent: @, y: style.margin * options.scale, x: 2, scale:1.02 })
 		avatar.setUser(user)
 		avatar.changeStatus(user.status)
 
@@ -194,7 +194,7 @@ class MessageList extends Layer
 		super options
 
 		for user, index in users
-			message = new MessageListItem({parent: @, y: options.scale * index * 74}, user)
+			message = new MessageListItem({parent: @, y: options.scale * index * 80}, user)
 
 exports.MessageList = MessageList
 
@@ -215,10 +215,10 @@ class ActiveFriendsScrollList extends ScrollComponent
 		for user, index in users
 			container = new Layer
 				parent: @.content
-				x: index * (50 + style.margin)
+				x: index * 88
 				width: 50
 				backgroundColor: "transparent"
-			avatar = new Avatar({parent: container})
+			avatar = new Avatar({parent: container, scale:1.12})
 			name = new TextLayer
 				parent: container
 				text: user.firstname

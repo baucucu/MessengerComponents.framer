@@ -79,8 +79,13 @@ class IpzMessengerKeyboard extends Layer
         if (returnDelay > 0)
             Utils.delay returnDelay, ->
                 Screen.emit "SendMessage", textField.text
+                textField.text = "Type a message"
+
+        if (hideDelay > 0)
+            Utils.delay hideDelay, ->
                 keyboard.hide(false)
                 textField.text = "Type a message"
+                
 
     createKeyHighlight: () ->        
         row1 = -114*@ratio

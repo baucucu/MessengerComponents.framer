@@ -17,17 +17,17 @@ class IpzMessenger extends Layer
         @homeTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"Home"
-            activeIcon:"images/HomeIconActive.png"
+            activeIcon:"images/homeIconActive.png"
             view: new ipz.IpzMessengerHome({superLayer: @})
             
-        discoverTab = new ipz.IpzMessengerTab
-            superLayer: @
-            label:"Discover"
-            activeIcon:"images/DiscoverIconActive.png"
-            view: new ios.View
-                name:"Discover.view"
-                superLayer: @
-                backgroundColor: "red"
+        # discoverTab = new ipz.IpzMessengerTab
+        #     superLayer: @
+        #     label:"Discover"
+        #     activeIcon:"images/DiscoverIconActive.png"
+        #     view: new ios.View
+        #         name:"Discover.view"
+        #         superLayer: @
+        #         backgroundColor: "red"
             
         cameraTab = new ipz.IpzMessengerTab
             superLayer: @
@@ -41,27 +41,49 @@ class IpzMessenger extends Layer
                 superLayer: @
                 backgroundColor: "black"
 
+        groupsTab = new ipz.IpzMessengerTab
+            label:"Groups"
+            activeIcon:"images/peopleIconActive.png"
+            superLayer: @
+            view: new ios.View
+                name:"Groups.view"
+                superLayer: @
+                width: @.width
+                height: @.height
+                backgroundColor: Screen.backgroundColor
+        
+        callsTab = new ipz.IpzMessengerTab
+            label:"Calls"
+            activeIcon:"images/CallsIconActive.png"
+            superLayer: @
+            view: new ios.View
+                name:"Calls.view"
+                superLayer: @
+                width: @.width
+                height: @.height
+                backgroundColor: Screen.backgroundColor
+
         peopleTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"People"
-            activeIcon:"images/PeopleIconActive.png"
+            activeIcon:"images/peopleIconActive.png"
             view:new ios.View
                 name:"People.view"
                 superLayer: @
                 backgroundColor: "orange"
             
-        gamesTab = new ipz.IpzMessengerTab
-            superLayer: @
-            label:"Games"
-            activeIcon:"images/GamesIconActive.png"
-            view:new ios.View
-                name:"Games.view"
-                superLayer: @
-                backgroundColor: "green"
+        # gamesTab = new ipz.IpzMessengerTab
+        #     superLayer: @
+        #     label:"Games"
+        #     activeIcon:"images/GamesIconActive.png"
+        #     view:new ios.View
+        #         name:"Games.view"
+        #         superLayer: @
+        #         backgroundColor: "green"
             
         @tabBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[@homeTab, peopleTab, cameraTab, gamesTab, discoverTab]
+            tabs:[@homeTab, callsTab, cameraTab, groupsTab, peopleTab]
             start:0
             activeColor:"blue"
             inactiveColor:"grey"            

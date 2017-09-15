@@ -13,7 +13,7 @@ class IpzMessengerHome extends Layer
         options.width ?= options.superLayer.width
         options.height ?= options.superLayer.height
         options.backgroundColor ?= Screen.backgroundColor
-        options.navBarLabelsFontSize ?= 13
+        options.navBarLabelsFontSize ?= 16
 
         super options
 
@@ -21,14 +21,15 @@ class IpzMessengerHome extends Layer
 
         searchBox = new ipz.IpzMessengerSearchBox({superLayer: @})
 
-        @avatar = new ipz.IpzAvatar({scale: 0.7, superLayer: @, x: Align.left(10), y: Align.top(-3), name: "Avatar"})
+        @avatar = new ipz.IpzAvatar({scale: 0.8, superLayer: @, x: Align.left(10), y: Align.top(3), name: "Avatar"})
 
         # TODO image button class
         compose = new Layer
             superLayer: @
             name:"compose"
-            image: "images/CreateIcon.png"
-            x: Align.right(-10)
+            image: "images/createIcon.png"
+            x: Align.right(-16)
+            y: Align.top(10)
             width: 24
             height: 24
 
@@ -44,27 +45,27 @@ class IpzMessengerHome extends Layer
                 height: @.height
                 backgroundColor: Screen.backgroundColor
 
-        groupsTab = new ipz.IpzMessengerTab
-            label:"Groups"
-            fontsize:options.navBarLabelsFontSize
-            superLayer: @
-            view: new ios.View
-                name:"Groups.view"
-                superLayer: @
-                width: @.width
-                height: @.height
-                backgroundColor: Screen.backgroundColor
+        # groupsTab = new ipz.IpzMessengerTab
+        #     label:"Groups"
+        #     fontsize:options.navBarLabelsFontSize
+        #     superLayer: @
+        #     view: new ios.View
+        #         name:"Groups.view"
+        #         superLayer: @
+        #         width: @.width
+        #         height: @.height
+        #         backgroundColor: Screen.backgroundColor
         
-        callsTab = new ipz.IpzMessengerTab
-            label:"Calls"
-            fontsize:options.navBarLabelsFontSize
-            superLayer: @
-            view: new ios.View
-                name:"Calls.view"
-                superLayer: @
-                width: @.width
-                height: @.height
-                backgroundColor: Screen.backgroundColor
+        # callsTab = new ipz.IpzMessengerTab
+        #     label:"Calls"
+        #     fontsize:options.navBarLabelsFontSize
+        #     superLayer: @
+        #     view: new ios.View
+        #         name:"Calls.view"
+        #         superLayer: @
+        #         width: @.width
+        #         height: @.height
+        #         backgroundColor: Screen.backgroundColor
 
         @messagesTab = new ipz.IpzMessengerTab
             label:"Messages"
@@ -82,19 +83,21 @@ class IpzMessengerHome extends Layer
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
-            tabs:[@messagesTab, @activeTab, groupsTab, callsTab]
+            tabs:[@messagesTab, @activeTab] #, groupsTab, callsTab]
             start:0
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
-            height: 35            
+            height: 50            
             barTop:searchBox.maxY
 
         ## END HEADER
 
     setUser:(user) ->
         @avatar.setUser(user)
-        myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.MyDays)
+        # myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.MyDays)
+        myDays = new ipz.IpzActiveFriendsScrollList({parent: @messagesTab.view.content, y:Align.top(20)}, user.MyDays)
+
         lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY}, user.Friends)
         ios.utils.update(@activeTab.label, [text:"Active (#{user.ActiveCount})"])
 

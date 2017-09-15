@@ -11,7 +11,7 @@ utils = require "ipz-utils"
 utils.init()
 
 bot = new IpzChatBot
-    showStatusBar: false    # TODO detect mobile
+    showStatusBar: true    # TODO detect mobile
 bot.gotoMain()
 
 
@@ -38,3 +38,8 @@ bot.on "ChatOpened", (user) ->
     flowProvider = new data.FlowProvider
     flowProvider.getFlow(user.flow, gotUserFlow)  
     
+# overlay = new Layer
+#     width: Screen.width
+#     height: Screen.height
+#     image: "images/realScreens/yourDay1.png"
+#     opacity: 0.5
