@@ -20,6 +20,7 @@ class IpzMessengerChat extends Layer
 
     @lastInteractiveMessage = undefined
     @textField = undefined
+    @replyTime = undefined
     @keyboard = undefined
     
     constructor:(options = {}) ->
@@ -34,9 +35,24 @@ class IpzMessengerChat extends Layer
             superLayer: @
             name: 'navBar'
             left:"< Back"
-            title: "Name"
-            right: "Details"
-            backgroundColor: "rgba(250,248,251,0.8)"
+            title: "Name"                             
+            right: "Details"            
+            backgroundColor: "rgba(250,248,251,0.8)"        
+        
+        @replyTime  = new TextLayer
+            superLayer: @navBar        
+            y: Align.top(-35)
+            name: 'reply'
+            text: 'Typically replies instantly'
+            lineHeight: 14
+            fontSize: 12
+            fontFamily: "San Francisco, sans-serif" 
+            letterSpacing: 0.0                       
+            width: @.width
+            height: @.height
+            textAlign:'center'
+            backgroundColor: 'transparent'            
+        
 
         textField = new TextLayer
             name: "inputField"
@@ -51,6 +67,8 @@ class IpzMessengerChat extends Layer
             width: @.width
             height: 32
             y: Align.bottom
+            contentInset: {left:30}   
+
         @textField = textField
 
         msgScrollHeight = @.height
@@ -84,7 +102,8 @@ class IpzMessengerChat extends Layer
         @navBar.left.on Events.Tap, ->
             keyboard.hide()
             Screen.emit "GoBack"
-
+        
+        
         msgScroll.on Events.TouchEnd, ->
             keyboard.hide(false)
 
@@ -227,8 +246,8 @@ class IpzMessengerChat extends Layer
 
     setUser:(user, showLastMsg) ->  
         @user = user      
-        ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])
-
+        ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])  
+        @navBar.title.y = Align.top(5)            
         # clear all previous messages
         utils.destroyChildren(@messageScroll.content, false)
         @messageScroll.updateContent()
