@@ -47,5 +47,5 @@ if (queryString.get("showOverlay") == "true")
     overlay = new Layer
         width: Screen.width
         height: Screen.height
-        image: "images/realScreens/chatView2.png"
+        image: "images/realScreens/yourDay1.png"
         opacity: 0.5

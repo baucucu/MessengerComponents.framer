@@ -51,8 +51,8 @@ class IpzMessengerKeyboard extends Layer
                 @.states.switch("hide")
             @keyboardUp = false
 
-    mockTyping: (textField, filler_text, returnDelay) ->        
-        filler_text = filler_text.split('')
+    mockTyping: (textField, customEvent) ->
+        filler_text = customEvent.message.split('')
         totalDelay = 0
         counter = 0
         textField.text = ''
@@ -76,13 +76,13 @@ class IpzMessengerKeyboard extends Layer
             typeLetter letter, i, @key, @typeSpeed
             total = i
 
-        if (returnDelay > 0)
-            Utils.delay returnDelay, ->
+        if (customEvent.returnDelay != undefined && customEvent.returnDelay > 0)
+            Utils.delay customEvent.returnDelay, ->
                 Screen.emit "SendMessage", textField.text
                 textField.text = "Type a message"
 
-        if (hideDelay > 0)
-            Utils.delay hideDelay, ->
+        if (customEvent.hideDelay != undefined && customEvent.hideDelay > 0)
+            Utils.delay customEvent.hideDelay, ->
                 keyboard.hide(false)
                 textField.text = "Type a message"
                 

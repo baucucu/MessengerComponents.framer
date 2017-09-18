@@ -192,7 +192,7 @@ class MessageList extends Layer
 		options.width = Screen.width - style.margins
 		options.x = Align.center
 		options.backgroundColor = "transparent"
-		options.height = users.length * 74 * options.scale
+		options.height = users.length * 80 * options.scale
 		super options
 
 		for user, index in users

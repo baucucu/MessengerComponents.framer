@@ -96,7 +96,7 @@ class IpzMessengerChat extends Layer
             msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
             msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
 
-        textField.on Events.TouchEnd, ->            
+        textField.on Events.TouchEnd, ->
             keyboard.show()
 
         @navBar.left.on Events.Tap, ->
@@ -137,7 +137,14 @@ class IpzMessengerChat extends Layer
             @lastSender = undefined
 
         else if (messageType == "WebView")
-            @webView = new ipz.IpzWebView({title:message.title, left:""})
+            @webView = new ipz.IpzWebView
+                superLayer: @
+                title:message.title
+                left:""
+                height: @.height
+                y:0
+                maxY:@textField.y
+
             @webView.setContent(message.content)
         else
             # the message container is a layer that holds the avatar and the actual chat component
@@ -209,7 +216,7 @@ class IpzMessengerChat extends Layer
 
                         carousel.onScroll ->
                             if (avatar != undefined)
-                                avatar.visible = (carousel.content.x >= 0)
+                                avatar.visible = (carousel.content.x + options.offset >= 0)
 
                         @lastInteractiveMessage = carousel
 
@@ -267,7 +274,7 @@ class IpzMessengerChat extends Layer
                 target.mockTap(customEvent)
             when "type"
                 @keyboard.show()
-                @keyboard.mockTyping(@textField, customEvent.message, customEvent.returnDelay)
+                @keyboard.mockTyping(@textField, customEvent)
             when "close-webview"
                 @webView.mockClose()
             when "send-custom-js-to-webview"

@@ -1,25 +1,22 @@
 [
 	{
-		"type": "ChatHeader", 
-		"delay": "1", 
-		"botInfo":
+		"type": "TextButtons", 
+        "delay": "1", 
+        "typingDelay": "1",
+		"buttonsContent":
 		{
-			"botName": "Vodafone Chatbot", 
-			"botFans": "62,438 people like this", 
-			"botCategory": "Telecom", 
-			"botAvatar": "images/vf-logo-large.png"
+			"message": 
+			{
+				"text": "Pentru a continua, accesează contul tău MyVodafone:", 
+				"sender": "button"
+			},
+			"buttons": ["Login MyVodafone"]
 		}
-	},
-	{
-		"type": "TextBubble", 
-		"delay": "1", 
-		"text": "Get started", 
-		"sender": "user"
-	},
+	},	
 	{
 		"type": "WebView", 
-		"delay": "0.5",
+		"delay": "2",
 		"title": "MyVodafone",
-		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot/"
+		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_02/"
 	}
 ]

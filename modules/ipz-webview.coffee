@@ -6,8 +6,9 @@ class WebView extends Layer
     @contentPanel = undefined
 
     constructor: (options = {}) ->
-        options.width = Screen.width
-        options.height = Screen.height
+        options.name ?= "WebView"
+        options.width ?= Screen.width
+        options.height ?= Screen.height
         options.backgroundColor = "rgba(0,0,0,0.5)"
 
         options.left ?= "<"
@@ -60,7 +61,8 @@ class WebView extends Layer
 
     setContent: (content) ->
         @origin = content
-        @contentPanel.html = "<html><body><iframe id=\"myframe\" src=\"#{content}\" width=\"#{@contentPanel.width}\" height=\"#{@contentPanel.height}\" /></body></html>"
+        @contentPanel.html = """<iframe id="myframe" src="#{content}" frameborder="0" width="#{@contentPanel.width/3}" height="#{@contentPanel.height/3}"
+                style="transform-origin: 0% 0% 0px; transform: scale(3,3)" />"""
 
 
     mockClose: () ->

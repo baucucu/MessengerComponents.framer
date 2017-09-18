@@ -7,7 +7,7 @@
 			"botName": "Vodafone Chatbot", 
 			"botFans": "62,438 people like this", 
 			"botCategory": "Telecom", 
-			"botAvatar": "images/vf-logo-large.png"
+			"botAvatar": "images/avatars/vf-logo-large.png"
 		}
 	},
 	{
@@ -106,7 +106,7 @@
 			},
 			{
 				"title": "International",
-				"subtitle": "Detalii pachete curente sau activare optiuni noi pentru a vorbi in strainatate",
+				"subtitle": "Detalii pachete curente sau activare \noptiuni noi pentru a vorbi in strainatate",
 				"image": "images/VDF_chatbot_assets/VDF_chat_06-international.jpg",
 				"buttons": ["International"]
 			},
@@ -118,13 +118,13 @@
 			},
 			{
 				"title": "Casuta vocala",
-				"subtitle": "Mesajele vocale, optiunea de a raspunde la ele sau de a le sterge",
+				"subtitle": "Mesajele vocale, optiunea de a raspunde \nla ele sau de a le sterge",
 				"image": "images/VDF_chatbot_assets/VDF_chat_08-casuta-vocala.jpg",
 				"buttons": ["Casuta vocala"]
 			},
 			{
 				"title": "⬅️ Inapoi",
-				"subtitle": "Intoarce-te la meniul principal",
+				"subtitle": "Intoarce-te la meniul principal\n",
 				"image": "images/VDF_chatbot_assets/VDF_chat_09-inapoi.jpg",
 				"buttons": ["⬅️ Inapoi"]
 			}
@@ -169,11 +169,119 @@
 		"type": "WebView", 
 		"delay": "2",
 		"title": "MyVodafone",
-		"content": "LOGIN PAGE"
+		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_02/"
 	},
 	{
 		"type": "MockEvent",
-		"delay": "10",
+		"delay": "8",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('D');"
+		}
+	},	
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('De');"
+		}
+	},		
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('Dem');"
+		}
+	},	
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('Demo');"
+		}
+	},	
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('DemoU');"
+		}
+	},	
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('DemoUs');"
+		}
+	},	
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('DemoUse');"
+		}
+	},	
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').val('DemoUser');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#password').val('t');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#password').val('te');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#password').val('tes');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "0.35",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#password').val('test');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "3",
 		"event":
 		{
 			"type":"close-webview"
