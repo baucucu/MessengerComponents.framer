@@ -17,13 +17,13 @@ class IpzMessenger extends Layer
         @homeTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"Home"
-            activeIcon:"images/homeIconActive.png"
+            activeIcon:"images/icons/homeIconActive.png"
             view: new ipz.IpzMessengerHome({superLayer: @})
             
         # discoverTab = new ipz.IpzMessengerTab
         #     superLayer: @
         #     label:"Discover"
-        #     activeIcon:"images/DiscoverIconActive.png"
+        #     activeIcon:"images/icons/DiscoverIconActive.png"
         #     view: new ios.View
         #         name:"Discover.view"
         #         superLayer: @
@@ -32,7 +32,7 @@ class IpzMessenger extends Layer
         cameraTab = new ipz.IpzMessengerTab
             superLayer: @
             label:""
-            activeIcon:"images/CameraIconActive.png"
+            activeIcon:"images/icons/CameraIconActive.png"
             iconsize:45            
             alwaysActive:true
             canHaveBadge:false
@@ -43,7 +43,7 @@ class IpzMessenger extends Layer
 
         groupsTab = new ipz.IpzMessengerTab
             label:"Groups"
-            activeIcon:"images/peopleIconActive.png"
+            activeIcon:"images/icons/peopleIconActive.png"
             superLayer: @
             view: new ios.View
                 name:"Groups.view"
@@ -54,7 +54,7 @@ class IpzMessenger extends Layer
         
         callsTab = new ipz.IpzMessengerTab
             label:"Calls"
-            activeIcon:"images/CallsIconActive.png"
+            activeIcon:"images/icons/CallsIconActive.png"
             superLayer: @
             view: new ios.View
                 name:"Calls.view"
@@ -66,7 +66,7 @@ class IpzMessenger extends Layer
         peopleTab = new ipz.IpzMessengerTab
             superLayer: @
             label:"People"
-            activeIcon:"images/peopleIconActive.png"
+            activeIcon:"images/icons/peopleIconActive.png"
             view:new ios.View
                 name:"People.view"
                 superLayer: @
@@ -75,7 +75,7 @@ class IpzMessenger extends Layer
         # gamesTab = new ipz.IpzMessengerTab
         #     superLayer: @
         #     label:"Games"
-        #     activeIcon:"images/GamesIconActive.png"
+        #     activeIcon:"images/icons/GamesIconActive.png"
         #     view:new ios.View
         #         name:"Games.view"
         #         superLayer: @

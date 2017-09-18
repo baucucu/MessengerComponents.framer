@@ -26,3 +26,4 @@ class IpzUtils
         return true    
 
 module.exports = IpzUtils
+

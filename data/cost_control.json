@@ -93,32 +93,10 @@
 		"delay": "3",
 		"event":
 		{
-			"type":"type",
-			"message": "DemoUser",
-			"returnDelay": "-1",
-			"hideDelay": "5"
-		}
-	},
-	{
-		"type": "MockEvent",
-		"delay": "3",
-		"event":
-		{
 			"type":"send-custom-js-to-webview",
 			"customJs": "$('#username').val('DemoUser');"
 		}
     },
-	{
-		"type": "MockEvent",
-		"delay": "6",
-		"event":
-		{
-			"type":"type",
-			"message": "password",
-			"returnDelay": "-1",
-			"hideDelay": "5"
-		}
-	},
 	{
 		"type": "MockEvent",
 		"delay": "6",

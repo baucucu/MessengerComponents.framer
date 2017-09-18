@@ -23,6 +23,11 @@ class IpzChatBot extends Layer
         viewY = @.y
         if options.showStatusBar is true
             @statusBar = new ios.StatusBar
+            # @statusBar = new Layer
+            #     name:"StatusBar"
+            #     width : Screen.width*3
+            #     height : 22
+            #     image : "images/StatusBar_iOS.png"
             viewY = @statusBar.maxY
 
         @mainView = new IpzMessenger({superLayer:@, y:viewY})
@@ -55,9 +60,9 @@ class IpzChatBot extends Layer
     setUser: (user) ->
         @mainView.setUser(user)
 
-        if (@statusBar != undefined)
-            ios.utils.update(@statusBar.carrier, [text:user.Carrier])
-            @statusBar.carrier = user.Carrier
+        # if (@statusBar != undefined)
+        #     ios.utils.update(@statusBar.carrier, [text:user.Carrier])
+        #     @statusBar.carrier = user.Carrier
 
 
     appendMessage: (message, messageType) ->

@@ -67,6 +67,6 @@ class WebView extends Layer
         @.destroy()
 
     mockSendCustomJs: (customJs) ->
-        document.getElementById("myframe").contentWindow.postMessage(customJs,@origin);
+        document.getElementById("myframe").contentWindow.postMessage(customJs, @origin);
 
 exports.WebView = WebView

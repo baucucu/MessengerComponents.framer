@@ -3,15 +3,18 @@
 IpzChatBot = require "ipz-chatbot"
 data = require "ipz-data-providers"
 utils = require "ipz-utils"
+qs = require "ipz-querystring"
 
 
 
 # Init view
 #################
 utils.init()
+queryString = new qs.QueryString()
+statusBarVisible = queryString.get("showStatusBar")
 
 bot = new IpzChatBot
-    showStatusBar: true    # TODO detect mobile
+    showStatusBar: statusBarVisible is undefined || statusBarVisible == true    # TODO detect mobile
 bot.gotoMain()
 
 
@@ -38,8 +41,11 @@ bot.on "ChatOpened", (user) ->
     flowProvider = new data.FlowProvider
     flowProvider.getFlow(user.flow, gotUserFlow)  
     
-# overlay = new Layer
-#     width: Screen.width
-#     height: Screen.height
-#     image: "images/realScreens/yourDay1.png"
-#     opacity: 0.5
+
+
+if (queryString.get("showOverlay") == "true")
+    overlay = new Layer
+        width: Screen.width
+        height: Screen.height
+        image: "images/realScreens/chatView2.png"
+        opacity: 0.5

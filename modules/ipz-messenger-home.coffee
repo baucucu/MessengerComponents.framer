@@ -27,7 +27,7 @@ class IpzMessengerHome extends Layer
         compose = new Layer
             superLayer: @
             name:"compose"
-            image: "images/createIcon.png"
+            image: "images/icons/createIcon.png"
             x: Align.right(-16)
             y: Align.top(10)
             width: 24
@@ -96,9 +96,9 @@ class IpzMessengerHome extends Layer
     setUser:(user) ->
         @avatar.setUser(user)
         # myDays = new ipz.IpzMyDay({parent: @messagesTab.view.content}, user.MyDays)
-        myDays = new ipz.IpzActiveFriendsScrollList({parent: @messagesTab.view.content, y:Align.top(20)}, user.MyDays)
+        myDays = new ipz.IpzActiveFriendsScrollList({parent: @messagesTab.view.content, x:Align.left, y:Align.top(20)}, user.MyDays)
 
-        lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY}, user.Friends)
+        lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY + 10}, user.Friends)
         ios.utils.update(@activeTab.label, [text:"Active (#{user.ActiveCount})"])
 
 module.exports = IpzMessengerHome

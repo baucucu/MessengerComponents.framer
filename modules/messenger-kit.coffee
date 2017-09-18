@@ -22,7 +22,7 @@ class Avatar extends Layer
 		options.backgroundColor = "#EEEEEE"
 		options.borderRadius = 100
 
-		options.image ?= "images/meIconActive.png"	#user.image_0
+		options.image ?= "images/icons/meIconActive.png"	#user.image_0
 		options.status ?= "inactive" 				#user.status
 
 		super options
@@ -50,7 +50,7 @@ class Avatar extends Layer
 				borderColor: "#FFFFFF"
 			messenger:
 				borderColor: "#FFFFFF"
-				image: "images/messengerIcon.png"
+				image: "images/icons/messengerIcon.png"
 				borderWidth: options.scale * 2
 			myDay:
 				borderColor: "#FFFFFF"
@@ -60,9 +60,11 @@ class Avatar extends Layer
 
 		@.subLayers[0].animate(options.status)
 
-	setUser: (user) ->
+	setUser: (user, setBadge) ->
+		setBadge ?= true		
 		@.image = user.image_0
-		@.subLayers[0].animate(user.status)
+		if (setBadge is true)		
+			@.subLayers[0].animate(user.status)
 
 	changeStatus: (type) =>
 		@.subLayers[0].animate(type)
@@ -202,33 +204,35 @@ exports.MessageList = MessageList
 
 class ActiveFriendsScrollList extends ScrollComponent
 	constructor: (options = {}, users) ->
+		options.name ?= "ActiveFriendsScroll"
+		options.avatarScale ?= 1.1
+		options.nameLabelPadding ?= 16
 		options.scale ?= 1
-		options.width = Screen.width - style.margins
-		options.height = options.scale * 100
+		options.width = Screen.width
+		# options.height = options.scale * 100
 		options.scrollVertical = false
+		options.directionLock = true
 
 		super options
-
-
-		@.content.height = null
 
 		for user, index in users
 			container = new Layer
 				parent: @.content
-				x: index * 88
-				width: 50
+				x: index * 88 + 15
+				width: 56
 				backgroundColor: "transparent"
-			avatar = new Avatar({parent: container, scale:1.12})
+			avatar = new Avatar({parent: container, scale:options.avatarScale, y:Align.top(3)})
 			name = new TextLayer
 				parent: container
 				text: user.firstname
 				fontSize: 14 * options.scale
-				y: avatar.maxY + 5
-			container.width = avatar.width
+				y: avatar.maxY + options.nameLabelPadding
+			container.width = options.avatarScale * avatar.width
+			@.height = @.content.height = container.height = options.avatarScale * avatar.height + name.height + options.nameLabelPadding
 			avatar.x = name.x = Align.center
-			@.content.height = container.height = avatar.height + name.height + 5
-			@.content.y = Align.center
-			avatar.setUser(user)
+			avatar.setUser(user, false)
+		
+		@.content.width = container.maxX
 
 exports.ActiveFriendsScrollList = ActiveFriendsScrollList
 

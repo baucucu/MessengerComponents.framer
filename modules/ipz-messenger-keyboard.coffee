@@ -19,7 +19,7 @@ class IpzMessengerKeyboard extends Layer
         options.y = Screen.height    
         options.width = defaultWidth*@ratio        
         options.height = defaultHeight*@ratio
-        options.image = "images/keyboard.png"
+        options.image = "images/keyboard/keyboard.png"
         options.clip = false
 
         super options
@@ -91,10 +91,10 @@ class IpzMessengerKeyboard extends Layer
         row1 = -114*@ratio
         row2 = -6*@ratio
         row3 = 102*@ratio
-        space = 'images/space.png'
-        middle = 'images/key_middle.png'
-        left = 'images/key_left.png'
-        right = 'images/key_right.png'
+        space = 'images/keyboard/space.png'
+        middle = 'images/keyboard/key_middle.png'
+        left = 'images/keyboard/key_left.png'
+        right = 'images/keyboard/key_right.png'
 
         # create the key layer
         @key = new Layer 
