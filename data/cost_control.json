@@ -90,115 +90,55 @@
 	},
 	{
 		"type": "MockEvent",
+		"delay": "3",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"type",
+			"message": "DemoUser",
+			"customJs": "$('#username').val('{0}');"
+		}
+	},
+	{
+		"type": "MockEvent",
 		"delay": "5",
 		"event":
 		{
 			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('D');"
-		}
-	},	
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('De');"
-		}
-	},		
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('Dem');"
-		}
-	},	
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('Demo');"
-		}
-	},	
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('DemoU');"
-		}
-	},	
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('DemoUs');"
-		}
-	},	
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('DemoUse');"
-		}
-	},	
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#username').val('DemoUser');"
+			"customJs": "$('#password').focus();"
 		}
 	},
 	{
 		"type": "MockEvent",
-		"delay": "2",
+		"delay": "1",
 		"event":
 		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#password').val('t');"
+			"type":"type",
+			"message": "Password",
+			"hideDelay": "5",
+			"customJs": "$('#password').val('{0}');"
 		}
 	},
 	{
 		"type": "MockEvent",
-		"delay": "0.35",
+		"delay": "6",
 		"event":
 		{
 			"type":"send-custom-js-to-webview",
-			"customJs": "$('#password').val('te');"
+			"customJs": "$('.btn-primary').focus();"
 		}
 	},
 	{
 		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#password').val('tes');"
-		}
-	},
-	{
-		"type": "MockEvent",
-		"delay": "0.35",
-		"event":
-		{
-			"type":"send-custom-js-to-webview",
-			"customJs": "$('#password').val('test');"
-		}
-	},
-	{
-		"type": "MockEvent",
-		"delay": "3",
+		"delay": "1",
 		"event":
 		{
 			"type":"close-webview"

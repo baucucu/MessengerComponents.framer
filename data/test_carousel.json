@@ -47,12 +47,13 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "1",
+		"delay": "2",
 		"event":
 		{
 			"type":"type",
 			"message": "The fox",
-			"returnDelay": "5"
+			"returnDelay": "5",
+			"hideDelay": "5"
 		}
 	}
 ]

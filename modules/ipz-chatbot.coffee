@@ -4,12 +4,7 @@ IpzMessengerChat = require "ipz-messenger-chat"
 utils = require "ipz-utils"
 
 class IpzChatBot extends Layer
-    @flow = undefined
-    @mainView = undefined
-    @chatView = undefined
-    @statusBar = undefined
-    @commands = undefined
-
+    
     constructor:(options = {}) ->
         options.name ?= "ChatBot"
         options.width ?= Screen.width

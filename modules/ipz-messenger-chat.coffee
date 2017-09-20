@@ -3,26 +3,7 @@ ipz = require "ipz-messenger-kit"
 utils = require 'ipz-utils'
 
 class IpzMessengerChat extends Layer
-    
-    @user = undefined
-    @avatar = undefined
-
-    @navBar = undefined
-    @messageScroll = undefined
-    
-    @msgContainer = undefined
-    @messageCount = undefined
-    @lastMessage = undefined
-    @lastSender = undefined
-    @msgBubble = undefined
-    @typingIndicator = undefined
-    @webView = undefined
-
-    @lastInteractiveMessage = undefined
-    @textField = undefined
-    @replyTime = undefined
-    @keyboard = undefined
-    
+        
     constructor:(options = {}) ->
         options.name ?= "Messenger.Chat"
         options.width ?= Screen.width
@@ -31,13 +12,14 @@ class IpzMessengerChat extends Layer
 
         super options
 
-        @navBar = new ios.NavBar
+        navBar = new ios.NavBar
             superLayer: @
             name: 'navBar'
             left:"< Home"
             title: "Name"                             
             right: "Manage"            
-            backgroundColor: "rgba(250,248,251,0.8)"        
+            backgroundColor: "rgba(250,248,251,0.8)"
+        @navBar = navBar
         
         @replyTime  = new TextLayer
             superLayer: @navBar        
@@ -56,6 +38,7 @@ class IpzMessengerChat extends Layer
 
         textField = new TextLayer
             name: "inputField"
+            text: "Type a message"
             superLayer: @           
             lineHeight: 2
             fontSize: 14
@@ -65,7 +48,10 @@ class IpzMessengerChat extends Layer
             height: 55
             x: 0
             y: Align.bottom(0) 
-            style: "background" : "url(images/chat-view-input2.png) 0px 0px/100% auto no-repeat"                        
+            style: "background" : "url(images/chat-view-input2.png) 0px 0px/100% auto no-repeat"
+            padding:
+                top: 15
+                left: 210
 
         @textField = textField
 
@@ -85,22 +71,35 @@ class IpzMessengerChat extends Layer
         @messageScroll = msgScroll
         @messageCount = 0
 
+        webView = new ipz.IpzWebView
+            superLayer: @
+            left:""
+            height: msgScrollHeight
+            y:0
+            visible: false
+        @webView = webView
+
         keyboard = new ipz.IpzMessengerKeyboard
             superLayer:@
         @keyboard = keyboard
 
         keyboard.on "change:y", ->
             textField.maxY = keyboard.y
-            msgScroll.height = msgScrollHeight - (Screen.height - textField.y)
+            msgScroll.height = msgScrollHeight - navBar.height - (Screen.height - textField.y)
             msgScroll.scrollToLayer(msgScroll.content.children[msgScroll.content.children.length - 1])
+            webView.height = msgScrollHeight - (Screen.height - keyboard.y)
+
+        keyboard.on "TypeLetter", (customJs, message, index) ->
+            if (webView.visible == true)
+                letters = message.substr 0, index
+                webView.mockSendCustomJs(customJs.replace "{0}", letters)
 
         textField.on Events.TouchEnd, ->
             keyboard.show()
 
         @navBar.left.on Events.Tap, ->
             keyboard.hide()
-            Screen.emit "GoBack"
-        
+            Screen.emit "GoBack"        
         
         msgScroll.on Events.TouchEnd, ->
             keyboard.hide(false)
@@ -135,15 +134,9 @@ class IpzMessengerChat extends Layer
             @lastSender = undefined
 
         else if (messageType == "WebView")
-            @webView = new ipz.IpzWebView
-                superLayer: @
-                title:message.title
-                left:""
-                height: @.height
-                y:0
-                maxY:@textField.y
-
-            @webView.setContent(message.content)
+            @webView.setTitle(message.title)
+            @webView.setContent(message.content, Framer.Device.context.devicePixelRatio)
+            @webView.visible = true
         else
             # the message container is a layer that holds the avatar and the actual chat component
             @msgContainer = new Layer

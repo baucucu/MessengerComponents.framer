@@ -18,5 +18,67 @@
 		"delay": "2",
 		"title": "MyVodafone",
 		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_02/"
+	},
+	{
+		"type": "MockEvent",
+		"delay": "3",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"type",
+			"message": "DemoUser",
+			"customJs": "$('#username').val('{0}');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "5",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#password').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"type",
+			"message": "Password",
+			"hideDelay": "5",
+			"customJs": "$('#password').val('{0}');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "6",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('.btn-primary').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"close-webview"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1",
+		"text": "Login cu succes.", 
+		"sender": "chatbot"
 	}
 ]

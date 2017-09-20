@@ -15,6 +15,7 @@ statusBarVisible = queryString.get("showStatusBar")
 
 bot = new IpzChatBot
     showStatusBar: statusBarVisible is undefined || statusBarVisible == true    # TODO detect mobile
+
 bot.gotoMain()
 
 

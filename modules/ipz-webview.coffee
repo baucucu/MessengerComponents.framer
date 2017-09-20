@@ -3,8 +3,6 @@ ios = require "ios-kit"
 
 class WebView extends Layer
 
-    @contentPanel = undefined
-
     constructor: (options = {}) ->
         options.name ?= "WebView"
         options.width ?= Screen.width
@@ -40,6 +38,7 @@ class WebView extends Layer
             borderRadius:
                 topRight: 18
                 topLeft: 18
+        @navBar = navBar
 
         @contentPanel = new Layer
             superLayer: panel
@@ -54,19 +53,23 @@ class WebView extends Layer
             event.stopPropagation()
 
         navBar.right.on Events.TouchEnd, ->
-            navBar.superLayer.destroy()
+            panel.superLayer.visible = false
 
         @.on Events.TouchEnd, ->
-            @.destroy()
+            @.visible = false
 
-    setContent: (content) ->
+    setTitle: (title) ->
+        ios.utils.update(@navBar.title, [text:title])  
+
+    setContent: (content, scale) ->
+        scale ?= 2
         @origin = content
-        @contentPanel.html = """<iframe id="myframe" src="#{content}" frameborder="0" width="#{@contentPanel.width/3}" height="#{@contentPanel.height/3}"
-                style="transform-origin: 0% 0% 0px; transform: scale(3,3)" />"""
-
+        @contentPanel.html = """<iframe id="myframe" src="#{content}" frameborder="0" 
+            width="#{@contentPanel.width/scale}" height="#{@contentPanel.height/scale}"
+            style="transform-origin: 0% 0% 0px; transform: scale(#{scale},#{scale})" />"""
 
     mockClose: () ->
-        @.destroy()
+        @.visible = false
 
     mockSendCustomJs: (customJs) ->
         document.getElementById("myframe").contentWindow.postMessage(customJs, @origin);

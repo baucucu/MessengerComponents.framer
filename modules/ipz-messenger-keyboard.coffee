@@ -1,17 +1,13 @@
 
 
 class IpzMessengerKeyboard extends Layer
-    @keyboardUp = false
-    @ratio = undefined
-    @typeSpeed = undefined
-    @key = undefined
-
+    
     constructor:(options = {}) ->
         # TODO move in a props obj
         defaultWidth = 750
         defaultHeight = 432
         @typeSpeed = .5
-        offset = 64
+        offset = 0 #64
 
         @ratio = Screen.width/defaultWidth
         
@@ -64,8 +60,11 @@ class IpzMessengerKeyboard extends Layer
             totalDelay += typeSpeed
             Utils.delay totalDelay, ->
                 counter += 1 
-                key.visible = true
                 textField.text += letter
+                if (customEvent.customJs != undefined)
+                    keyboard.emit "TypeLetter", customEvent.customJs, customEvent.message, counter
+
+                key.visible = true
                 key.html = letter
                 key.states.switchInstant(letter)
                 if counter == filler_text.length

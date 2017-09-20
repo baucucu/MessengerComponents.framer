@@ -4,10 +4,6 @@ ipz = require 'ipz-messenger-kit'
 
 class IpzMessengerHome extends Layer
 
-    @avatar = undefined
-    @messagesTab = undefined
-    @activeTab = undefined
-
     constructor:(options={}) ->
         options.name ?= "Messenger.Home"
         options.width ?= options.superLayer.width
@@ -18,11 +14,8 @@ class IpzMessengerHome extends Layer
         super options
 
         ## HEADER
-
         searchBox = new ipz.IpzMessengerSearchBox({superLayer: @})
-
         @avatar = new ipz.IpzAvatar({scale: 0.8, superLayer: @, x: Align.left(10), y: Align.top(3), name: "Avatar"})
-
         # TODO image button class
         compose = new Layer
             superLayer: @
@@ -32,7 +25,7 @@ class IpzMessengerHome extends Layer
             y: Align.top(7)
             width: 24
             height: 24
-
+        
         @activeTab = new ipz.IpzMessengerTab
             label:"Active"
             fontsize:options.navBarLabelsFontSize
