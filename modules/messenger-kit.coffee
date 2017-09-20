@@ -133,7 +133,7 @@ class MessageListItem extends Layer
 
 		# @user = user
 
-		avatar = new Avatar({parent: @, y: style.margin * options.scale, x: 2, scale:1.02 })
+		avatar = new Avatar({parent: @, x: 2, y: style.margin * options.scale, scale:1.02 })
 		avatar.setUser(user)
 		avatar.changeStatus(user.status)
 
@@ -178,6 +178,9 @@ class MessageListItem extends Layer
 			name.color = "#000000"
 			lastMessageTime.fontWeight = 500
 			lastMessageTime.color = "#000000"
+		else
+			mini_avatar = new Avatar({parent: @, x: Align.right(5), y: lastMessage.y, scale:0.6 })
+			mini_avatar.setUser(user)
 
 		@.on Events.TouchEnd, ->
 			Screen.emit "GotoChat", user

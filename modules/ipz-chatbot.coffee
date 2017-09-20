@@ -17,12 +17,12 @@ class IpzChatBot extends Layer
 
         viewY = @.y
         if options.showStatusBar is true
-            @statusBar = new ios.StatusBar
-            # @statusBar = new Layer
-            #     name:"StatusBar"
-            #     width : Screen.width*3
-            #     height : 22
-            #     image : "images/StatusBar_iOS.png"
+            # @statusBar = new ios.StatusBar
+            @statusBar = new Layer
+                name:"StatusBar"
+                width : Screen.width
+                height : 22
+                style: "background" : "url(images/StatusBar_iOS.png) 10px 10px/98% auto no-repeat"
             viewY = @statusBar.maxY
 
         @mainView = new IpzMessenger({superLayer:@, y:viewY})
