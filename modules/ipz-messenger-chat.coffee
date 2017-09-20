@@ -51,7 +51,7 @@ class IpzMessengerChat extends Layer
             style: "background" : "url(images/chat-view-input2.png) 0px 0px/100% auto no-repeat"
             padding:
                 top: 15
-                left: 210
+                left: 150 + Framer.Device.context.devicePixelRatio * 20
 
         @textField = textField
 
