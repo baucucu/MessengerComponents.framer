@@ -34,9 +34,9 @@ class IpzMessengerChat extends Layer
         @navBar = new ios.NavBar
             superLayer: @
             name: 'navBar'
-            left:"< Back"
+            left:"< Home"
             title: "Name"                             
-            right: "Details"            
+            right: "Manage"            
             backgroundColor: "rgba(250,248,251,0.8)"        
         
         @replyTime  = new TextLayer
@@ -56,18 +56,16 @@ class IpzMessengerChat extends Layer
 
         textField = new TextLayer
             name: "inputField"
-            superLayer: @
-            text: "Type a message"
+            superLayer: @           
             lineHeight: 2
             fontSize: 14
-            fontFamily: "San Francisco, sans-serif" 
-            letterSpacing: 0.0            
-            borderRadius: 18
+            fontFamily: "San Francisco, sans-serif"         
             backgroundColor: "#F6F7FB"            
             width: @.width
-            height: 32
-            y: Align.bottom
-            contentInset: {left:30}   
+            height: 55
+            x: 0
+            y: Align.bottom(0) 
+            style: "background" : "url(images/chat-view-input2.png) 0px 0px/100% auto no-repeat"                        
 
         @textField = textField
 
@@ -254,7 +252,14 @@ class IpzMessengerChat extends Layer
     setUser:(user, showLastMsg) ->  
         @user = user      
         ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])  
-        @navBar.title.y = Align.top(5)            
+        @navBar.title.y = Align.top(6)        
+        @navBar.left.y = Align.center(4)
+        @navBar.left.x = Align.left(26) 
+        @navBar.right.y = Align.center(4)
+        @navBar.right.x = Align.right(-11) 
+        @navBar.title.lineHeight = 25
+        @navBar.title.fontSize = 10  
+        @navBar.title.color = "#111111"            
         # clear all previous messages
         utils.destroyChildren(@messageScroll.content, false)
         @messageScroll.updateContent()

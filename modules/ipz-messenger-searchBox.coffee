@@ -17,7 +17,7 @@ class IpzMessengerSearchBox extends Layer
             backgroundColor: "transparent"        
 
         search = new Layer
-            width: searchBar.width - 130
+            width: searchBar.width - 120
             x: Align.center
             y: Align.center
             superLayer: searchBar

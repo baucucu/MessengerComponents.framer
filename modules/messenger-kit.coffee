@@ -140,25 +140,27 @@ class MessageListItem extends Layer
 		name = new TextLayer
 			name: "name"
 			parent: @
-			x: avatar.maxX + options.scale * 20
+			x: avatar.maxX + options.scale * 12
 			y: avatar.y + 6
 			lineHeight: 1
 			text: user.firstname + " " + user.lastname
 			fontSize: 17 * options.scale
-
+			fontFamily: "San Francisco, sans-serif" 
+			letterSpacing: -0.5
 
 		lastMessage = new TextLayer
 			name: "lastMessage"
 			parent: @
 			x: name.x
-			y: name.maxY
+			y: name.maxY + 2
 			lineHeight: 1.5
 			width: @.width - avatar.width - 8
 			height: 23
 			text: user.messageText
-			fontSize: 16 * options.scale
+			fontSize: 15 * options.scale
 			truncate: "true"
-
+			fontFamily: "San Francisco, sans-serif" 
+			
 
 		lastMessageTime = new TextLayer
 			name: "lastMessageTime"
@@ -196,7 +198,7 @@ class MessageList extends Layer
 		super options
 
 		for user, index in users
-			message = new MessageListItem({parent: @, y: options.scale * index * 80}, user)
+			message = new MessageListItem({parent: @, y: options.scale * index * 68}, user)
 
 exports.MessageList = MessageList
 

@@ -13,7 +13,7 @@ class IpzMessengerHome extends Layer
         options.width ?= options.superLayer.width
         options.height ?= options.superLayer.height
         options.backgroundColor ?= Screen.backgroundColor
-        options.navBarLabelsFontSize ?= 16
+        options.navBarLabelsFontSize ?= 14
 
         super options
 
@@ -28,8 +28,8 @@ class IpzMessengerHome extends Layer
             superLayer: @
             name:"compose"
             image: "images/icons/createIcon.png"
-            x: Align.right(-16)
-            y: Align.top(10)
+            x: Align.right(-14)
+            y: Align.top(7)
             width: 24
             height: 24
 
@@ -37,7 +37,7 @@ class IpzMessengerHome extends Layer
             label:"Active"
             fontsize:options.navBarLabelsFontSize
             superLayer: @
-            lineHeight: 20
+            lineHeight: 20            
             view: new ios.View
                 name:"Active.view"
                 superLayer: @
@@ -88,7 +88,7 @@ class IpzMessengerHome extends Layer
             activeColor:"blue"
             inactiveColor:"grey"
             type:"navBar"
-            height: 50            
+            height: 40            
             barTop:searchBox.maxY
 
         ## END HEADER
@@ -100,5 +100,5 @@ class IpzMessengerHome extends Layer
 
         lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY + 10}, user.Friends)
         ios.utils.update(@activeTab.label, [text:"Active (#{user.ActiveCount})"])
-
+        @activeTab.label.x = Align.center(-6)
 module.exports = IpzMessengerHome
