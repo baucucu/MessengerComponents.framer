@@ -133,15 +133,15 @@ class MessageListItem extends Layer
 
 		# @user = user
 
-		avatar = new Avatar({parent: @, x: 2, y: style.margin * options.scale, scale:1.02 })
+		avatar = new Avatar({parent: @, x: 1, y: style.margin * options.scale, scale:1 })
 		avatar.setUser(user)
 		avatar.changeStatus(user.status)
 
 		name = new TextLayer
 			name: "name"
 			parent: @
-			x: avatar.maxX + options.scale * 12
-			y: avatar.y + 6
+			x: avatar.maxX + options.scale * 14
+			y: avatar.y + 5
 			lineHeight: 1
 			text: user.firstname + " " + user.lastname
 			fontSize: 17 * options.scale
@@ -152,7 +152,7 @@ class MessageListItem extends Layer
 			name: "lastMessage"
 			parent: @
 			x: name.x
-			y: name.maxY + 2
+			y: name.maxY + 3
 			lineHeight: 1.5
 			width: @.width - avatar.width - 8
 			height: 23
@@ -165,11 +165,12 @@ class MessageListItem extends Layer
 		lastMessageTime = new TextLayer
 			name: "lastMessageTime"
 			parent: @
-			x: Align.right
+			x: Align.right(0)
 			y: name.y
 			fontSize: 15 * options.scale
 			text: user.messageTime
-			marginTop: 5
+			paddingTop: 7
+			letterSpacing: 0.3
 
 		if user.unread is true
 			lastMessage.fontWeight = 500
@@ -179,7 +180,7 @@ class MessageListItem extends Layer
 			lastMessageTime.fontWeight = 500
 			lastMessageTime.color = "#000000"
 		else
-			mini_avatar = new Avatar({parent: @, x: Align.right(5), y: lastMessage.y, scale:0.6 })
+			mini_avatar = new Avatar({parent: @, x: Align.right(6), y: lastMessage.y, scale:0.6 })
 			mini_avatar.setUser(user)
 
 		@.on Events.TouchEnd, ->
@@ -197,11 +198,11 @@ class MessageList extends Layer
 		options.width = Screen.width - style.margins
 		options.x = Align.center
 		options.backgroundColor = "transparent"
-		options.height = users.length * 80 * options.scale
+		options.height = users.length * 73 * options.scale
 		super options
 
 		for user, index in users
-			message = new MessageListItem({parent: @, y: options.scale * index * 68}, user)
+			message = new MessageListItem({parent: @, y: options.scale * index * 73}, user)
 
 exports.MessageList = MessageList
 
@@ -210,8 +211,8 @@ exports.MessageList = MessageList
 class ActiveFriendsScrollList extends ScrollComponent
 	constructor: (options = {}, users) ->
 		options.name ?= "ActiveFriendsScroll"
-		options.avatarScale ?= 1.1
-		options.nameLabelPadding ?= 16
+		options.avatarScale ?= 1.05
+		options.nameLabelPadding ?= 15
 		options.scale ?= 1
 		options.width = Screen.width
 		# options.height = options.scale * 100
@@ -223,14 +224,17 @@ class ActiveFriendsScrollList extends ScrollComponent
 		for user, index in users
 			container = new Layer
 				parent: @.content
-				x: index * 88 + 15
+				x: index * 79 + 13
 				width: 56
+				textAlign: "center"
 				backgroundColor: "transparent"
-			avatar = new Avatar({parent: container, scale:options.avatarScale, y:Align.top(3)})
+			avatar = new Avatar({parent: container, scale:options.avatarScale, y:Align.top(9)})
 			name = new TextLayer
 				parent: container
 				text: user.firstname
 				fontSize: 14 * options.scale
+				lineHeight: 1
+				height:20
 				y: avatar.maxY + options.nameLabelPadding
 			container.width = options.avatarScale * avatar.width
 			@.height = @.content.height = container.height = options.avatarScale * avatar.height + name.height + options.nameLabelPadding

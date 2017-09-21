@@ -18,8 +18,10 @@ class IpzMessenger extends Layer
             superLayer: @
             label:"Home"
             activeIcon:"images/icons/homeIconActive.png"
-            view: new ipz.IpzMessengerHome({superLayer: @})
+            padding: 10
+            view: new ipz.IpzMessengerHome({superLayer: @}) 
             
+              
         # discoverTab = new ipz.IpzMessengerTab
         #     superLayer: @
         #     label:"Discover"
@@ -45,6 +47,7 @@ class IpzMessenger extends Layer
             label:"Groups"
             activeIcon:"images/icons/peopleIconActive.png"
             superLayer: @
+            padding: 10
             view: new ios.View
                 name:"Groups.view"
                 superLayer: @
@@ -56,6 +59,7 @@ class IpzMessenger extends Layer
             label:"Calls"
             activeIcon:"images/icons/CallsIconActive.png"
             superLayer: @
+            padding: 10
             view: new ios.View
                 name:"Calls.view"
                 superLayer: @
@@ -67,6 +71,7 @@ class IpzMessenger extends Layer
             superLayer: @
             label:"People"
             activeIcon:"images/icons/peopleIconActive.png"
+            padding: 10
             view:new ios.View
                 name:"People.view"
                 superLayer: @
@@ -95,6 +100,6 @@ class IpzMessenger extends Layer
         @tabBar.setBadgeValue(0, user.HomeBadge)
         @tabBar.setBadgeValue(1, user.CallsBadge)
         @tabBar.setBadgeValue(3, user.PeopleBadge)
-        @tabBar.setBadgeValue(4, user.GamesBadge)
+        @tabBar.setBadgeValue(4, user.GamesBadge)        
 
 module.exports = IpzMessenger

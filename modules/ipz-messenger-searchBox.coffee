@@ -27,12 +27,12 @@ class IpzMessengerSearchBox extends Layer
 
         searchPlaceholder = new TextLayer
             superLayer: search
-            text: "🔍 Search"
-            fontSize: 16
+            text: "🔍  Search"
+            fontSize: 13
             fontFamily: "San Francisco, sans-serif" 
-            letterSpacing: 0.0
+            letterSpacing: 1
             x: Align.center
-            y: Align.center
+            y: Align.center(-3)
 
         # searchIcon = new Layer
         #     superLayer: search

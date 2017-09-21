@@ -106,17 +106,18 @@ exports.tab = (array) ->
 				fontSize: setup.badgeTextStyle.fontSize
 				color: setup.badgeTextStyle.color
 				textAlign: setup.badgeTextStyle.textAlign	
-			tab.badge.visible = false			
+			tab.badge.visible = false
+						
 	if (setup.label != "")	
 		tab.label = new ios.Text
 			name: setup.label + ".label"
 			superLayer:tab.container
 			text:setup.label
-			color:"#929292"
+			color:"#929292"			
 			fontSize:setup.fontsize
 			constraints:
 				align:"horizontal"
-				bottom:0
+				bottom:-10		
 
 	tab.setActive = (value) ->
 		if (value == true)
