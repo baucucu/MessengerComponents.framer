@@ -6,7 +6,7 @@ class IpzMessengerKeyboard extends Layer
         # TODO move in a props obj
         defaultWidth = 750
         defaultHeight = 432
-        @typeSpeed = .5
+        @typeSpeed = .25
         offset = 0 #64
 
         @ratio = Screen.width/defaultWidth
@@ -49,7 +49,7 @@ class IpzMessengerKeyboard extends Layer
 
     mockTyping: (textField, customEvent) ->
         filler_text = customEvent.message.split('')
-        totalDelay = 0
+        totalDelay = 0.5
         counter = 0
         textField.text = ''
         textField.style = color:'#333'

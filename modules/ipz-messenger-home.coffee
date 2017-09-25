@@ -73,6 +73,7 @@ class IpzMessengerHome extends Layer
                 mouseWheelEnabled: true
 
         @messagesTab.view.content.backgroundColor = @.backgroundColor
+        
 
         navBar = new ipz.IpzMessengerTabBar
             superLayer: @
