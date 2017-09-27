@@ -17,7 +17,7 @@ class TextBubble extends TextLayer
 					color: "#000000"
 				user:
 					backgroundColor: "#0084FF"
-					x: Align.right(-8)
+					x: Align.right(-20)
 					color: "#FFFFFF"
 				button:
 					backgroundColor: "#F1F0F0"

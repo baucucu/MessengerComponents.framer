@@ -2,6 +2,7 @@ ios = require 'ios-kit'
 
 exports.defaults =
 	title:"Title"
+	subtitle:"Subtitle"
 	left:undefined
 	right:"Edit"
 	blur:true
@@ -83,9 +84,27 @@ exports.create = (array) ->
 		color:setup.titleColor
 		constraints:
 			align:"horizontal"
-			bottom:12
+			top:6
 
 	ios.utils.specialChar(bar.title)
+
+	bar.subtitle = new ios.Text
+        superLayer: bar.bg
+        name: '.subtitle'
+        text: setup.subtitle
+        lineHeight: 14
+        fontSize: 12
+        fontFamily: "San Francisco, sans-serif" 
+        letterSpacing: 0.0
+        textAlign:'center'
+        backgroundColor: 'transparent'
+	bar.subtitle.color = '#888888'
+	
+	bar.subtitle.constraints = 
+		top:[bar.title, 2]
+		horizontalCenter:bar.title
+	ios.layout.set()
+		
 
 	# Handle Right
 	if typeof setup.right == "string" && typeof setup.right != "boolean"
@@ -96,8 +115,8 @@ exports.create = (array) ->
 			color:setup.color
 			fontWeight:500
 			constraints:
-				bottom:12
-				trailing:8
+				bottom:10
+				trailing:11
 		bar.right.type = "button"
 		ios.utils.specialChar(bar.right)
 	if typeof setup.right == "object"
@@ -105,8 +124,8 @@ exports.create = (array) ->
 		bar.right.name = ".right"
 		bar.right.superLayer = bar.bg
 		bar.right.constraints =
-			trailing:8
-			bottom:12
+			trailing:11
+			bottom:10
 		ios.layout.set(bar.right)
 
 	# Handle Left
@@ -126,7 +145,7 @@ exports.create = (array) ->
 					leading:8
 			setup.left = setup.left.replace("<", "")
 			ios.utils.changeFill(bar.chevron, setup.color)
-			setLeading = [bar.chevron, 4]
+			setLeading = [bar.chevron, 5]
 			ios.layout.set(bar.chevron)
 
 		bar.left = new ios.Button
@@ -136,7 +155,7 @@ exports.create = (array) ->
 			color:setup.color
 			fontWeight:500
 			constraints:
-				bottom:12
+				bottom:10
 				leading:setLeading
 		bar.left.type = "button"
 		ios.utils.specialChar(bar.left)

@@ -16,7 +16,7 @@
 	{
 		"type": "WebView", 
 		"delay": "2",
-		"title": "MyVodafone",
+		"title": "MyVodafone",		
 		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_02/"
 	},
 	{
@@ -30,7 +30,7 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "1",
+		"delay": "0.5",
 		"event":
 		{
 			"type":"type",
@@ -40,7 +40,7 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "5",
+		"delay": "3",
 		"event":
 		{
 			"type":"send-custom-js-to-webview",
@@ -49,12 +49,12 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "1",
+		"delay": "0.5",
 		"event":
 		{
 			"type":"type",
 			"message": "Password",
-			"hideDelay": "5",
+			"hideDelay": "4",
 			"customJs": "$('#password').val('{0}');"
 		}
 	},

@@ -68,7 +68,10 @@ class WebView extends Layer
             width="#{@contentPanel.width/scale}" height="#{@contentPanel.height/scale}"
             style="transform-origin: 0% 0% 0px; transform: scale(#{scale},#{scale})" />"""
 
-    mockClose: () ->
+    show: () ->
+        @.visible = true
+
+    hide: () ->
         @.visible = false
 
     mockSendCustomJs: (customJs) ->

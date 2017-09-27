@@ -18,7 +18,7 @@
 	},
 	{
 		"type": "QuickReplies", 
-		"delay": "4", 
+		"delay": "2", 
 		"replies":[
 			{"reply": "🚀 Comenzi rapide"}, 
 			{"reply": "📱 Contul meu"}, 
@@ -33,14 +33,25 @@
 		"event":
 		{
 			"type":"scroll-and-tap",
-			"scrollindex": "0",
-			"tapindex": "0",
+			"scrollindex": "2",
+			"tapindex": "10",
 			"tapDelay": "1"
 		}
-    },
+	},
+	{
+		"type": "MockEvent",
+		"delay": "4",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "0",
+			"tapDelay": "3"
+		}
+	},
 	{
 		"type": "TextBubble", 
-		"delay": "3", 
+		"delay": "4", 
 		"typingDelay": "2",
 		"text": "Alege:", 
 		"sender": "chatbot"
@@ -63,14 +74,25 @@
 		"event":
 		{
 			"type":"scroll-and-tap",
+			"scrollindex": "4",
+			"tapindex": "10",
+			"tapDelay": "1"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "4",
+		"event":
+		{
+			"type":"scroll-and-tap",
 			"scrollindex": "0",
 			"tapindex": "0",
-			"tapDelay": "2"
+			"tapDelay": "3"
 		}
     },	
 	{
 		"type": "TextButtons", 
-        "delay": "2", 
+        "delay": "4", 
         "typingDelay": "1",
 		"buttonsContent":
 		{
@@ -99,7 +121,7 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "1",
+		"delay": "0.5",
 		"event":
 		{
 			"type":"type",
@@ -109,7 +131,7 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "5",
+		"delay": "3",
 		"event":
 		{
 			"type":"send-custom-js-to-webview",
@@ -118,7 +140,7 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "1",
+		"delay": "0.5",
 		"event":
 		{
 			"type":"type",
@@ -185,7 +207,7 @@
 		"event":
 		{
 			"type":"scroll-and-tap",
-			"scrollindex": "0",
+			"scrollindex": "1",
 			"tapindex": "2",
 			"tapDelay": "2"
 		}

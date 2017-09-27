@@ -117,7 +117,10 @@ exports.tab = (array) ->
 			fontSize:setup.fontsize
 			constraints:
 				align:"horizontal"
-				bottom:-10		
+				bottom:0		
+
+		if setup.activeIcon != undefined
+			tab.label.constraints.bottom = -10
 
 	tab.setActive = (value) ->
 		if (value == true)

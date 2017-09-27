@@ -16,26 +16,13 @@ class IpzMessengerChat extends Layer
             superLayer: @
             name: 'navBar'
             left:"< Home"
-            title: "Name"                             
+            title: "Name"  
+            subtitle: "Typically replies instantly"                           
             right: "Manage"            
             backgroundColor: "rgba(250,248,251,0.8)"
+            titleColor:"#111111"
         @navBar = navBar
         
-        @replyTime  = new TextLayer
-            superLayer: @navBar        
-            y: Align.top(-35)
-            name: 'reply'
-            text: 'Typically replies instantly'
-            lineHeight: 14
-            fontSize: 12
-            fontFamily: "San Francisco, sans-serif" 
-            letterSpacing: 0.0                       
-            width: @.width
-            height: @.height
-            textAlign:'center'
-            backgroundColor: 'transparent'            
-        
-
         textField = new TextLayer
             name: "inputField"
             text: "Type a message"
@@ -99,7 +86,7 @@ class IpzMessengerChat extends Layer
 
         @navBar.left.on Events.Tap, ->
             keyboard.hide()
-            Screen.emit "GoBack"        
+            Screen.emit "GoBack"
         
         msgScroll.on Events.TouchEnd, ->
             keyboard.hide(false)
@@ -156,7 +143,7 @@ class IpzMessengerChat extends Layer
                         name: "Avatar.#{@messageCount}"
                         superLayer: @msgContainer 
                         x: Align.left(8)
-                        scale:0.9
+                        scale:0.8
                     @avatar.setUser(@user)
 
                 # put the avatar in the new message container
@@ -245,14 +232,7 @@ class IpzMessengerChat extends Layer
     setUser:(user, showLastMsg) ->  
         @user = user      
         ios.utils.update(@navBar.title, [text:user.firstname + ' ' + user.lastname])  
-        @navBar.title.y = Align.top(6)        
-        @navBar.left.y = Align.center(4)
-        @navBar.left.x = Align.left(26) 
-        @navBar.right.y = Align.center(4)
-        @navBar.right.x = Align.right(-11) 
-        @navBar.title.lineHeight = 25
-        @navBar.title.fontSize = 10  
-        @navBar.title.color = "#111111"            
+
         # clear all previous messages
         utils.destroyChildren(@messageScroll.content, false)
         @messageScroll.updateContent()
@@ -274,7 +254,7 @@ class IpzMessengerChat extends Layer
                 @keyboard.show()
                 @keyboard.mockTyping(@textField, customEvent)
             when "close-webview"
-                @webView.mockClose()
+                @webView.hide()
             when "send-custom-js-to-webview"
                 @webView.mockSendCustomJs(customEvent.customJs)
 
