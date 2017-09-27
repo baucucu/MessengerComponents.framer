@@ -41,9 +41,10 @@ class IpzChatBot extends Layer
         @flow.showNext(@mainView)
 
     gotoChat: (user) ->
-        @flow.showNext(@chatView)
-        @chatView.setUser(user, false)
-        @.emit "ChatOpened", user
+        if (@flow.current != @chatView)        
+            @flow.showNext(@chatView)
+            @chatView.setUser(user, false)
+            @.emit "ChatOpened", user
 
     goBack: () ->
         for c in @commands

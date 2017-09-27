@@ -36,28 +36,6 @@ class IpzMessengerHome extends Layer
                 width: @.width
                 height: @.height
                 backgroundColor: Screen.backgroundColor
-                
-        # groupsTab = new ipz.IpzMessengerTab
-        #     label:"Groups"
-        #     fontsize:options.navBarLabelsFontSize
-        #     superLayer: @
-        #     view: new ios.View
-        #         name:"Groups.view"
-        #         superLayer: @
-        #         width: @.width
-        #         height: @.height
-        #         backgroundColor: Screen.backgroundColor
-        
-        # callsTab = new ipz.IpzMessengerTab
-        #     label:"Calls"
-        #     fontsize:options.navBarLabelsFontSize
-        #     superLayer: @
-        #     view: new ios.View
-        #         name:"Calls.view"
-        #         superLayer: @
-        #         width: @.width
-        #         height: @.height
-        #         backgroundColor: Screen.backgroundColor
 
         @messagesTab = new ipz.IpzMessengerTab
             label:"Messages"
