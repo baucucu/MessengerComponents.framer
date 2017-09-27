@@ -174,7 +174,7 @@
 	},
     {
 		"type": "TextBubble", 
-		"delay": "2",
+		"delay": "1",
         "typingDelay": "2",
 		"text": "Astăzi, 11 sept. 2017 la ora 15:04 mai ai:\n📱 594 minute naționale din 700\n✈️ 123 minute internaționale din 200\n💬 219 mesaje naționale din 300\n🌐 4,1 GB trafic internet din 6 GB", 
 		"sender": "chatbot"

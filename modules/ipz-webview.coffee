@@ -21,12 +21,22 @@ class WebView extends Layer
             superLayer: @
             name: 'webView.Panel'
             width: @.width
-            y: Align.top(panelTop)
+            y: Screen.height
             height: @.height - panelTop
             backgroundColor: Screen.backgroundColor
             borderRadius:
                 topRight: 18
                 topLeft: 18
+
+        panel.states = 
+            hidden:
+                y: Screen.height
+            shown:
+                y: Align.top(panelTop)
+
+        # panel.states.switchInstant "hidden"
+
+        @panel = panel
 
         navBar = new ios.NavBar
             superLayer: panel
@@ -52,11 +62,12 @@ class WebView extends Layer
         panel.on Events.TouchEnd, (event) ->
             event.stopPropagation()
 
+        wv = @
         navBar.right.on Events.TouchEnd, ->
-            panel.superLayer.visible = false
+            wv.hide()
 
         @.on Events.TouchEnd, ->
-            @.visible = false
+            @.hide()
 
     setTitle: (title) ->
         ios.utils.update(@navBar.title, [text:title])  
@@ -70,9 +81,11 @@ class WebView extends Layer
 
     show: () ->
         @.visible = true
+        @panel.states.switch "shown"
 
     hide: () ->
         @.visible = false
+        @panel.states.switch "hidden"
 
     mockSendCustomJs: (customJs) ->
         document.getElementById("myframe").contentWindow.postMessage(customJs, @origin);

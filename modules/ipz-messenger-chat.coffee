@@ -123,7 +123,7 @@ class IpzMessengerChat extends Layer
         else if (messageType == "WebView")
             @webView.setTitle(message.title)
             @webView.setContent(message.content, Framer.Device.context.devicePixelRatio)
-            @webView.visible = true
+            @webView.show()
         else
             # the message container is a layer that holds the avatar and the actual chat component
             @msgContainer = new Layer

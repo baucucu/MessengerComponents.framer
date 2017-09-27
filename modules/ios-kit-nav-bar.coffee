@@ -2,7 +2,7 @@ ios = require 'ios-kit'
 
 exports.defaults =
 	title:"Title"
-	subtitle:"Subtitle"
+	subtitle:""
 	left:undefined
 	right:"Edit"
 	blur:true
@@ -88,22 +88,23 @@ exports.create = (array) ->
 
 	ios.utils.specialChar(bar.title)
 
-	bar.subtitle = new ios.Text
-        superLayer: bar.bg
-        name: '.subtitle'
-        text: setup.subtitle
-        lineHeight: 14
-        fontSize: 12
-        fontFamily: "San Francisco, sans-serif" 
-        letterSpacing: 0.0
-        textAlign:'center'
-        backgroundColor: 'transparent'
-	bar.subtitle.color = '#888888'
-	
-	bar.subtitle.constraints = 
-		top:[bar.title, 2]
-		horizontalCenter:bar.title
-	ios.layout.set()
+	if (setup.subtitle != "")
+		bar.subtitle = new ios.Text
+			superLayer: bar.bg
+			name: '.subtitle'
+			text: setup.subtitle
+			lineHeight: 14
+			fontSize: 12
+			fontFamily: "San Francisco, sans-serif" 
+			letterSpacing: 0.0
+			textAlign:'center'
+			backgroundColor: 'transparent'
+		bar.subtitle.color = '#888888'
+		
+		bar.subtitle.constraints = 
+			top:[bar.title, 2]
+			horizontalCenter:bar.title
+		ios.layout.set()
 		
 
 	# Handle Right
@@ -115,17 +116,29 @@ exports.create = (array) ->
 			color:setup.color
 			fontWeight:500
 			constraints:
-				bottom:10
 				trailing:11
 		bar.right.type = "button"
 		ios.utils.specialChar(bar.right)
+
+		if (setup.subtitle != "")
+			bar.right.constraints.bottom = 10
+		else
+			bar.right.constraints.top = 6
+		
+		ios.layout.set(bar.right)
+
 	if typeof setup.right == "object"
 		bar.right = setup.right
 		bar.right.name = ".right"
 		bar.right.superLayer = bar.bg
 		bar.right.constraints =
 			trailing:11
-			bottom:10
+
+		if (setup.subtitle != "")
+			bar.right.constraints.bottom = 10
+		else
+			bar.right.constraints.top = 6
+
 		ios.layout.set(bar.right)
 
 	# Handle Left
