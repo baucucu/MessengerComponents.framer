@@ -45,7 +45,7 @@ class IpzMessenger extends Layer
 
         groupsTab = new ipz.IpzMessengerTab
             label:"Groups"
-            activeIcon:"images/icons/peopleIconActive.png"
+            activeIcon:"images/icons/icon-groups.png"
             superLayer: @
             padding: 10
             view: new ios.View
