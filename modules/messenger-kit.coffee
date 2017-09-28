@@ -87,7 +87,7 @@ class MyDays extends ScrollComponent
 		options.height = options.scale * (125 + style.margins)
 		options.scrollVertical = false
 		options.directionLock = true
-
+				
 		super options
 
 		for user, index in users
@@ -106,7 +106,8 @@ class MyDays extends ScrollComponent
 			myDay.subLayers[0].x = Align.right(4)
 
 			myDay.changeStatus("myDay")
-			myDay.setUser(user)
+			myDay.setUser(user)		 
+            
 
 		@.contentInset =
 			right: 0
@@ -217,8 +218,7 @@ class ActiveFriendsScrollList extends ScrollComponent
 		options.width = Screen.width
 		# options.height = options.scale * 100
 		options.scrollVertical = false
-		options.directionLock = true
-
+		options.directionLock = true				
 		super options
 
 		for user, index in users
@@ -234,12 +234,19 @@ class ActiveFriendsScrollList extends ScrollComponent
 				text: user.firstname
 				fontSize: 14 * options.scale
 				lineHeight: 1
-				height:20
+				height:25
 				y: avatar.maxY + options.nameLabelPadding
 			container.width = options.avatarScale * avatar.width
 			@.height = @.content.height = container.height = options.avatarScale * avatar.height + name.height + options.nameLabelPadding
 			avatar.x = name.x = Align.center
 			avatar.setUser(user, false)
+			
+			if user.difStyle is true				
+				name.y = avatar.maxY + 5
+				avatar.borderRadius = 0
+				name.fontSize = 14
+				name.lineHeight = 0.9
+				name.textAlign = "center"
 		
 		@.content.width = container.maxX
 

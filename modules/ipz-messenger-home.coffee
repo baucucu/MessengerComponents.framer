@@ -68,11 +68,10 @@ class IpzMessengerHome extends Layer
     setUser:(user) ->
         @avatar.setUser(user)
 
-        myDay = {firstname: "Add to your day", image_0: "images/icons/AddYourDay.PNG"}
+        myDay = {firstname: "Add to your day", image_0: "images/icons/AddYourDay.PNG", difStyle: true}
         user.MyDays.splice(0, 0, myDay)       
-
+		
         myDays = new ipz.IpzActiveFriendsScrollList({parent: @messagesTab.view.content, x:Align.left, y:Align.top(10)}, user.MyDays)
-
         lastMessages = new ipz.IpzMessageList({parent: @messagesTab.view.content, y: myDays.maxY + 10}, user.Friends)
         ios.utils.update(@activeTab.label, [text:"Active (#{user.ActiveCount})"])
 
