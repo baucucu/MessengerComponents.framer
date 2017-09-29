@@ -62,9 +62,9 @@ class WebView extends Layer
         panel.on Events.TouchEnd, (event) ->
             event.stopPropagation()
 
-        wv = @
-        navBar.right.on Events.TouchEnd, ->
-            wv.hide()
+        # wv = @
+        # navBar.right.on Events.TouchEnd, ->
+        #     wv.hide()
 
         @.on Events.TouchEnd, ->
             @.hide()
@@ -83,9 +83,11 @@ class WebView extends Layer
         @.visible = true
         @panel.states.switch "shown"
 
-    hide: () ->
-        @.visible = false
+    hide: () ->        
         @panel.states.switch "hidden"
+        overlay = @
+        Utils.delay 1, ->
+            overlay.visible = false
 
     mockSendCustomJs: (customJs) ->
         document.getElementById("myframe").contentWindow.postMessage(customJs, @origin);

@@ -40,7 +40,7 @@ class IpzChatBot extends Layer
     gotoMain: () ->
         @flow.showNext(@mainView)
 
-    gotoChat: (user) ->
+    gotoChat: (user) ->    
         if (@flow.current != @chatView)        
             @flow.showNext(@chatView)
             @chatView.setUser(user, false)
@@ -92,7 +92,8 @@ class IpzChatBot extends Layer
             bot.gotoMain()
 
         Screen.on "GotoChat", (user)->
-            bot.gotoChat(user)
+            if (user.flow != undefined)
+                bot.gotoChat(user)
 
         Screen.on "SendMessage", (message) ->
             userMessage = { text: message, sender: "user" }

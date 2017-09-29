@@ -1,0 +1,329 @@
+[
+	{
+		"type": "ChatHeader", 
+		"delay": "1", 
+		"botInfo":
+		{
+			"botName": "Vodafone Chatbot", 
+			"botFans": "62,438 people like this", 
+			"botCategory": "Telecom", 
+			"botAvatar": "images/avatars/vf-logo-large.png"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"text": "Start simulare", 
+		"sender": "user"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1", 
+		"typingDelay": "2",
+		"text": "Salut, Andrei!", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2", 
+		"typingDelay": "2",
+		"text": "Cu ce te pot ajuta astazi?", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "QuickReplies", 
+		"delay": "4", 
+		"replies":[
+			{"reply": "🚀 Comenzi rapide"}, 
+			{"reply": "📱 Contul meu"}, 
+			{"reply": "📯 Urgente"}, 
+			{"reply": "⚙️ Setari"},
+			{"reply": "📔 Ajutor"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "2",
+			"tapindex": "10",
+			"tapDelay": "1"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "4",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "1",
+			"tapDelay": "3"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "4",
+		"typingDelay": "1", 
+		"text": "Alege:", 
+		"sender": "chatbot"
+	},	
+	{
+		"type": "Carousel", 
+		"delay": "1.5", 
+		"carouselMessage": [
+			{
+				"title": "Facturi & Plati",
+				"subtitle": "Plata online a facturilor tale sau vizualizare factura detaliata",
+				"image": "images/VDF_chatbot_assets/VDF_chat_01-facturi-plati.jpg",
+				"buttons": ["Facturi & Plati"]
+			},
+			{
+				"title": "Cost control",
+				"subtitle": "Minutele / mesajele / internetul tau disponibil, in timp real",
+				"image": "images/VDF_chatbot_assets/VDF_chat_02-cost-control.jpg",
+				"buttons": ["Cost control"]
+			},
+			{
+				"title": "Abonamentul meu",
+				"subtitle": "Optiuni si servicii din abonamentul actual sau oportunitati de loialitate",
+				"image": "images/VDF_chatbot_assets/VDF_chat_03-abonamentul-meu.jpg",
+				"buttons": ["Abonamentul meu"]
+			},
+			{
+				"title": "Adauga optiuni noi",
+				"subtitle": "Activare pachete extra de minute, mesaje, date sau optiuni internationale",
+				"image": "images/VDF_chatbot_assets/VDF_chat_04-adauga-optiuni-noi.jpg",
+				"buttons": ["Adauga optiuni noi"]
+			},
+			{
+				"title": "Roaming",
+				"subtitle": "Activare sau dezactivare Roaming, activare extra optiuni internationale",
+				"image": "images/VDF_chatbot_assets/VDF_chat_05-roaming.jpg",
+				"buttons": ["Roaming"]
+			},
+			{
+				"title": "International",
+				"subtitle": "Detalii pachete curente sau activare \noptiuni noi pentru a vorbi in strainatate",
+				"image": "images/VDF_chatbot_assets/VDF_chat_06-international.jpg",
+				"buttons": ["International"]
+			},
+			{
+				"title": "Reincarcare",
+				"subtitle": "Reincarcarea cartelei, prin metoda directa sau prin contul MyVodafone",
+				"image": "images/VDF_chatbot_assets/VDF_chat_07-reincarcare.jpg",
+				"buttons": ["Reincarcare"]
+			},
+			{
+				"title": "Casuta vocala",
+				"subtitle": "Mesajele vocale, optiunea de a raspunde \nla ele sau de a le sterge",
+				"image": "images/VDF_chatbot_assets/VDF_chat_08-casuta-vocala.jpg",
+				"buttons": ["Casuta vocala"]
+			},
+			{
+				"title": "⬅️ Inapoi",
+				"subtitle": "Intoarce-te la meniul principal\n",
+				"image": "images/VDF_chatbot_assets/VDF_chat_09-inapoi.jpg",
+				"buttons": ["⬅️ Inapoi"]
+			}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "7",
+			"scrolltime": "1"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "7",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",			
+			"scrolltime": "0.75",
+			"tapindex": "0",
+			"tapDelay": "7"
+		}
+	},	
+	{
+		"type": "TextButtons", 
+		"delay": "8", 
+		"buttonsContent":
+		{
+			"message": 
+			{
+				"text": "Pentru a continua, accesează contul tău MyVodafone:", 
+				"sender": "button"
+			},
+			"buttons": ["Login MyVodafone"]
+		}
+	},	
+	{
+		"type": "WebView", 
+		"delay": "3",
+		"title": "MyVodafone",
+		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_03/login.html"
+	},
+	{
+		"type": "MockEvent",
+		"delay": "3",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#username').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "0.5",
+		"event":
+		{
+			"type":"type",
+			"message": "DemoUser",
+			"customJs": "$('#username').val('{0}');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "3",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#password').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "0.5",
+		"event":
+		{
+			"type":"type",
+			"message": "Password",
+			"hideDelay": "5",
+			"customJs": "$('#password').val('{0}');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "6",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#btnLogin').focus();"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "1",
+		"event":
+		{
+			"type":"close-webview"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "2",
+		"text": "Login cu succes.", 
+		"sender": "chatbot"
+	},	
+	{
+		"type": "QuickReplies", 
+		"delay": "3", 
+		"replies":[
+			{"reply": "Factura curenta"}, 
+			{"reply": "Confirmare plata"}, 
+			{"reply": "Amanare plata"}, 
+			{"reply": "Reemitere factura"},
+			{"reply": "Factura detaliata"},
+			{"reply": "Conturi IBAN"},
+			{"reply": "⬅️ Inapoi"}
+		]
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"scroll-and-tap",
+			"scrollindex": "0",
+			"tapindex": "0",
+			"tapDelay": "2"
+		}
+	},	
+	{
+		"type": "WebView", 
+		"delay": "4",
+		"title": "MyVodafone",		
+		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_03/bills.html"
+	},
+	{
+		"type": "MockEvent",
+		"delay": "6",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "mainView.router.load({url:$('#btnPayAll').attr('href')});"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#txtCard').val('4444555566668888');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#txtExpire').val('08/19');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "2",
+		"event":
+		{
+			"type":"send-custom-js-to-webview",
+			"customJs": "$('#txtCVV').val('222');"
+		}
+	},
+	{
+		"type": "MockEvent",
+		"delay": "5",
+		"event":
+		{
+			"type":"close-webview"
+		}
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1",
+		"text": "Multumim!", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "0.5",
+		"text": "Plata a fost efectuata cu succes.", 
+		"sender": "chatbot"
+	},
+	{
+		"type": "TextBubble", 
+		"delay": "1",
+		"typingDelay": "1", 
+		"text": "Sfarsit simulare", 
+		"sender": "chatbot"
+	}
+]

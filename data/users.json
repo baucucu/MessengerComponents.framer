@@ -28,13 +28,26 @@
       "firstname": "Vodafone",
       "lastname": "Chatbot",
       "messageText": "Simulare - Factura curenta",
-      "messageTime": "08:39",
+      "messageTime": "09:18",
       "_mock": true,
       "myDay": false,
       "myDayTime": 0,
       "status": "messenger",
       "image_0": "images/avatars/vf-logo-large.png",
       "flow": "factura_curenta"
+    },
+    {
+      "_id": "59563b726f471d0800001444",
+      "firstname": "Vodafone",
+      "lastname": "Chatbot",
+      "messageText": "Simulare - Plata Facturi",
+      "messageTime": "08:39",
+      "_mock": true,
+      "myDay": false,
+      "myDayTime": 0,
+      "status": "active",
+      "image_0": "images/avatars/vf-logo-large.png",
+      "flow": "factura_curenta_plata"
     },
     {
       "_id": "59563b726f471d0800001449",

@@ -108,7 +108,7 @@
 		"type": "WebView", 
 		"delay": "2",
 		"title": "MyVodafone",
-		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_02/"
+		"content": "http://demo.imprezzioglobal.com/Vodafone/Chatbot_03/login.html"
 	},
 	{
 		"type": "MockEvent",
@@ -155,7 +155,7 @@
 		"event":
 		{
 			"type":"send-custom-js-to-webview",
-			"customJs": "$('.btn-primary').focus();"
+			"customJs": "$('#btnLogin').focus();"
 		}
 	},
 	{

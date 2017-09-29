@@ -64,6 +64,7 @@ class IpzMessengerKeyboard extends Layer
                 if (customEvent.customJs != undefined)
                     keyboard.emit "TypeLetter", customEvent.customJs, customEvent.message, counter
 
+                
                 key.visible = true
                 key.html = letter
                 key.states.switchInstant(letter)
@@ -122,6 +123,9 @@ class IpzMessengerKeyboard extends Layer
             '(':{visible:false},')':{visible:false}
             '{':{visible:false},'}':{visible:false}
             '[':{visible:false},']':{visible:false}
+            '1':{visible:false},'2':{visible:false},'3':{visible:false},'4':{visible:false}
+            '5':{visible:false},'6':{visible:false},'7':{visible:false},'8':{visible:false}
+            '9':{visible:false},'0':{visible:false}
             # row 1
             q:{x:-18*@ratio,y:row1,image:left},Q:{x:-18*@ratio,y:row1,image:left}
             w:{x:31*@ratio,y:row1,image:middle},W:{x:31*@ratio,y:row1,image:middle}
