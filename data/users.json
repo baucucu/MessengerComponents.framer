@@ -32,6 +32,7 @@
       "_mock": true,
       "myDay": false,
       "myDayTime": 0,
+      "unread": true,
       "status": "messenger",
       "image_0": "images/avatars/vf-logo-large.png",
       "flow": "factura_curenta"
@@ -45,6 +46,7 @@
       "_mock": true,
       "myDay": false,
       "myDayTime": 0,
+      "unread": true,
       "status": "active",
       "image_0": "images/avatars/vf-logo-large.png",
       "flow": "factura_curenta_plata"
@@ -58,6 +60,7 @@
       "_mock": true,
       "myDay": false,
       "myDayTime": 32,
+      "unread": true,
       "status": "messenger",
       "image_0": "images/avatars/vf-logo-large.png",
       "flow": "configurare_comenzi_rapide"
@@ -66,41 +69,38 @@
       "_id": "59563b726f471d0800001447",
       "firstname": "Pamela",
       "lastname": "Gibson",
-      "messageText": "test_all",
+      "messageText": "Neque porro quisquam est",
       "messageTime": "18:50",
       "_mock": true,
       "myDay": true,
       "myDayTime": 7,
       "status": "messenger",
       "unread": true,
-      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-1",
-      "flow": "test_all"
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-1"
     },
     {
       "_id": "59563b726f471d080000144b",
       "firstname": "Orpha",
       "lastname": "Windler",
-      "messageText": "test_webView",
+      "messageText": "Vivamus elementum semper nisi",
       "messageTime": "13:36",
       "_mock": true,
       "myDay": true,
       "myDayTime": 50,
       "status": "inactive",
-      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-3",
-      "flow": "test_webView"
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-3"
     },
     {
       "_id": "59563b726f471d0800001445",
       "firstname": "Kristina",
       "lastname": "Johnston",
-      "messageText": "test_carousel",
+      "messageText": "Donec sodales sagittis magna",
       "messageTime": "Thu",
       "_mock": true,
       "myDay": true,
       "myDayTime": 20,
       "status": "messenger",
-      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-9",
-      "flow": "test_carousel"
+      "image_0": "https:\/\/fbusers-4494.restdb.io\/media\/0000000000000000000000000_30-30-people-9"
     },
     
     {
