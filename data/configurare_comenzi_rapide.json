@@ -56,7 +56,7 @@
 	},
 	{
 		"type": "MockEvent",
-		"delay": "2",
+		"delay": "1.5",
 		"event":
 		{
 			"type":"send-custom-js-to-webview",
@@ -65,7 +65,7 @@
 	},	
 	{
 		"type": "MockEvent",
-		"delay": "2",
+		"delay": "1",
 		"event":
 		{
 			"type":"send-custom-js-to-webview",

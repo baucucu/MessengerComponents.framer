@@ -309,20 +309,20 @@
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "1",
+		"delay": "2",
 		"text": "Multumim!", 
 		"sender": "chatbot"
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "0.5",
+		"delay": "1",
 		"text": "Plata a fost efectuata cu succes.", 
 		"sender": "chatbot"
 	},
 	{
 		"type": "TextBubble", 
-		"delay": "1",
-		"typingDelay": "1", 
+		"delay": "2",
+		"typingDelay": "2", 
 		"text": "Sfarsit simulare", 
 		"sender": "chatbot"
 	}

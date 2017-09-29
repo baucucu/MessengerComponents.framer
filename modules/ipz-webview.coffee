@@ -38,26 +38,29 @@ class WebView extends Layer
 
         @panel = panel
 
-        navBar = new ios.NavBar
-            superLayer: panel
-            name: 'webView.NavBar'
-            left: options.left
-            title: options.title
-            right: "X"
-            backgroundColor: Screen.backgroundColor
-            borderRadius:
-                topRight: 18
-                topLeft: 18
-        @navBar = navBar
+        # navBar = new ios.NavBar
+        #     superLayer: panel
+        #     name: 'webView.NavBar'
+        #     left: options.left
+        #     title: options.title
+        #     right: "X"
+        #     backgroundColor: Screen.backgroundColor
+        #     borderRadius:
+        #         topRight: 18
+        #         topLeft: 18
+        # @navBar = navBar
 
         @contentPanel = new Layer
             superLayer: panel
             name: 'webView.content'
             width: @.width
-            y: navBar.maxY
-            height: panel.height - navBar.height
+            #y: navBar.maxY
+            height: panel.height #- navBar.height
             backgroundColor = Screen.backgroundColor
             ignoreEvents: false
+            borderRadius:
+                topRight: 18
+                topLeft: 18
 
         panel.on Events.TouchEnd, (event) ->
             event.stopPropagation()
@@ -70,7 +73,7 @@ class WebView extends Layer
             @.hide()
 
     setTitle: (title) ->
-        ios.utils.update(@navBar.title, [text:title])  
+        # ios.utils.update(@navBar.title, [text:title])  
 
     setContent: (content, scale) ->
         scale ?= 2

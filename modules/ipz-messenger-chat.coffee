@@ -81,15 +81,15 @@ class IpzMessengerChat extends Layer
                 letters = message.substr 0, index
                 webView.mockSendCustomJs(customJs.replace "{0}", letters)
 
-        textField.on Events.TouchEnd, ->
-            keyboard.show()
+        # textField.on Events.TouchEnd, ->
+        #     keyboard.show()
 
         @navBar.left.on Events.Tap, ->
             keyboard.hide()
             Screen.emit "GoBack"
         
-        msgScroll.on Events.TouchEnd, ->
-            keyboard.hide(false)
+        # msgScroll.on Events.TouchEnd, ->
+        #     keyboard.hide(false)
 
     appendMessage= (chatView, message, messageType) ->
         chatView.appendMessage(message, messageType)
